@@ -15,6 +15,7 @@ require_once("db.class.php");
 function impPost2DB($tablename){
  $mname="impPost2DB(import.function.php) ";
  try{
+  wLog("start:".$mname);
   if($filename=impPostFileName($_FILES)){
    if(impFile2DB($tablename,$filename)){
     return true;
@@ -56,11 +57,11 @@ function impFile2DB($tablename,$filename){
 //1.POSTされたファイル名を返す
 //------------------------------------------//
 function impPostFileName($postfile){
- $mname="impConvertUTF(import.function.php) ";
+ $mname="impPostFileName(import.function.php) ";
  try{
   $c="start ".$mname;wLog($c);
   //アップロードチェック
-  switch ($postfile["csvfile"]["error"]){
+  switch ($postfile["file"]["error"]){
    case UPLOAD_ERR_OK:
      break;
    case UPLOAD_ERR_NO_FILE:
@@ -71,7 +72,7 @@ function impPostFileName($postfile){
    default:
     throw new Exception("想定外のエラーです");
   }
-  return $postfile["csvfile"]["tmp_name"];
+  return $postfile["file"]["tmp_name"];
  }
  catch(Exception $e){
   wLog("error:".$mname.$e->getMessage());
@@ -152,7 +153,7 @@ function impCsv2SQL($tablename,$csv){
   $c="start ".$mname;wLog($c);
 //テーブル存在確認
   if(!isset($TABLES[$tablename])){
-   throw new exception("テーブル定義が登録されていません");
+   throw new exception("テーブル定義が登録されていません".$tablename);
   }
   
 //CSVデータ確認
