@@ -31,8 +31,8 @@ function inptirasi(){
   //既存Inputボタン削除
   $(this).find("input").remove();
 
-  //Inputボタン生成
-  var inp=mktirasi("tirasi");
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mktirasi("jansale");
 
   //tdにボタン追加
   $(this).find("td").last().append(inp);
