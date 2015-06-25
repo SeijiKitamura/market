@@ -21,7 +21,7 @@ define("SKELETON","/skeleton"); //705
 //---------------------------------------------------//
 // ファイル定数
 //---------------------------------------------------//
-define("LOGO"    ,".".IMG."/logo.gif"   );
+define("LOGO"    ,".".IMG."/logo.jpg"   );
 define("FAV"     ,".".IMG."/favicon.ico");
 define("JQNAME"  ,".".JS."/jquery.js"   );
 define("TOPIMAGE" ,".".IMG."/topimage.jpg");
