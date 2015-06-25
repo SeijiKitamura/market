@@ -161,12 +161,7 @@ function impCsv2SQL($tablename,$csv){
   }
   
 //CSV列をコンバート
-  if($tablename==RAINS){
-   $colnum=impCvrtTable($csv);
-  }
-  else{
-   $colnum=impCvrtTable2($tablename);
-  }
+  $colnum=impCvrtTable($tablename);
 
 //where句対象列を配列にセット
   foreach($colnum as $key=>$val){
@@ -218,50 +213,10 @@ function impCsv2SQL($tablename,$csv){
 }
 
 //-------------------------------------------------//
-// 4-1.CSVをRainsテーブル用にコンバート
-//-------------------------------------------------//
-function impCvrtTable($csv){
- global $TABLES;
- global $TINTAI;
- global $BAIBAI;
- $mname="impCvrtTable(import.function.php)";
- try{
-  $c="start ".$mname;wLog($c);
-  $ary=array();
-//自社物件
-  if(count($csv[0])==248){
-   $c=$mname."列数248なので列名にRAINSを使用";wLog($c);
-   foreach($TABLES[RAINS] as $colname=>$val){
-    $ary[]=$colname;
-   }
-  }
-//他社賃貸
-  elseif(count($csv[0])==195){
-   $c=$mname."列数195なので列名にTINTAIを使用";wLog($c);
-   $ary=$TINTAI;
-  }
-//売買土地
-  elseif(count($csv[0])==197){
-   $c=$mname."列数197なので列名にBAIBAIを使用";wLog($c);
-   $ary=$BAIBAI;
-  }
-  else{
-   throw new exception("CSV列数が定義されていません。");
-  }
-  $c="end ".$mname;wLog($c);
-  return $ary;
- }
- catch(Exception $e){
-  $c="error:".$mname.$e->getMessage();wLog($c);
-  echo $c;
- }
-}
-
-//-------------------------------------------------//
-// 4-2.CSVをRainsテーブル用にコンバート
+// 4-1.CSVをテーブル用にコンバート
 // (テーブル名がわかっている場合に使用)
 //-------------------------------------------------//
-function impCvrtTable2($tablename){
+function impCvrtTable($tablename){
  global $TABLES;
  $mname="impCvrtTable2(import.function.php)";
  try{
