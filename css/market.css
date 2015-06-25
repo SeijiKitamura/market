@@ -1,0 +1,131 @@
+/*
+ * html5doctor.com Reset Stylesheet
+ * v1.4.1
+ * 2010-03-01
+ * Author: Richard Clark - http://richclarkdesign.com
+ * */
+
+/*全ページ共通*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; } body { line-height:1; } article,aside,canvas,details,figcaption,figure, footer,header,hgroup,menu,nav,section,summary { display:block; } nav ul { list-style:none; } blockquote, q { quotes:none; } blockquote:before, blockquote:after, q:before, q:after { content:''; content:none; } a { margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline; background:transparent; } ins { background-color:#ff9; color:#000; text-decoration:none; } mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; } del { text-decoration: line-through; } abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; } table { border-collapse:collapse; border-spacing:0; } hr { display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0; } input, select { vertical-align:middle; }
+
+a{
+ text-decoration:none;
+ color:#000000;
+}
+
+div.clr{
+ clear:both;
+}
+
+span.yen{
+ font-size:0.5em;
+}
+
+body{
+ color:black;
+ min-width:1000px;
+ }
+
+*{
+ font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック","sans-seriff";
+}
+
+div#wrap{
+ width:100%;
+ margin:0;
+ padding:0;
+}
+
+div#header,
+div#wrapper
+{
+ width:1000px;
+ margin:10px auto;
+}
+
+div#titleSpace{
+}
+
+div#titleSpace h1{
+ font-size:8px;
+}
+
+div.logoSpace{
+ width:150px;
+ float:left;
+}
+
+div.logoSpace img{
+ width:100%;
+}
+
+div.storeInfo{
+ float:right;
+}
+
+div.storeInfo img{
+ width:100%;
+}
+
+div.col1{
+ width:100%;
+ margin:0 0 0 0;
+ border-top:1px solid #DCDCDC;
+ border-left:1px solid #DCDCDC;
+ border-right:1px solid #DCDCDC;
+}
+
+div.col2{
+ width:50%;
+ float:left;
+}
+
+div.col3{
+ width:25%;
+ float:left;
+}
+
+div.col1 img{
+ width:100%;
+}
+
+h2{
+ font-size:24px;
+ line-height:1.5;
+}
+
+h3{
+ font-size:16px;
+ line-height:1.5;
+}
+
+table th{
+ background-color:#EDE4D3;
+ border:1px solid #DCDCDC;
+ padding:8px 3px;
+}
+
+table td{
+ background-color:white;
+ border:1px solid #DCDCDC;
+ padding:5px 3px;
+}
+
+div.rdiv{
+ margin:5px;
+ padding:10px;
+ border:1px solid #DCDCDC;
+ border-radius: 15px;
+ -webkit-border-radius: 15px;
+ -moz-border-radius: 15px;
+}
+
+ul.haitatuarea{
+ list-style:none;
+}
+
+ul.haitatuarea li{
+ display:block;
+ float:left;
+ width:40%;
+}
