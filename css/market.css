@@ -129,3 +129,10 @@ ul.haitatuarea li{
  float:left;
  width:40%;
 }
+
+
+/*マウスホバーで色を変える*/
+table tr.tHover td{
+ background-color:#fff4f8;
+ cursor:pointer;
+}
