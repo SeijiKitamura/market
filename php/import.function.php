@@ -18,9 +18,11 @@ function impPost2DB($tablename){
   wLog("start:".$mname);
   if($filename=impPostFileName($_FILES)){
    if(impFile2DB($tablename,$filename)){
+    echo "インポートしました";
     return true;
    }
   }
+  return false;
  }
  catch(Exception $e){
   wLog("error:".$mname.$e->getMessage());
@@ -40,8 +42,21 @@ function impFile2DB($tablename,$filename){
     if($sql=impCsv2SQL($tablename,$csv)){
      //DB登録
      $db=new DB();
+     
+     //テーブル別に既存データ処理を選別
+     if($tablename==JANSALE){
+      //チラシ既存データは一括削除
+      if($sql[0]["col"]["saletype"]==0){
+       $db->from=TABLE_PREFIX.JANSALE;
+       $db->where =" adnum   =".$sql[0]["col"]["adnum"];
+       $db->where.=" and saletype=".$sql[0]["col"]["saletype"];
+       $db->delete();
+       echo "既存データ削除完了<br>";
+      }
+     }
      $db->updatearray($sql);
      $c="end ".$mname;wLog($c);
+     echo "DB登録完了<br>";
      return true;
     }
    }
@@ -63,6 +78,7 @@ function impPostFileName($postfile){
   //アップロードチェック
   switch ($postfile["file"]["error"]){
    case UPLOAD_ERR_OK:
+     echo "アップロード完了<br>";
      break;
    case UPLOAD_ERR_NO_FILE:
     throw new Exception("ファイルが選択されていません");
@@ -134,6 +150,7 @@ function impCsv2Ary($filename){
   }
   fclose($fp);
   $c="end ".$mname;wLog($c);
+  echo "CSV変更完了<br>";
   return $csv;
  }
  catch(Exception $e){
@@ -176,21 +193,11 @@ function impCsv2SQL($tablename,$csv){
   $sql=array();
   foreach($csv as $rows=>$row){
    $col=array();
-   //1列目が数字以外はスキップ
-   if($tablename!=FLD && ! preg_match("/^[0-9]+$/",$row[0])){
-    $c=$mname."1列目(".$row[0].")が数字以外なのでスキップ";wLog($c);
-    continue;
-   }
 //データを列名=>値にセット
    foreach($row as $n=>$val){
     if(! $colnum[$n]) continue;
     $c=$mname."データ更新列".$colnum[$n]."に".$val."をセット";wLog($c);
-    if(preg_match("/^[0-9]+$/",$val)){
-     $col[$colnum[$n]]=(float)$val;
-    }
-    else{
-     $col[$colnum[$n]]=$val;
-    }
+    $col[$colnum[$n]]=$val;
    }//foreach
 
 //where句を列名=>値にセット
@@ -205,6 +212,7 @@ function impCsv2SQL($tablename,$csv){
                );
   }//foreach
   $c="end ".$mname;wLog($c);
+  echo "SQL変換完了<br>";
   return $sql;
  }
  catch(exception $e){
