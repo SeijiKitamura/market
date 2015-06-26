@@ -8,25 +8,30 @@ htmlHeader("メニュー");
 ?>
 
   <div id="wrapper">
-   <table>
-    <thead>
-     <tr>
-      <th>項目</th>
-      <th>内容</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr id="dbinit">
-      <td>初期化</td>
-      <td>すべてのデータを消去して最初からの状態にします
-      </td>
-     </tr>
-     <tr id="tirasi">
-      <td>チラシ</td>
-      <td>チラシデータをインポートします</td>
-     </tr>
-    </tbody>
-   </table>
+   <div class="tablearea">
+    <table>
+     <thead>
+      <tr>
+       <th>項目</th>
+       <th>内容</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr id="dbinit">
+       <td>初期化</td>
+       <td>すべてのデータを消去して最初からの状態にします
+       </td>
+      </tr>
+      <tr id="tirasi">
+       <td>チラシ</td>
+       <td>チラシデータをインポートします</td>
+      </tr>
+     </tbody>
+    </table>
+   </div><!--div class="tablearea"-->
+   
+   <div class="msgarea">
+   </div><!--div class="msgarea"-->
   </div><!--div id="wrapper"-->
 
 <?php
