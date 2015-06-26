@@ -69,10 +69,20 @@ function mktirasi(inpname){
                        data       :fd,
                        processData:false,
                        contentType:false,
-                       success:function(html){
-                        wlog("input[name="+inpname+"] ajax success");
-                        wlog(html);
-                       }
+                       context    :this,
+                       beforeSend :function(){
+                                    wlog("input[name="+inpname+"] ajax beforeSend");
+                                    $("div.msgarea").empty() 
+                                                    .append("データ送信中");
+                                   },
+                       success    :function(html){
+                                    wlog("input[name="+inpname+"] ajax success");
+                                    $("div.msgarea").empty() 
+                                                    .append(html);
+                                   },
+                       complete   :function(){
+                                    $(this).remove();
+                                   }
                       });
                     });
  wlog("end:"+fname);
@@ -90,8 +100,7 @@ function tableHover(){
   $(this).addClass("tHover");
  },function(){
   wlog("mouse out:"+fname);
-  $(this).removeClass("tHover")
-         .find("input").remove();
+  $(this).removeClass("tHover");
  });
  wlog("end:"+fname);
 }
