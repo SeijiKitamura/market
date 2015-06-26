@@ -145,6 +145,26 @@ function wLog($comment){
  fclose($fp);
 }
 
+//---------------------------------------------//
+// 日付チェック関数
+//---------------------------------------------//
+// 以下の形式で渡された日付の正否をチェック
+// YYYYMD   YYYYMMDD
+// YYYY.M.D YYYY.MM.DD
+// YYYY-M-D YYYY-MM-DD
+// YYYY/M/D YYYY/MM/DD
+//---------------------------------------------//
+
+function chkDate($hiduke){
+ $reg="/^(20[0-9]{2})[-\/\.]?([0-1]?[0-9]{1})[-\/\.]?([0-3]?[0-9]{1})$/";
+ preg_match($reg,$hiduke,$match);
+ if(! is_array($match)) return false;
+ $moto=strtotime($match[1]."-".$match[2]."-".$match[3]);
+ $saki=mktime(0,0,0,$match[2],$match[3],$match[1]);
+ if($moto!=$saki) return false;
+ return true;
+}
+
 function showTables(){
  global $TABLES;
  foreach($TABLES as $tablename=>$rows){
