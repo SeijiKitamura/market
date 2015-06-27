@@ -22,6 +22,22 @@ htmlHeader("メニュー");
        <td>すべてのデータを消去して最初からの状態にします
        </td>
       </tr>
+      <tr id="strmas">
+       <td>店舗マスタ</td>
+       <td>店舗マスタをインポートします</td>
+      </tr>
+      <tr id="dpsmas">
+       <td>メジャーマスタ</td>
+       <td>メジャーマスタをインポートします</td>
+      </tr>
+      <tr id="linmas">
+       <td>部門マスタ</td>
+       <td>部門マスタをインポートします</td>
+      </tr>
+      <tr id="clsmas">
+       <td>クラスマスタ</td>
+       <td>クラスマスタをインポートします</td>
+      </tr>
       <tr id="tirasi">
        <td>チラシ</td>
        <td>チラシデータをインポートします</td>
@@ -43,6 +59,10 @@ htmlHeader("メニュー");
 $(function(){
  tableHover();
  dbinit();
+ inpstrmas();
+ inpdpsmas();
+ inplinmas();
+ inpclsmas();
  inptirasi();
 });
 
