@@ -29,6 +29,10 @@ define("TOPIMAGE" ,".".IMG."/topimage.jpg");
 //---------------------------------------------------//
 // テーブル名定数
 //---------------------------------------------------//
+define("STRMAS" ,"strmas");
+define("DPSMAS" ,"dpsmas");
+define("LINMAS" ,"linmas");
+define("CLSMAS" ,"clsmas");
 define("JANMAS" ,"janmas");
 define("JANSALE","jansale");
 
@@ -99,7 +103,43 @@ $BIGNAVI=array(
 //
 //------------------------------------------------------------//
 $TABLES=array(
- JANSALE=>array(
+  STRMAS =>array(
+     "strcode"      =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"店舗番号"  ,"index"=>"1")
+   , "strname"      =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"店舗名"    ,"index"=>"")
+   , "straddress"   =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"住所"      ,"index"=>"")
+   , "strtel"       =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"電話番号"  ,"index"=>"")
+   , "strfax"       =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"FAX"       ,"index"=>"")
+   , "stremail"     =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"Eメール"   ,"index"=>"")
+   , "stropen"      =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"営業時間"  ,"index"=>"")
+   , "strcomment1"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント1" ,"index"=>"")
+   , "strcomment2"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント2" ,"index"=>"")
+   , "strcomment3"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント3" ,"index"=>"")
+   , "strcomment4"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント4" ,"index"=>"")
+   , "strcomment5"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント5" ,"index"=>"")
+   , "strcomment6"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント6" ,"index"=>"")
+   , "strcomment7"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント7" ,"index"=>"")
+   , "strcomment8"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント8" ,"index"=>"")
+   , "strcomment9"  =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント9" ,"index"=>"")
+   , "strcomment10" =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"コメント10","index"=>"")
+  )
+ ,DPSMAS =>array(
+     "strcode"      =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"店舗番号","index"=>"1")
+   , "dpscode"      =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"部門番号","index"=>"2")
+   , "dpsname"      =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"部門名"  ,"index"=>"")
+ )
+ ,LINMAS =>array(
+    "strcode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"店舗番号"    ,"index"=>"1")
+  , "lincode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"部門番号"    ,"index"=>"2")
+  , "linname"       =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"部門名"      ,"index"=>"")
+  , "dpscode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"メジャー番号","index"=>"3")
+ )
+ ,CLSMAS =>array(
+    "strcode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"店舗番号"    ,"index"=>"1")
+  , "clscode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"クラスコード","index"=>"2")
+  , "clsname"       =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"クラス名"    ,"index"=>"")
+  , "lincode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"部門番号"    ,"index"=>"3")
+ )
+ ,JANSALE=>array(
      "saleday"   =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"日付"          ,"index"=>"1")
    , "saletype"  =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"特売番号"      ,"index"=>"2")
    , "clscode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"クラスコード"  ,"index"=>"3")
