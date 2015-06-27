@@ -19,6 +19,106 @@ function dbinit(){
 }
 
 //-----------------------------------------//
+// 店舗マスタ用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inpstrmas(){
+ var fname="inpstrmas";wlog("start:"+fname);
+
+ $("table tr#strmas").on("click",function(){
+  var e="strmas click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mktirasi("strmas");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// メジャーマスタ用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inpdpsmas(){
+ var fname="inpdpsmas";wlog("start:"+fname);
+
+ $("table tr#dpsmas").on("click",function(){
+  var e="dpsmas click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mktirasi("dpsmas");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 部門マスタ用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inplinmas(){
+ var fname="inplinmas";wlog("start:"+fname);
+
+ $("table tr#linmas").on("click",function(){
+  var e="linmas click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mktirasi("linmas");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 部門マスタ用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inpclsmas(){
+ var fname="inpclsmas";wlog("start:"+fname);
+
+ $("table tr#clsmas").on("click",function(){
+  var e="clsmas click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mktirasi("clsmas");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
 // チラシ用Inputボタンセット
 //(これをひな形として他のデータをセットしていく)
 //-----------------------------------------//
