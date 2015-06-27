@@ -44,6 +44,12 @@ function impFile2DB($tablename,$filename){
      $db=new DB();
      
      //テーブル別に既存データ処理を選別
+     if($tablename==STRMAS || $tablename==DPSMAS || $tablename==LINMAS || $tablename==CLSMAS){
+      $db->from=TABLE_PREFIX.$tablename;
+      $db->where =" id>0";
+      $db->delete();
+      echo "既存データ削除完了<br>";
+     }
      if($tablename==JANSALE){
       //チラシ既存データは一括削除
       if($sql[0]["col"]["saletype"]==0){
