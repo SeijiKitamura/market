@@ -203,13 +203,17 @@ function dsetGetSaleLin($where=null,$order=null,$having=null){
  try{
   wLog("start:".$mname);
   $db=new DB();
-  $db->select ="trunc(clscode/100) as lincode,count(clscode) as items";
-  $db->from =TABLE_PREFIX.JANSALE;
+  $db->select =" t1.lincode,t2.linname,count(t.jcode) as itemcnt";
+  $db->from =TABLE_PREFIX.JANSALE." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
   if ($where)  $db->where=$where;
-  $db->group ="trunc(clscode/100)";
+  $db->group ="t1.lincode,t2.linname";
   if ($order)  $db->order=$order;
   else{
-   $db->order="trunc(clscode/100)";
+   $db->order="t1.lincode";
   }
   if ($having) $db->having=$having;
   return $db->getArray();
@@ -220,4 +224,24 @@ function dsetGetSaleLin($where=null,$order=null,$having=null){
 }
 
 ?>
+
+  $db->select =" t1.lincode,t2.linname,count(t.jcode) as itemcnt";
+  $db->from =TABLE_PREFIX.JANSALE." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
+  if ($where)  $db->where=$where;
+  $db->group ="t1.lincode,t2.linname";
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="t1.lincode";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
 
