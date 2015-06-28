@@ -426,5 +426,39 @@ function viewGetSaleDpsList($strcode,$adnum,$saleday=null){
  }
 }
 
+//----------------------------------------------------//
+// チラシのgrpnum一覧を返す
+// $saledayが指定された場合、saleday以降
+//----------------------------------------------------//
+function viewGetSaleGrpList($strcode,$adnum,$saleday=null){
+ $mname="viewGetSaleGrpList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=0;
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$adnum)){
+   throw new exception("adnumが数字ではありません(".$adnum.")");
+  }
+ 
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  $where="strcode={$strcode} and adnum={$adnum}";
+  if($saleday) $where.=" and saleday>='{$saleday}'";
+
+  return dsetGetSaleGrpList($where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
 
 ?>
