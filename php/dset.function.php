@@ -223,19 +223,27 @@ function dsetGetSaleLin($where=null,$order=null,$having=null){
  }
 }
 
-?>
-
-  $db->select =" t1.lincode,t2.linname,count(t.jcode) as itemcnt";
+//----------------------------------------------------//
+// JANSALEのdpscode一覧を返す
+//----------------------------------------------------//
+function dsetGetSaleDps($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleDps(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t2.dpscode,t3.dpsname,count(t.jcode) as itemcnt";
   $db->from =TABLE_PREFIX.JANSALE." as t ";
   $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
   $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
   $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
   $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode";
   if ($where)  $db->where=$where;
-  $db->group ="t1.lincode,t2.linname";
+  $db->group ="t2.dpscode,t3.dpsname";
   if ($order)  $db->order=$order;
   else{
-   $db->order="t1.lincode";
+   $db->order="t2.dpscode";
   }
   if ($having) $db->having=$having;
   return $db->getArray();
@@ -245,3 +253,4 @@ function dsetGetSaleLin($where=null,$order=null,$having=null){
  }
 }
 
+?>
