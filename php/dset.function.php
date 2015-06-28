@@ -253,4 +253,28 @@ function dsetGetSaleDps($where=null,$order=null,$having=null){
  }
 }
 
+//----------------------------------------------------//
+// JANSALEのgrpnum一覧を返す
+//----------------------------------------------------//
+function dsetGetSaleGrpList($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleDps(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select="grpnum,grpname";
+  $db->from =TABLE_PREFIX.JANSALE." as t ";
+  if ($where)  $db->where=$where;
+  $db->group =$db->select;
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="grpnum";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
 ?>
