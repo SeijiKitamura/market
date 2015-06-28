@@ -19,8 +19,24 @@ function dsetGetSaleItem($where=null,$order=null){
  try{
   wLog("start:".$mname);
   $db=new DB();
-  $db->select="*";
-  $db->from=TABLE_PREFIX.JANSALE;
+  $db->select =<<<EOF
+    t.*
+   ,t1.clsname
+   ,t2.lincode
+   ,t2.linname
+   ,t3.dpscode
+   ,t3.dpsname
+   ,t4.strname
+EOF;
+  $db->from=TABLE_PREFIX.JANSALE." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode ";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode ";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode ";
+  $db->from.=" inner join ".TABLE_PREFIX.STRMAS." as t4 on";
+  $db->from.=" t3.strcode=t4.strcode";
   if ($where) $db->where=$where;
   if ($order) $db->order=$order;
   return $db->getArray();
