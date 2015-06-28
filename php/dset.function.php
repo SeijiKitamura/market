@@ -168,6 +168,33 @@ function dsetGetFlyersDay($where=null,$order=null,$having=null){
  }
 }
 
+
+//----------------------------------------------------//
+// JANSALEのclscode一覧を返す
+//----------------------------------------------------//
+function dsetGetSaleCls($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleCls(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t.clscode,t1.clsname,count(t.jcode) as itemcnt";
+  $db->from =TABLE_PREFIX.JANSALE." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  if ($where)  $db->where=$where;
+  $db->group ="t.clscode,t1.clsname";
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="t.clscode";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
 //----------------------------------------------------//
 // JANSALEのlincode一覧を返す
 //----------------------------------------------------//
