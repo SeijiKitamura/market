@@ -55,41 +55,61 @@ function dsetGetSaleItemSum($where=null,$order=null,$having=null){
   wLog("start:".$mname);
   $db=new DB();
   $db->select=<<<EOF
-    min(saleday) as startday
-   ,max(saleday) as endday
-   ,clscode
-   ,jcode
-   ,sname
-   ,maker
-   ,tani
-   ,stdprice
-   ,price
-   ,yen
-   ,comment
-   ,grpnum
-   ,grpname
-   ,specialflg
-   ,adnum
+    min(t.saleday) as startday
+   ,max(t.saleday) as endday
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,t.maker
+   ,t.tani
+   ,t.stdprice
+   ,t.price
+   ,t.yen
+   ,t.comment
+   ,t.grpnum
+   ,t.grpname
+   ,t.specialflg
+   ,t.adnum
+   ,t1.clsname
+   ,t2.lincode
+   ,t2.linname
+   ,t3.dpscode
+   ,t3.dpsname
+   ,t4.strname
 EOF;
 
-  $db->from=TABLE_PREFIX.JANSALE;
+  $db->from=TABLE_PREFIX.JANSALE." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode ";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode ";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode ";
+  $db->from.=" inner join ".TABLE_PREFIX.STRMAS." as t4 on";
+  $db->from.=" t3.strcode=t4.strcode";
 
   if ($where) $db->where=$where;
 
   $db->group=<<<EOF
-    clscode
-   ,jcode
-   ,sname
-   ,maker
-   ,tani
-   ,stdprice
-   ,price
-   ,yen
-   ,comment
-   ,grpnum
-   ,grpname
-   ,specialflg
-   ,adnum
+    t.clscode
+   ,t.jcode
+   ,t.sname
+   ,t.maker
+   ,t.tani
+   ,t.stdprice
+   ,t.price
+   ,t.yen
+   ,t.comment
+   ,t.grpnum
+   ,t.grpname
+   ,t.specialflg
+   ,t.adnum
+   ,t1.clsname
+   ,t2.lincode
+   ,t2.linname
+   ,t3.dpscode
+   ,t3.dpsname
+   ,t4.strname
 EOF;
   if ($order)  $db->order=$order;
   if ($having) $db->having=$having;
