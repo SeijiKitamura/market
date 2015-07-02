@@ -205,6 +205,93 @@ function htmlContents($data){
  try{
   $mname="htmlContents(html.function.php) ";
   $c="start ".$mname;wLog($c);
+  //コメントスケルトン読み込み
+  $path=realpath("./").SKELETON."/itemheader.html";
+  $grp=file_get_contents($path);
+  
+  //アイテムスケルトン読み込み
+  $path=realpath("./").SKELETON."/itemlist.html";
+  $item=file_get_contents($path);
+
+  //画像ディレクトリセット
+  $imgdir=realpath(dirname(__FILE__)."/..".IMG);
+
+  $html="";
+  $grpname="";
+  $startday="";$endday="";
+  foreach($data as $key=>$val){
+   //リンク生成
+   $link="tirasiitem.php?adnum={$val["adnum"]}&jcode={$val["jcode"]}";
+
+   //イベントタイトル
+   if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
+    if(strtotime($val["startday"])==strtotime($val["endday"])){
+     $replace =date("n月j日",strtotime($val["startday"]))."限り ";
+    }
+    else{
+     $replace =date("n月j日",strtotime($val["startday"]))."から";
+     $replace.=date("n月j日",strtotime($val["endday"]))."まで ";
+    }
+    $replace.=$val["grpname"];
+
+    $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+    $html.=$title;
+
+    $startday=$val["startday"];
+    $endday  =$val["endday"];
+    $grpname =$val["grpname"];
+   }
+
+   //アイテム
+   $i=$item;
+   
+   //画像
+   //;$imgpath=$imgdir."/".$val["clscode"]."/".$val["jcode"].".jpg";
+   $imgpath=$imgdir."/".$val["jcode"].".jpg";
+   if(file_exists($imgpath)){
+    $replace ="<a href='{$link}'>";
+    $replace.="<img src='.".IMG."/{$val["jcode"]}.jpg' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]}'>";
+    $replace.="</a>";
+    $i=preg_replace("/<!--imgtag-->/",$replace,$i);
+   }
+   
+   //リンク
+   $replace=$link;
+   $i=preg_replace("/<!--link-->/",$replace,$i);
+
+   //メーカー
+   $replace=$val["maker"];
+   $i=preg_replace("/<!--maker-->/",$replace,$i);
+   
+   //商品名
+   $replace=$val["sname"];
+   $i=preg_replace("/<!--sname-->/",$replace,$i);
+
+   //単位
+   $replace=$val["tani"];
+   $i=preg_replace("/<!--tani-->/",$replace,$i);
+
+   //売価
+   $replace=$val["price"];
+   $i=preg_replace("/<!--price-->/",$replace,$i);
+
+   //通過単位
+   $replace=$val["yen"];
+   $i=preg_replace("/<!--yen-->/",$replace,$i);
+
+   //通常売価
+   if($val["stdprice"]){
+    $replace=$val["stdprice"]."円";
+    $i=preg_replace("/<!--stdprice-->/",$replace,$i);
+   }
+   
+   //コメント
+   $replace=$val["comment"];
+   $i=preg_replace("/<!--comment-->/",$replace,$i);
+
+   $html.=$i;
+  }
+  echo $html;
   $c="end ".$mname;wLog($c);
  }
  catch(Exception $e){
