@@ -136,3 +136,119 @@ table tr.tHover td{
  background-color:#fff4f8;
  cursor:pointer;
 }
+
+/*tirasi.php*/
+div.daylist{
+ width:850px;
+ float:right;
+}
+
+div.daylist ul{
+ list-style:none;
+}
+
+div.daylist ul li{
+ display:inline-block;
+ font-size:14px;
+ border:1px solid #DCDCDC;
+ margin:0 2px;
+ padding:10px 3px;
+}
+
+div.grptitle{
+ margin:10px 0;
+}
+
+div.grptitle h2{
+ background-color:red;
+ color:white;
+}
+
+div.grplist{
+ width:150px;
+ float:left;
+}
+
+div.grplist ul{
+ list-style:none;
+}
+
+div.grplist ul li{
+ font-size:14px;
+ border:1px solid #DCDCDC;
+ margin:2px 2px;
+ padding:10px 10px;
+}
+
+div.items{
+ width:840px;
+ margin:10px 5px;
+ float:left;
+}
+
+div.itemdiv{
+ width:160px;
+ height:300px;
+ border:1px solid #DCDCDC;
+ float:left;
+ margin:2px;
+}
+
+div.itemimg{
+ width:160px;
+ height:200px;
+}
+
+div.itemimg img{
+ width:100%;
+ max-height:100%;
+}
+
+div.itemdetail{
+ height:100px;
+ padding:0 0 0 5px;
+}
+
+div.itemdetail span{
+ display:block;
+ height:1.1em;
+ overflow:hidden;
+}
+
+span.maker{
+ overflow:hidden;
+}
+
+span.sname{
+ font-size:20px;
+}
+
+span.tani{
+ width:50%;
+ float:left;
+}
+
+span.price{
+ height:2.4em;
+ color:red;
+ font-size:28px;
+ text-align:right;
+ float:left;
+}
+
+span.yen{
+ height:2.4em;
+ font-size:16px;
+ color:red;
+ text-align:right;
+ float:left;
+ padding:8px 0 0 0 ;
+}
+
+span.comment{
+ width:140px;
+ font-size:12px;
+ height:2em !important;
+ overflow:hidden;
+}
+/*tirasi.php*/
