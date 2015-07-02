@@ -68,7 +68,7 @@ EOF;
 // 能性を考えて使用する
 //----------------------------------------------------//
 function viewGetAdnum($strcode,$saleday=null){
- $mname="viewGetTirasiItem(view.function.php) ";
+ $mname="viewGetAdnum(view.function.php) ";
  try{
   wLog("start:".$mname);
   //デフォルト値
@@ -104,9 +104,10 @@ EOF;
 
 //----------------------------------------------------//
 // チラシ日付を配列で返す
+// $clscodeが指定された場合、clscodeに属するアイテム
 //----------------------------------------------------//
-function viewGetFlyersDay($strcode,$adnum){
- $mname="viewGetTirasiItem(view.function.php) ";
+function viewGetFlyersDayCls($strcode,$adnum,$clscode=null){
+ $mname="viewGetFlyersDayCls(view.function.php) ";
  try{
   wLog("start:".$mname);
   //デフォルト値
@@ -121,11 +122,101 @@ function viewGetFlyersDay($strcode,$adnum){
    throw new exception("adnumが数字ではありません(".$adnum.")");
   }
 
+  if($clscode && ! preg_match("/^[0-9]+$/",$clscode)){
+   throw new exception("clscodeが数字ではありません(".$clscode.")");
+  }
+
   $where=<<<EOF
-       strcode ={$strcode}
-   and saletype={$saletype}
-   and adnum   ={$adnum}
+       t.strcode ={$strcode}
+   and t.saletype={$saletype}
+   and t.adnum   ={$adnum}
 EOF;
+  if($clscode){
+   $where.=" and t.clscode={$clscode}";
+  }
+
+  return dsetGetFlyersDay($where);
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// チラシ日付を配列で返す
+// $lincodeが指定された場合、lincodeに属するアイテム
+//----------------------------------------------------//
+function viewGetFlyersDayLin($strcode,$adnum,$lincode=null){
+ $mname="viewGetFlyersDayLin(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=0;
+
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$adnum)){
+   throw new exception("adnumが数字ではありません(".$adnum.")");
+  }
+
+  if($lincode && ! preg_match("/^[0-9]+$/",$lincode)){
+   throw new exception("lincodeが数字ではありません(".$lincode.")");
+  }
+
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saletype={$saletype}
+   and t.adnum   ={$adnum}
+EOF;
+  if($lincode){
+   $where.=" and t1.lincode={$lincode}";
+  }
+
+  return dsetGetFlyersDay($where);
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// チラシ日付を配列で返す
+// $dpscodeが指定された場合、dpscodeに属するアイテム
+//----------------------------------------------------//
+function viewGetFlyersDayDps($strcode,$adnum,$dpscode=null){
+ $mname="viewGetFlyersDayDps(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=0;
+
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$adnum)){
+   throw new exception("adnumが数字ではありません(".$adnum.")");
+  }
+
+  if($dpscode && ! preg_match("/^[0-9]+$/",$dpscode)){
+   throw new exception("dpscodeが数字ではありません(".$dpscode.")");
+  }
+
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saletype={$saletype}
+   and t.adnum   ={$adnum}
+EOF;
+  if($dpscode){
+   $where.=" and t2.dpscode={$dpscode}";
+  }
+
   return dsetGetFlyersDay($where);
  }
  catch(Exception $e){
