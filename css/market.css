@@ -36,11 +36,22 @@ ul{
  list-style:none;
 }
 
-div#header,
+div#header{
+ width:1000px;
+ margin:0 auto;
+ padding:10px 100px;
+ background-color:#FFFFFF;
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+}
+
 div#wrapper
 {
  width:1000px;
  margin:10px auto;
+ padding:80px 0 0 0;
 }
 
 div#titleSpace{
@@ -139,8 +150,10 @@ table tr.tHover td{
 
 /*tirasi.php*/
 div.daylist{
- width:850px;
- float:right;
+ width:1000px;
+ position:fixed;
+ padding:0 0 0 150px;
+ background-color:#FFFFFF;
 }
 
 div.daylist ul{
@@ -167,6 +180,8 @@ div.grptitle h2{
 div.grplist{
  width:150px;
  float:left;
+ padding:40px 0 0 0;
+ position:fixed;
 }
 
 div.grplist ul{
@@ -182,21 +197,21 @@ div.grplist ul li{
 
 div.items{
  width:840px;
- margin:10px 5px;
+ margin:30px 0 0 150px;
  float:left;
 }
 
 div.itemdiv{
- width:160px;
- height:300px;
+ width:180px;
+ height:340px;
  border:1px solid #DCDCDC;
  float:left;
  margin:2px;
 }
 
 div.itemimg{
- width:160px;
- height:200px;
+ width:180px;
+ height:240px;
 }
 
 div.itemimg img{
@@ -246,9 +261,70 @@ span.yen{
 }
 
 span.comment{
- width:140px;
+ width:160px;
  font-size:12px;
  height:2em !important;
  overflow:hidden;
 }
+
+/* ボツ
+div.sitemdiv{
+ width:366px;
+ height:340px;
+ border:1px solid #DCDCDC;
+ float:left;
+ margin:2px;
+}
+
+div.sitemimg{
+ width:180px;
+ height:240px;
+ margin:5px 93px;
+}
+
+div.sitemimg img{
+ width:100%;
+ max-height:100%;
+}
+
+div.sitemdetail{
+ height:100px;
+ padding:0 0 0 5px;
+}
+
+div.sitemdetail span{
+ display:block;
+ height:1.1em;
+ overflow:hidden;
+}
+
+span.smaker{
+ width:200px;
+ height:1.2em;
+ overflow:hidden;
+ font-size:18px;
+}
+
+span.ssname{
+ width:200px;
+ height:1.2em;
+ float:left;
+ font-size:24px;
+}
+
+span.stani{
+ width:50px;
+ height:1.2em;
+ float:left;
+ font-size:18px;
+}
+
+span.sprice{
+ width:50px;
+ height:1.2em;
+ float:left;
+ font-size:24px;
+}
+*/
+
 /*tirasi.php*/
