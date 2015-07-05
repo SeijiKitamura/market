@@ -207,10 +207,12 @@ function htmlContents($data){
   $c="start ".$mname;wLog($c);
   //コメントスケルトン読み込み
   $path=realpath("./").SKELETON."/itemheader.html";
+  $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
   $grp=file_get_contents($path);
   
   //アイテムスケルトン読み込み
   $path=realpath("./").SKELETON."/itemlist.html";
+  $path=realpath(__DIR__."/..".SKELETON."/itemlist.html");
   $item=file_get_contents($path);
 
   //画像ディレクトリセット
@@ -222,7 +224,7 @@ function htmlContents($data){
   foreach($data as $key=>$val){
    //リンク生成
    $link="tirasiitem.php?adnum={$val["adnum"]}&jcode={$val["jcode"]}";
-
+   
    //イベントタイトル
    if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
     if(strtotime($val["startday"])==strtotime($val["endday"])){
