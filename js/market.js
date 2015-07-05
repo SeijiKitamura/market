@@ -205,6 +205,108 @@ function tableHover(){
  wlog("end:"+fname);
 }
 
+
+//-----------------------------------------//
+// 日付リストイベント
+//-----------------------------------------//
+function DayEvent(){
+ var fname="DayEvent";wlog("start:"+fname);
+ $("div.daylist ul li").click(function(){
+  $(this).siblings().removeClass("hoverColor");
+  $(this).addClass("hoverColor");
+  getTirasi();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 部門リストイベント
+//-----------------------------------------//
+function LinEvent(){
+ var fname="LinEvent";wlog("start:"+fname);
+ $("div.grplist ul li").click(function(){
+  $(this).siblings().removeClass("hoverColor");
+  $(this).addClass("hoverColor");
+  getTirasi();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// チラシ商品抽出
+//-----------------------------------------//
+function getTirasi(){
+ var fname="getTirasi";wlog("start:"+fname);
+ var url;
+ var q={};
+
+ //チラシ番号,部門番号をゲット
+ if($("div.grplist ul li").hasClass("hoverColor")){
+  var strcode=$("div.grplist ul li.hoverColor").attr("data-strcode");
+  var adnum=$("div.grplist ul li.hoverColor").attr("data-adnum");
+  var dpscode=$("div.grplist ul li.hoverColor").attr("data-dpscode");
+ }
+
+ //チラシ番号,日付をゲット
+ if($("div.daylist ul li").hasClass("hoverColor")){
+  var strcode=$("div.daylist ul li.hoverColor").attr("data-strcode");
+  var adnum=$("div.daylist ul li.hoverColor").attr("data-adnum");
+  var saleday=$("div.daylist ul li.hoverColor").attr("data-saleday");
+ }
+
+ //引数チェック
+ if(! strcode.match(/^[0-9]+$/)){
+  alert("店舗番号が不正です");
+  wlog(fname+":店舗番号が不正"+strcode);
+  return false;
+ }
+
+ if(! adnum.match(/^[0-9]+$/)){
+  alert("チラシ番号が不正です");
+  wlog(fname+":チラシ番号が不正"+adnum);
+  return false;
+ }
+
+ if(dpscode && ! dpscode.match(/^[0-9]+$/)){
+  alert("メジャーが不正です");
+  wlog(fname+":メジャーが不正"+dpscode);
+  return false;
+ }
+
+ if(saleday && ! chkdate(saleday)){
+  alert("日付が不正です");
+  wlog(fname+":日付が不正"+saleday);
+  return false;
+ }
+ 
+ //queryセット
+ if(strcode) q.strcode=strcode;
+ if(adnum) q.adnum=adnum;
+ if(saleday) q.saleday=saleday;
+ if(dpscode) q.dpscode=dpscode;
+ console.log(q);
+
+ //データゲット(ここから)
+ $.ajax({
+  url:"php/ajaxGetTirasi.php",
+  type:"GET",
+  dataType:"html",
+  data:q,
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.items").empty()
+                 .append(html);
+   console.log(html);
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
 //-----------------------------------------//
 // 日付チェック
 //-----------------------------------------//
