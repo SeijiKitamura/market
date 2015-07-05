@@ -72,7 +72,7 @@ if($daylist){
   $d=date("n月j日",strtotime($val["saleday"]));
   $d.="({$YOUBI[date("w",strtotime($val["saleday"]))]})";
   $d.=" {$val["itemcnt"]}点";
-  echo "<li>{$d}</li>";
+  echo "<li data-strcode={$strcode} data-adnum={$adnum} data-saleday={$val["saleday"]}>{$d}</li>";
  }
 }
 ?>
@@ -85,15 +85,17 @@ if($daylist){
 <?php
 //グループ表示
 if($linlist){
+ echo "<li data-strcode={$strcode} data-adnum={$adnum} data-lincode=0>すべて</li>";
  foreach($linlist as $key=>$val){
   $d="{$val["linname"]}({$val["itemcnt"]})";
-  echo "<li>{$d}</li>";
+  echo "<li data-strcode={$strcode} data-adnum={$adnum} data-lincode={$val["lincode"]}>{$d}</li>";
  }
 }
 elseif($dpslist){
+ echo "<li data-strcode={$strcode} data-adnum={$adnum} data-dpscode=0>すべて</li>";
  foreach($dpslist as $key=>$val){
   $d="{$val["dpsname"]}({$val["itemcnt"]})";
-  echo "<li>{$d}</li>";
+  echo "<li data-strcode={$strcode} data-adnum={$adnum} data-dpscode={$val["dpscode"]}>{$d}</li>";
  }
 }
 ?>
@@ -110,4 +112,11 @@ echo "<pre>";print_r($item);echo "</pre>";
    </div><!--div class="items"-->
   </div><!--div id="wrapper"-->
  </body>
+<script>
+$(function(){
+ DayEvent();
+ LinEvent();
+});
+
+</script>
 </html>
