@@ -267,6 +267,11 @@ span.comment{
  overflow:hidden;
 }
 
+.hoverColor{
+ background-color:#FFD889;
+ color:#213283;
+}
+
 /* ボツ
 div.sitemdiv{
  width:366px;
