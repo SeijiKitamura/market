@@ -199,31 +199,29 @@ function htmlFooter(){
 }
 
 //-------------------------------------------------------//
-// 個別ページを表示
+// 商品一覧表示
 //-------------------------------------------------------//
 function htmlContents($data){
  try{
   $mname="htmlContents(html.function.php) ";
   $c="start ".$mname;wLog($c);
   //コメントスケルトン読み込み
-  $path=realpath("./").SKELETON."/itemheader.html";
   $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
   $grp=file_get_contents($path);
   
   //アイテムスケルトン読み込み
-  $path=realpath("./").SKELETON."/itemlist.html";
   $path=realpath(__DIR__."/..".SKELETON."/itemlist.html");
   $item=file_get_contents($path);
 
   //画像ディレクトリセット
-  $imgdir=realpath(dirname(__FILE__)."/..".IMG);
+  $imgdir=realpath(__DIR__."/..".IMG);
 
   $html="";
   $grpname="";
   $startday="";$endday="";
   foreach($data as $key=>$val){
    //リンク生成
-   $link="tirasiitem.php?adnum={$val["adnum"]}&jcode={$val["jcode"]}";
+   $link="tirasiitem.php?strcode={$val["strcode"]}&adnum={$val["adnum"]}&dpscode={$val["dpscode"]}&jcode={$val["jcode"]}";
    
    //イベントタイトル
    if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
@@ -293,6 +291,106 @@ function htmlContents($data){
 
    $html.=$i;
   }
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// 単品表示
+//-------------------------------------------------------//
+function htmlItem($data){
+ try{
+  $mname="htmlItem(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //アイテムスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/item.html");
+  $item=file_get_contents($path);
+  
+  //画像ディレクトリセット
+  $imgdir=realpath(__DIR__."/..".IMG);
+
+  $html="";
+  foreach($data as $key=>$val){
+   
+   $i=$item;
+   $replace="";
+   
+   //画像リスト(大サイズ)
+   //;$imgpath=$imgdir."/".$val["clscode"]."/".$val["jcode"].".jpg";
+   $imgpath=$imgdir."/".$val["jcode"]."*.jpg";
+   foreach(glob($imgpath) as $filename){
+    $f=basename($filename);
+    $replace.="<div class='sp-slide'>";
+    $replace.="<img src='.".IMG."/{$f}' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]} {$filename}' class='sp-image'>";
+    $replace.="</div>";
+   }
+   $i=preg_replace("/<!--bigPhoto-->/",$replace,$i);
+
+   //画像リスト(小サイズ)
+   $replace="";
+   foreach(glob($imgpath) as $filename){
+    $f=basename($filename);
+    $replace.="<img src='.".IMG."/{$f}' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]} {$filename}' class='sp-thumbnail'>";
+   }
+   $i=preg_replace("/<!--imgtag-->/",$replace,$i);
+
+   
+   //開始日
+   $replace=date("Y年n月j日",strtotime($val["startday"]));
+   $i=preg_replace("/<!--startday-->/",$replace,$i);
+
+   //終了日
+   if(strtotime($val["startday"])==strtotime($val["endday"])){
+    $replace="限り";
+   }
+   else{
+    $replace="から".date("Y年n月j日",strtotime($val["endday"]));
+   }
+   $i=preg_replace("/<!--endday-->/",$replace,$i);
+
+   //メーカー
+   $replace=$val["maker"];
+   $i=preg_replace("/<!--maker-->/",$replace,$i);
+   
+   //商品名
+   $replace=$val["sname"];
+   $i=preg_replace("/<!--sname-->/",$replace,$i);
+
+   //単位
+   $replace=$val["tani"];
+   $i=preg_replace("/<!--tani-->/",$replace,$i);
+
+   //売価
+   $replace=$val["price"];
+   $i=preg_replace("/<!--price-->/",$replace,$i);
+
+   //通過単位
+   $replace=$val["yen"];
+   $i=preg_replace("/<!--yen-->/",$replace,$i);
+
+   //通常売価
+   if($val["stdprice"]){
+    $replace=$val["stdprice"]."円";
+    $i=preg_replace("/<!--stdprice-->/",$replace,$i);
+   }
+   
+   //コメント
+   $replace=$val["comment"];
+   $i=preg_replace("/<!--comment-->/",$replace,$i);
+   
+   //イベント名
+   $replace=$val["grpname"];
+   $i=preg_replace("/<!--grpname-->/",$replace,$i);
+
+   $html.=$i;
+
+  }
+
   echo $html;
   $c="end ".$mname;wLog($c);
  }
