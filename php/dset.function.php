@@ -57,6 +57,7 @@ function dsetGetSaleItemSum($where=null,$order=null,$having=null){
   $db->select=<<<EOF
     min(t.saleday) as startday
    ,max(t.saleday) as endday
+   ,t.strcode
    ,t.clscode
    ,t.jcode
    ,t.sname
@@ -91,7 +92,8 @@ EOF;
   if ($where) $db->where=$where;
 
   $db->group=<<<EOF
-    t.clscode
+    t.strcode
+   ,t.clscode
    ,t.jcode
    ,t.sname
    ,t.maker
