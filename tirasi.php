@@ -38,8 +38,8 @@ if($adnum){
 }
 
 //タイトル決定
-if(count($linitem)){
- $title=date("Y年m月d日",strtotime($linitem[0]["startday"]))."の広告商品";
+if(count($item)){
+ $title=date("Y年m月d日",strtotime($item[0]["startday"]))."の広告商品";
 }
 else{
  $title="申し訳ございません。本日はチラシが入っていません";
