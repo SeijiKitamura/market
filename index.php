@@ -10,16 +10,18 @@ htmlHeader("ホーム");
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>今週のチラシ</h2>
-    <p>毎週木曜日に投函される広告商品のご案内</p>
+    <h2><a href="tirasi.php">今週のチラシ</a></h2>
+    <p><a href="tirasi.php">毎週木曜日に投函される広告商品のご案内</a></p>
 
-    <div class="col2">
-     <img src="img/a.jpg" alt="スーパーキタムラチラシ A面">
-    </div><!--div class="col2"-->
+    <a href="tirasi.php">
+     <div class="col2">
+      <img src="img/a.jpg" alt="スーパーキタムラチラシ A面">
+     </div><!--div class="col2"-->
 
-    <div class="col2">
-     <img src="img/b.jpg" alt="スーパーキタムラチラシ B面">
-    </div><!--div class="col2"-->
+     <div class="col2">
+      <img src="img/b.jpg" alt="スーパーキタムラチラシ B面">
+     </div><!--div class="col2"-->
+    </a>
     
     <div class="clr"></div>
 
