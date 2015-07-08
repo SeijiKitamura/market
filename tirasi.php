@@ -12,7 +12,6 @@ if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
  $saleday=date("Y-m-d");
 }
 
-$saleday="2015-6-28";
 
 //部門番号
 if(! $_GET["lincode"]){
