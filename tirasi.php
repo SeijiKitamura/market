@@ -12,7 +12,7 @@ if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
  $saleday=date("Y-m-d");
 }
 
-$saleday="2015-6-25";
+$saleday="2015-6-28";
 
 //部門番号
 if(! $_GET["lincode"]){
@@ -32,18 +32,10 @@ if(count($adnumary)){
 }
 
 if($adnum){
- if(! $lincode){
-  //店舗全体の日付リスト、商品リストをゲット
-  $daylist=viewGetFlyersDayLin ($strcode,$adnum);
-  $item=viewGetFlyersItemLin($strcode,$adnum,$saleday);
-  $dpslist=viewGetSaleDpsList  ($strcode,$adnum,$saleday);
- }
- else{
-  //指定lincodeの日付リスト、商品リストをゲット
-  $daylist=viewGetFlyersDayLin($strcode,$adnum,$lincode);
-  $item=viewGetFlyersItemLin($strcode,$adnum,$saleday,$lincode);
-  $linlist=viewGetSaleLinList  ($strcode,$adnum,$saleday,$lincode);
- }
+ //店舗全体の日付リスト、商品リストをゲット
+ $daylist=viewGetFlyersDayLin ($strcode,$adnum);
+ $dpslist=viewGetSaleDpsList  ($strcode,$adnum,$saleday);
+ $item=viewGetFlyersItemLin($strcode,$adnum,$saleday);
 }
 
 //タイトル決定
@@ -57,12 +49,6 @@ else{
 htmlHeader($title);
 ?>
   <div id="wrapper">
-<?php
-//チラシ該当日でなかった場合
-
-//チラシ画像表示
-?>
-
    <div class="daylist">
     <ul>
 <?php
@@ -105,9 +91,31 @@ elseif($dpslist){
    <div class="items">
 <?php
 if($item){
+ //チラシ画像表示
+?>
+    <div class="flyers">
+     <div class="sidea">
+      <a href="img/a.jpg" target="_blank">
+       <img src="img/a.jpg" alt="スーパーキタムラ チラシA面">
+      </a>
+     </div><!--div class="sidea"-->
+     <div class="sideb">
+      <a href="img/b.jpg" target="_blank">
+       <img src="img/b.jpg" alt="スーパーキタムラ チラシB面">
+      </a>
+     </div><!--div class="sideb"-->
+     <div class="clr"></div>
+    </div><!--div class="flyers"-->
+<?php 
+ //チラシアイテム表示
  htmlContents($item);
 }
-echo "<pre>";print_r($item);echo "</pre>";
+else{
+?>
+    <h1>申し訳ございません。本日はチラシ商品はございません。</h1>
+    <p>次回の広告をご期待くださいませ。</p>
+<?php
+}
 ?>
    </div><!--div class="items"-->
   </div><!--div id="wrapper"-->
