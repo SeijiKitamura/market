@@ -308,6 +308,24 @@ function getTirasi(){
 }
 
 //-----------------------------------------//
+// 画像スライド
+//-----------------------------------------//
+function slideImg(){
+ $("div#slideFl").sliderPro({
+  width:360,
+  thumbnailWidth:90,
+  thumbnailHeight:120,
+  aspectRatio:1,
+  thumbnailArrows:true,
+  autoHeight:true,
+  slideDistance:0,
+  arrows:true,
+  autoplay:false,
+  buttons:false
+ });
+}
+
+//-----------------------------------------//
 // 日付チェック
 //-----------------------------------------//
 function chkdate(hiduke){
