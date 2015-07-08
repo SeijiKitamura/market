@@ -52,7 +52,7 @@ div#wrapper
 {
  width:1000px;
  margin:10px auto;
- padding:80px 0 0 0;
+ padding:87px 0 0 0;
 }
 
 div#titleSpace{
@@ -155,6 +155,7 @@ div.daylist{
  position:fixed;
  padding:0 0 0 150px;
  background-color:#FFFFFF;
+ cursor:pointer;
 }
 
 div.daylist ul{
@@ -183,6 +184,7 @@ div.grplist{
  float:left;
  padding:40px 0 0 0;
  position:fixed;
+ cursor:pointer;
 }
 
 div.grplist ul{
