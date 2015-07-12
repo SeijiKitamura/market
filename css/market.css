@@ -224,7 +224,7 @@ div.sideb img
 }
 div.itemdiv{
  width:180px;
- height:340px;
+ height:370px;
  border:1px solid #DCDCDC;
  float:left;
  margin:2px;
@@ -264,21 +264,29 @@ span.tani{
  float:left;
 }
 
+span.stdprice{
+ width:100%;
+ height:2.4em;
+ font-size:14px;
+ text-align:right;
+ float:left;
+}
+
 span.price{
+ width:90%;
  height:2.4em;
  color:red;
  font-size:28px;
- text-align:right;
  float:left;
+ text-align:right;
 }
 
 span.yen{
  height:2.4em;
  font-size:16px;
  color:red;
- text-align:right;
- float:left;
  padding:8px 0 0 0 ;
+ float:left;
 }
 
 span.comment{
@@ -306,7 +314,7 @@ div.titemdiv{
 
 /*tirasi.php*/
 
-/*tirasiitem.php*/
+/*saleitem.php*/
 div#slideFl{
  float:left;
 }
@@ -377,10 +385,11 @@ span.tsname{
 span.tstdprice{
  width:130px;
  height:31px;
- font-size:24px;
+ font-size:12px;
  overflow:hidden;
  float:left;
  margin:5px 0 0 0 !important;
+ text-align:right;
 }
 
 span.tprice{
