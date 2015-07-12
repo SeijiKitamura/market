@@ -140,7 +140,6 @@ if(! $flg){
     <h1>この商品は現在、ご案内できません。</h1>
     <p>誠に申し訳ございません。</p>
 <?php
- return false;
 }
 
 htmlItem($item);
@@ -150,12 +149,7 @@ htmlItem($item);
    <div class="items">
 <?php
 if($flg){
- if($saletype==0){
-  htmlContents($items);
- }
- if($saletype==1|| $saletype==2){
-  htmlMailContents($items);
- }
+ htmlContents($items);
 }
 ?>
    </div><!--div class="items"-->
