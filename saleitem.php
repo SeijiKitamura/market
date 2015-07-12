@@ -157,10 +157,6 @@ if($flg){
   htmlMailContents($items);
  }
 }
-
-echo "<pre>";
-print_r($item);
-echo "</pre>";
 ?>
    </div><!--div class="items"-->
   </div><!--div id="wrapper"-->

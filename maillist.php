@@ -52,11 +52,6 @@ if(!count($mail) && !count($osusume)){
     
 <?php
 }
-
-echo "<pre>";
-print_r($mail);
-echo "</pre>";
-
 ?>
 
 
