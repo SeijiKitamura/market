@@ -42,6 +42,14 @@ htmlHeader("メニュー");
        <td>チラシ</td>
        <td>チラシデータをインポートします</td>
       </tr>
+      <tr id="mail">
+       <td>メール</td>
+       <td>メールデータをインポートします</td>
+      </tr>
+      <tr id="osusume">
+       <td>おすすめ</td>
+       <td>おすすめ商品をインポートします</td>
+      </tr>
      </tbody>
     </table>
    </div><!--div class="tablearea"-->
@@ -64,6 +72,8 @@ $(function(){
  inplinmas();
  inpclsmas();
  inptirasi();
+ inpmail();
+ inposusume();
 });
 
 
