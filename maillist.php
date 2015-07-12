@@ -37,12 +37,14 @@ htmlHeader($title);
   <div id="wrapper">
    <div class="items">
 <?php
+//メール商品
 if(count($mail)){
- htmlMailContents($mail);
+ htmlContents($mail);
 }
 
+//おすすめ商品
 if(count($osusume)){
- htmlMailContents($osusume);
+ htmlContents($osusume);
 }
 
 if(!count($mail) && !count($osusume)){
