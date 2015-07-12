@@ -10,10 +10,10 @@ htmlHeader("ホーム");
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2><a href="tirasi.php">今週のチラシ</a></h2>
-    <p><a href="tirasi.php">毎週木曜日に投函される広告商品のご案内</a></p>
+    <h2><a href="tirasilist.php">今週のチラシ</a></h2>
+    <p><a href="tirasilist.php">毎週木曜日に投函される広告商品のご案内</a></p>
 
-    <a href="tirasi.php">
+    <a href="tirasilist.php">
      <div class="col2">
       <img src="img/a.jpg" alt="スーパーキタムラチラシ A面">
      </div><!--div class="col2"-->
@@ -29,9 +29,11 @@ htmlHeader("ホーム");
 
    <div class="col1">
     <div class="col2">
-     <h2>メール会員募集中</h2>
-     <p>お買得情報をメールでお知らせ！メール会員限定価格も実施中です。</p>
-     <img src="img/mail.jpg" alt="メール会員募集中">
+     <h2><a href="maillist.php">メール会員募集中</a></h2>
+     <a href="maillist.php">
+      <p>お買得情報をメールでお知らせ！メール会員限定価格も実施中です。</p>
+      <img src="img/mail.jpg" alt="メール会員募集中">
+     </a>
     </div><!--div class="col2"-->
     <div class="col2">
      <h2>パーティーメニュー</h2>
