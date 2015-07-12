@@ -12,8 +12,6 @@ if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
  $saleday=date("Y-m-d");
 }
 
-$saleday="2015-6-20";
-
 //メール商品データゲット
 $mail=viewGetSaleItem($strcode,1,$saleday);
 
