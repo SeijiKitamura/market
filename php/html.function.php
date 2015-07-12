@@ -205,7 +205,8 @@ function htmlContents($data){
  try{
   $mname="htmlContents(html.function.php) ";
   $c="start ".$mname;wLog($c);
-  //コメントスケルトン読み込み
+  
+  //タイトルスケルトン読み込み
   $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
   $grp=file_get_contents($path);
   
@@ -220,26 +221,49 @@ function htmlContents($data){
   $grpname="";
   $startday="";$endday="";
   foreach($data as $key=>$val){
-   //リンク生成
-   $link="saleitem.php?strcode={$val["strcode"]}&adnum={$val["adnum"]}&dpscode={$val["dpscode"]}&jcode={$val["jcode"]}&saletype={$val["saletype"]}";
    
-   //イベントタイトル
-   if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
-    if(strtotime($val["startday"])==strtotime($val["endday"])){
-     $replace =date("n月j日",strtotime($val["startday"]))."限り ";
-    }
-    else{
-     $replace =date("n月j日",strtotime($val["startday"]))."から";
-     $replace.=date("n月j日",strtotime($val["endday"]))."まで ";
-    }
-    $replace.=$val["grpname"];
+   //チラシ
+   if($val["saletype"]==0){
+    //リンク生成
+    $link="saleitem.php?strcode={$val["strcode"]}&adnum={$val["adnum"]}&dpscode={$val["dpscode"]}&jcode={$val["jcode"]}&saletype={$val["saletype"]}";
+   
+    //イベントタイトル
+    if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
+     if(strtotime($val["startday"])==strtotime($val["endday"])){
+      $replace =date("n月j日",strtotime($val["startday"]))."限り ";
+     }
+     else{
+      $replace =date("n月j日",strtotime($val["startday"]))."から";
+      $replace.=date("n月j日",strtotime($val["endday"]))."まで ";
+     }
+     $replace.=$val["grpname"];
 
-    $title=preg_replace("/<!--grpname-->/",$replace,$grp);
-    $html.=$title;
+     $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+     $html.=$title;
 
-    $startday=$val["startday"];
-    $endday  =$val["endday"];
-    $grpname =$val["grpname"];
+     $startday=$val["startday"];
+     $endday  =$val["endday"];
+     $grpname =$val["grpname"];
+    }
+   }
+
+   //メール、おすすめ
+   if($val["saletype"]==1||$val["saletype"]==2){
+    //リンク生成
+    $link="saleitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}&saletype={$val["saletype"]}";
+    
+    //イベントタイトル
+    if(strtotime($saleday)!=strtotime($val["saleday"])){
+     if($val["saletype"]==1){
+      $replace =date("n月j日",strtotime($val["saleday"]))."のメール商品";
+     }
+     elseif($val["saletype"]==2){
+      $replace =date("n月j日",strtotime($val["saleday"]))."のおすすめ商品";
+     }
+     $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+     $html.=$title;
+     $saleday=$val["saleday"];
+    }
    }
 
    //アイテム
@@ -281,7 +305,7 @@ function htmlContents($data){
 
    //通常売価
    if($val["stdprice"]){
-    $replace=$val["stdprice"]."円";
+    $replace="通常".$val["stdprice"]."円のところ";
     $i=preg_replace("/<!--stdprice-->/",$replace,$i);
    }
    
@@ -307,6 +331,10 @@ function htmlItem($data){
   $mname="htmlItem(html.function.php) ";
   $c="start ".$mname;wLog($c);
   
+  //タイトルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
+  $grp=file_get_contents($path);
+  
   //アイテムスケルトン読み込み
   $path=realpath(__DIR__."/..".SKELETON."/item.html");
   $item=file_get_contents($path);
@@ -316,6 +344,35 @@ function htmlItem($data){
 
   $html="";
   foreach($data as $key=>$val){
+   if($val["saletype"]==0){
+    if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
+     $replace ="広告の品 ";
+     if(strtotime($val["startday"])==strtotime($val["endday"])){
+      $replace.=date("n月j日",strtotime($val["startday"]))."限り ";
+     }
+     else{
+      $replace.=date("n月j日",strtotime($val["startday"]))."から";
+      $replace.=date("n月j日",strtotime($val["endday"]))."まで ";
+     }
+     $replace.=$val["grpname"];
+
+     $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+     $html.=$title;
+    }
+   }
+
+   if($val["saletype"]==1||$val["saletype"]==2){
+    if(strtotime($saleday)!=strtotime($val["saleday"])){
+     if($val["saletype"]==1){
+      $replace =date("n月j日",strtotime($val["saleday"]))."のメール商品";
+     }
+     elseif($val["saletype"]==2){
+      $replace =date("n月j日",strtotime($val["saleday"]))."のおすすめ商品";
+     }
+     $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+     $html.=$title;
+    }
+   }
    
    $i=$item;
    $replace="";
@@ -411,99 +468,4 @@ function htmlItem($data){
   $c="error:".$mname.$e->getMessge();wLog($c);
  }
 }
-
-//-------------------------------------------------------//
-// メール商品、おすすめ商品一覧表示
-//-------------------------------------------------------//
-function htmlMailContents($data){
- try{
-  $mname="htmlContents(html.function.php) ";
-  $c="start ".$mname;wLog($c);
-  //コメントスケルトン読み込み
-  $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
-  $grp=file_get_contents($path);
-  
-  //アイテムスケルトン読み込み
-  $path=realpath(__DIR__."/..".SKELETON."/itemlist.html");
-  $item=file_get_contents($path);
-
-  //画像ディレクトリセット
-  $imgdir=realpath(__DIR__."/..".IMG);
-
-  $html="";
-  $saleday="";
-  foreach($data as $key=>$val){
-   //リンク生成
-   $link="saleitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}&saletype={$val["saletype"]}";
-   
-   //イベントタイトル
-   if(strtotime($saleday)!=strtotime($val["saleday"])){
-    if($val["saletype"]==1){
-     $replace =date("n月j日",strtotime($val["saleday"]))."のメール商品";
-    }
-    elseif($val["saletype"]==2){
-     $replace =date("n月j日",strtotime($val["saleday"]))."のおすすめ商品";
-    }
-    $title=preg_replace("/<!--grpname-->/",$replace,$grp);
-    $html.=$title;
-    $saleday=$val["saleday"];
-   }
-
-   //アイテム
-   $i=$item;
-   
-   //画像
-   //;$imgpath=$imgdir."/".$val["clscode"]."/".$val["jcode"].".jpg";
-   $imgpath=$imgdir."/".$val["jcode"].".jpg";
-   if(file_exists($imgpath)){
-    $replace ="<a href='{$link}'>";
-    $replace.="<img src='.".IMG."/{$val["jcode"]}.jpg' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]}'>";
-    $replace.="</a>";
-    $i=preg_replace("/<!--imgtag-->/",$replace,$i);
-   }
-   
-   //リンク
-   $replace=$link;
-   $i=preg_replace("/<!--link-->/",$replace,$i);
-
-   //メーカー
-   $replace=$val["maker"];
-   $i=preg_replace("/<!--maker-->/",$replace,$i);
-   
-   //商品名
-   $replace=$val["sname"];
-   $i=preg_replace("/<!--sname-->/",$replace,$i);
-
-   //単位
-   $replace=$val["tani"];
-   $i=preg_replace("/<!--tani-->/",$replace,$i);
-
-   //売価
-   $replace=$val["price"];
-   $i=preg_replace("/<!--price-->/",$replace,$i);
-
-   //通過単位
-   $replace=$val["yen"];
-   $i=preg_replace("/<!--yen-->/",$replace,$i);
-
-   //通常売価
-//   if($val["stdprice"]){
-//    $replace="通常{$val["stdprice"]}円のところ";
-//    $i=preg_replace("/<!--stdprice-->/",$replace,$i);
-//   }
-   
-   //コメント
-   $replace=$val["comment"];
-   $i=preg_replace("/<!--comment-->/",$replace,$i);
-
-   $html.=$i;
-  }
-  echo $html;
-  $c="end ".$mname;wLog($c);
- }
- catch(Exception $e){
-  $c="error:".$mname.$e->getMessge();wLog($c);
- }
-}
-
 ?>
