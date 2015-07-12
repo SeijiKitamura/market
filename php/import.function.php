@@ -55,7 +55,25 @@ function impFile2DB($tablename,$filename){
       if($sql[0]["col"]["saletype"]==0){
        $db->from=TABLE_PREFIX.JANSALE;
        $db->where =" adnum   =".$sql[0]["col"]["adnum"];
-       $db->where.=" and saletype=".$sql[0]["col"]["saletype"];
+       $db->where.=" and saletype=0";
+       $db->delete();
+       echo "既存データ削除完了<br>";
+      }
+
+      //メール商品既存データは1行目の日付以降を一括削除
+      if($sql[0]["col"]["saletype"]==1){
+       $db->from=TABLE_PREFIX.JANSALE;
+       $db->where =" saleday >='".$sql[0]["col"]["saleday"]."'";
+       $db->where.=" and saletype=1";
+       $db->delete();
+       echo "既存データ削除完了<br>";
+      }
+      
+      //おすすめ商品既存データは1行目の日付以降を一括削除
+      if($sql[0]["col"]["saletype"]==2){
+       $db->from=TABLE_PREFIX.JANSALE;
+       $db->where =" saleday >='".$sql[0]["col"]["saleday"]."'";
+       $db->where.=" and saletype=2";
        $db->delete();
        echo "既存データ削除完了<br>";
       }
