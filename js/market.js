@@ -132,7 +132,57 @@ function inptirasi(){
   $(this).find("input").remove();
 
   //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mktirasi("jansale");
+  var inp=mkInpTag("jansale");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// メール用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inpmail(){
+ var fname="inpmail";wlog("start:"+fname);
+
+ $("table tr#mail").on("click",function(){
+  var e="mail click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mkInpTag("jansale");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// メール用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inposusume(){
+ var fname="inposusume";wlog("start:"+fname);
+
+ $("table tr#osusume").on("click",function(){
+  var e="osusume click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mkInpTag("jansale");
 
   //tdにボタン追加
   $(this).find("td").last().append(inp);
@@ -146,8 +196,8 @@ function inptirasi(){
 //-----------------------------------------//
 // Inputタグ生成
 //-----------------------------------------//
-function mktirasi(inpname){
- var fname="mktirasi";wlog("start:"+fname);
+function mkInpTag(inpname){
+ var fname="mkInpTag";wlog("start:"+fname);
  var inp=$("<input>").attr({"type":"file",
                             "name":inpname
                            })
