@@ -32,7 +32,7 @@ function inpstrmas(){
   $(this).find("input").remove();
 
   //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mktirasi("strmas");
+  var inp=mkInpTag("strmas");
 
   //tdにボタン追加
   $(this).find("td").last().append(inp);
@@ -57,7 +57,7 @@ function inpdpsmas(){
   $(this).find("input").remove();
 
   //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mktirasi("dpsmas");
+  var inp=mkInpTag("dpsmas");
 
   //tdにボタン追加
   $(this).find("td").last().append(inp);
@@ -82,7 +82,7 @@ function inplinmas(){
   $(this).find("input").remove();
 
   //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mktirasi("linmas");
+  var inp=mkInpTag("linmas");
 
   //tdにボタン追加
   $(this).find("td").last().append(inp);
@@ -107,7 +107,7 @@ function inpclsmas(){
   $(this).find("input").remove();
 
   //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mktirasi("clsmas");
+  var inp=mkInpTag("clsmas");
 
   //tdにボタン追加
   $(this).find("td").last().append(inp);
