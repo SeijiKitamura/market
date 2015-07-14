@@ -7,6 +7,9 @@ if(! $_GET["strcode"]) $strcode=1;
 
 //販売日
 if(! $_GET["saleday"]) $saleday=date("Y-m-d");
+else{
+ $saleday=$_GET["saleday"];
+}
 if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
  wLog("tirasi.php 日付無効のため本日日付をセット({$_GET["saleday"]})");
  $saleday=date("Y-m-d");
