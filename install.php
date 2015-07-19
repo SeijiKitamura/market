@@ -14,9 +14,14 @@ htmlHeader("インストール");
 
 <?php
 //DBテーブル作成
-$db=new DB();
-$db->CreateTable();
-echo "success";
+if(DEBUG){
+ $db=new DB();
+ $db->CreateTable();
+ echo "success";
+}
+else{
+ echo "現在のモードでは初期化できません";
+}
 ?>
 
    </div><!--div id="wrapper"-->
