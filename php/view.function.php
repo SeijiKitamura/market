@@ -605,4 +605,56 @@ EOF;
  }
 }
 
+//----------------------------------------------------//
+// カレンダーを返す
+//----------------------------------------------------//
+function viewGetCalendar($strcode,$startday,$endday){
+ $mname="viewGetCalendar(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=3;
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  if(strtotime($startday)==strtotime($endday)){
+   $where=<<<EOF
+        t.strcode={$strcode}
+    and t.saletype={$saletype}
+    and t.saleday ='{$startday}'
+EOF;
+  }
+  else{
+   $where=<<<EOF
+        t.strcode={$strcode}
+    and t.saletype={$saletype}
+    and t.saleday between '{$startday}' and '{$endday}'
+EOF;
+  }
+
+  $order=<<<EOF
+    t.strcode
+   ,t.saleday
+   ,t.saletype
+   ,t.tani
+   ,t.price
+   ,t.yen
+   ,t.comment
+EOF;
+
+  return dsetGetSaleDpsItem($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
 ?>
