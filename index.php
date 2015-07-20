@@ -35,12 +35,22 @@ htmlHeader("ホーム");
       <img src="img/mail.jpg" alt="メール会員募集中">
      </a>
     </div><!--div class="col2"-->
+
+    <div class="col2">
+     <h2><a href="calendar.php">カレンダー情報</a></h2>
+     <a href="calendar.php">
+      <p>毎日のお買い得情報を発信中〜！</p>
+      <img src="img/calendar.png" alt="カレンダー">
+     </a>
+    </div><!--div class="col2"-->
+
     <div class="col2">
      <h2>パーティーメニュー</h2>
      <p>お祝いごと、ホームパーティー、法事などにぜひご利用ください。詳しくはサービスカウンターまで</p>
      <img src="img/goyoyaku.png" alt="パーティーメニュー">
     </div><!--div class="col2"-->
     <div class="clr"></div>
+
    </div><!--div class="col1"-->
 
    <div class="col1">
