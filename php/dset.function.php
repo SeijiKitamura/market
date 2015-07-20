@@ -269,7 +269,7 @@ function dsetGetSaleDps($where=null,$order=null,$having=null){
 // JANSALEのgrpnum一覧を返す
 //----------------------------------------------------//
 function dsetGetSaleGrpList($where=null,$order=null,$having=null){
- $mname="dsetGetSaleDps(dset.function.php) ";
+ $mname="dsetGetSaleGrpList(dset.function.php) ";
  try{
   wLog("start:".$mname);
   $db=new DB();
@@ -281,6 +281,35 @@ function dsetGetSaleGrpList($where=null,$order=null,$having=null){
   else{
    $db->order="grpnum";
   }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANSALE一覧を返す(カレンダー用）
+//----------------------------------------------------//
+function dsetGetSaleDpsItem($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleDpsItem(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select ="t.strcode,t.saleday,t.saletype,";
+  $db->select.="t.tani,t.price,t.yen,t.comment,t.grpname,";
+  $db->select.="t3.dpsname";
+  $db->from =TABLE_PREFIX.JANSALE." as t";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode";
+  if ($where)  $db->where=$where;
+  $db->group =$db->select;
+  if ($order)  $db->order=$order;
   if ($having) $db->having=$having;
   return $db->getArray();
  }
