@@ -50,6 +50,10 @@ htmlHeader("メニュー");
        <td>おすすめ</td>
        <td>おすすめ商品をインポートします</td>
       </tr>
+      <tr id="calendar">
+       <td>カレンダー</td>
+       <td>カレンダーをインポートします</td>
+      </tr>
      </tbody>
     </table>
    </div><!--div class="tablearea"-->
@@ -74,6 +78,7 @@ $(function(){
  inptirasi();
  inpmail();
  inposusume();
+ inpcalendar();
 });
 
 
