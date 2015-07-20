@@ -194,6 +194,32 @@ function inposusume(){
 }
 
 //-----------------------------------------//
+// カレンダー用Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inpcalendar(){
+ var fname="inpcalendar";wlog("start:"+fname);
+
+ $("table tr#calendar").on("click",function(){
+  var e="calendar click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mkInpTag("jansale");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
+
+//-----------------------------------------//
 // Inputタグ生成
 //-----------------------------------------//
 function mkInpTag(inpname){
