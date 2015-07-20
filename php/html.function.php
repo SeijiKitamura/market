@@ -468,4 +468,144 @@ function htmlItem($data){
   $c="error:".$mname.$e->getMessge();wLog($c);
  }
 }
+
+//-------------------------------------------------------//
+// カレンダーアイテム表示
+//-------------------------------------------------------//
+function htmlCalendarItem($data){
+ try{
+  $mname="htmlCalendarItem(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //タイトルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
+  $grp=file_get_contents($path);
+  
+  //アイテムスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/calendaritem.html");
+  $item=file_get_contents($path);
+
+  $html="";
+
+  foreach($data as $key=>$val){
+   $i=$item;
+   
+   //タイトルヘッダー
+   $replace =date("Y年m月d日",strtotime($val["saleday"]));
+   $replace.="のお買得情報";
+   $html.=preg_replace("/<!--grpname-->/",$replace,$grp);
+
+   //メーカー
+   $replace="本日限り".$val["maker"];
+   $i=preg_replace("/<!--maker-->/",$replace,$i);
+   
+   //商品名
+   $replace=$val["grpname"];
+   $i=preg_replace("/<!--sname-->/",$replace,$i);
+
+   //単位
+   $replace=$val["tani"];
+   $i=preg_replace("/<!--tani-->/",$replace,$i);
+
+   //売価
+   $replace=$val["price"];
+   $i=preg_replace("/<!--price-->/",$replace,$i);
+
+   //通過単位
+   $replace=$val["yen"];
+   $i=preg_replace("/<!--yen-->/",$replace,$i);
+
+   //通常売価
+   if($val["stdprice"]){
+    $replace=$val["stdprice"]."円のところ";
+    $i=preg_replace("/<!--stdprice-->/",$replace,$i);
+   }
+   
+   //コメント
+   $replace=$val["comment"];
+   $i=preg_replace("/<!--comment-->/",$replace,$i);
+
+   $html.=$i;
+  }
+
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+//-------------------------------------------------------//
+// カレンダーアイテム表示
+//-------------------------------------------------------//
+function htmlCalendar($data){
+ try{
+  $mname="htmlCalendar(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //アイテムスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/calendar.html");
+  $item=file_get_contents($path);
+
+  $html=$item;
+
+  foreach($data as $key=>$val){
+   $nen= date("Y",strtotime($val["saleday"]));
+   $tuki=date("m",strtotime($val["saleday"]));
+   $matu=date("t",strtotime($val["saleday"]));
+   break;
+  }
+
+  $replace="{$nen}年{$tuki}月のお買得情報";
+  $html=preg_replace("/<!--hiduke-->/",$replace,$html);
+
+  $tr="";
+  for($hi=1;$hi<=$matu;$hi++){
+   $kyo=strtotime("{$nen}-{$tuki}-{$hi}");
+   $y=date("w",$kyo);
+
+   //1日の曜日合わせ
+   if($hi==1 && $y){
+    $tr.="<tr>";
+    for($i=0;$i<$y;$i++){
+     $tr.="<td></td>";
+    }
+   }
+   
+   //日曜なら行を追加
+   if(! $y){
+    $tr.="<tr>";
+   }
+
+   //アイテム追加
+   $tr.="<td>";
+   $tr.="<span class='hi'>{$hi}</span>";
+   foreach($data as $key=>$val){
+    if(strtotime($val["saleday"])==$kyo){
+     $tr.="<span class='dgrpname'>{$val["grpname"]}</span>";
+     $tr.="<span class='dtani'>{$val["tani"]}</span>";
+     $tr.="<span class='dprice'>{$val["price"]}</span>";
+     $tr.="<span class='dyen'>{$val["yen"]}</span>";
+     break;
+    }
+   }
+   $tr.="</td>";
+
+
+   //土曜日なら行終了
+   if($y==6){
+    $tr.="</tr>";
+   }
+
+  }
+
+  $html=preg_replace("/<!--calendar-->/",$tr,$html);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
 ?>
