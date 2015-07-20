@@ -416,3 +416,78 @@ span.tcomment{
  overflow:hidden;
 }
 /*tirasiitem.php*/
+
+/*calendar.php*/
+div.caldiv{
+ width:30%;
+ border:1px solid #DCDCDC;
+ padding:10px 0 0 50px;
+}
+
+div.caldiv span{
+ display:block;
+ height:1.2em;
+}
+
+span.cmaker{
+ font-size:24px;
+}
+
+span.csname{
+ font-size:48px;
+ overflow:hidden;
+}
+
+span.ctani{
+ font-size:18px;
+ width:45%;
+ float:left;
+}
+
+span.cprice{
+ font-size:72px;
+ color:red;
+ float:left;
+ font-weight:bold;
+}
+
+span.cyen{
+ font-size:24px;
+ color:red;
+ float:left;
+ margin-top:38px;
+}
+
+table.caltable{
+ width:100%;
+ table-layout:fixed;
+}
+
+td span{
+ display:block;
+}
+
+span.hi{
+ width:100%;
+}
+
+span.dgrpname{
+ width:100%;
+ height:2.2em;
+ overflow:hidden;
+ font-size:24px;
+ margin:5px 0 0 0;
+}
+
+span.dprice{
+ float:left;
+ font-size:32px;
+ color:red;
+ margin:0 0 0 55px;
+}
+
+span.dyen{
+ color:red;
+ margin:12px 0 0 0;
+}
+/*calendar.php*/
