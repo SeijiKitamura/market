@@ -26,7 +26,9 @@ $items=viewGetCalendar($strcode,$startday,$endday);
 
 //タイトル決定
 if(count($item)){
- $title=date("Y年m月d日",strtotime($saleday))."カレンダー情報";
+ $title ="本日限り 「";
+ $title.=$item[0]["grpname"]." ".$item[0]["tani"].$item[0]["price"].$item[0]["yen"]."」 ";
+ $title.=date("Y年m月d日",strtotime($saleday))."カレンダー情報";
 }
 else{
  $title="申し訳ございません。本日はご案内できるセールがありません";
@@ -54,6 +56,9 @@ if($item){
 if($items){
  htmlCalendar($items);
 }
+
+echo TWITTER;
+echo LINE;
 ?>
    </div><!--div class="calendar"-->
   </div><!--div id="wrapper"-->
