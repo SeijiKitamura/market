@@ -73,22 +73,25 @@ function viewGetAdnum($strcode,$saleday=null){
   wLog("start:".$mname);
   //デフォルト値
   $saletype=0;
-  if($saleday===null) $saleday=date("Y-m-d");
 
   //引数チェック
   if(! preg_match("/^[0-9]+$/",$strcode)){
    throw new exception("strcodeが数字ではありません(".$strcode.")");
   }
 
-  if(! chkDate($saleday)){
+  if($saleday && ! chkDate($saleday)){
    throw new exception("saledayが日付ではありません(".$saleday.")");
   }
 
   $where=<<<EOF
        strcode ={$strcode}
    and saletype={$saletype}
-   and saleday='{$saleday}'
 EOF;
+
+  if($saleday){
+   $where.=" and saleday='{$saleday}'";
+  }
+
   $adnum=array();
   $adnum=dsetGetAdnum($where);
 
@@ -656,5 +659,76 @@ EOF;
   return false;
  }
 }
+
+
+//----------------------------------------------------//
+// 日付とアイテム数を返す
+//----------------------------------------------------//
+function viewGetSaleList($strcode,$saletype){
+ $mname="viewGetSaleList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+  
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+
+  $where=<<<EOF
+       t.strcode={$strcode}
+   and t.saletype={$saletype}
+EOF;
+
+  $order=<<<EOF
+   t.saleday desc
+EOF;
+
+  return dsetGetFlyersDay($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 年月とアイテム数を返す
+//----------------------------------------------------//
+function viewGetMonthList($strcode,$saletype){
+ $mname="viewGetMonthList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+  
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+
+  $where=<<<EOF
+       t.strcode={$strcode}
+   and t.saletype={$saletype}
+EOF;
+
+  $order=<<<EOF
+       to_char(t.saleday,'yyyy') desc
+      ,to_char(t.saleday,'MM') desc
+EOF;
+
+  return dsetGetMonthList($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
 
 ?>
