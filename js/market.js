@@ -410,6 +410,7 @@ function getlist(){
  osusumelist();
  calendarlist();
  delevent();
+ tableHover();
 }
 
 
