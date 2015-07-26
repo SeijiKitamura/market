@@ -362,7 +362,7 @@ function getTirasi(){
  if(dpscode) q.dpscode=dpscode;
  console.log(q);
 
- //データゲット(ここから)
+ //データゲット
  $.ajax({
   url:"php/ajaxGetTirasi.php",
   type:"GET",
@@ -398,6 +398,187 @@ function slideImg(){
   arrows:true,
   autoplay:false,
   buttons:false
+ });
+}
+
+//-----------------------------------------//
+// リスト一覧
+//-----------------------------------------//
+function getlist(){
+ tirasilist();
+ maillist();
+ osusumelist();
+ calendarlist();
+ delevent();
+}
+
+
+//-----------------------------------------//
+// チラシリスト
+//-----------------------------------------//
+function tirasilist(){
+ var fname="tirailist";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetTirasiList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.tirasilist").empty()
+                      .append(html);
+   
+   //削除イベント
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// メールリスト
+//-----------------------------------------//
+function maillist(){
+ var fname="maillist";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetMailList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.maillist").empty()
+                    .append(html);
+   
+   //削除イベント
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// カレンダーリスト
+//-----------------------------------------//
+function calendarlist(){
+ var fname="calendarlist";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetCalendarList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.calendarlist").empty()
+                        .append(html);
+   
+   //削除イベント
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// おすすめリスト
+//-----------------------------------------//
+function osusumelist(){
+ var fname="osusumelist";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetOsusumeList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.osusumelist").empty()
+                       .append(html);
+   
+   //削除イベント
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 削除イベント
+//-----------------------------------------//
+function delevent(){
+ var fname="delevent";wlog("start:"+fname);
+ $("div.tablearea td span").on("click",function(){
+  var q={};
+  q.strcode=$(this).attr("data-strcode");
+  q.saletype=$(this).attr("data-saletype");
+  
+  if(q.saletype==3){
+   q.nen =$(this).attr("data-year");
+   q.tuki=$(this).attr("data-month");
+  }
+  else{
+   q.saleday=$(this).attr("data-saleday");
+  }
+
+  if(! confirm("削除しますか?")) return false;
+  
+  //データ削除
+  $.ajax({
+   url:"php/ajaxDelData.php",
+   type:"GET",
+   data:q,
+   dataType:"html",
+   async:false,
+   complete:function(){},
+   success:function(html){
+    wlog(fname+": ajaX success");
+    console.log(html);
+    if(html.match(/^error/)){
+     alert(html);
+     return false;
+    }
+    else{
+     alert("削除しました");
+     getlist();
+    }
+   },
+   error:function(XMLHttpRequest,textStatus,errorThrown){
+    console.log(XMLHttpRequest.responseText);
+   }
+  });
+  wlog("end:"+fname);
+
  });
 }
 
