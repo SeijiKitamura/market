@@ -792,4 +792,51 @@ function htmlCalendarList($data){
  }
 }
 
+//-------------------------------------------------------//
+// ご注文リスト表示
+//-------------------------------------------------------//
+function htmlGotyumonList($data){
+ try{
+  $mname="htmlGotyumonList(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //アイテムスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/table.html");
+  $html=file_get_contents($path);
+
+  //タイトルセット
+  $replace="ご注文リスト";
+  $html=preg_replace("/<!--title-->/",$replace,$html);
+
+  //列名セット
+  $replace="年月";
+  $html=preg_replace("/<!--col1-->/",$replace,$html);
+
+  $replace="アイテム数";
+  $html=preg_replace("/<!--col2-->/",$replace,$html);
+
+  $replace="削除";
+  $html=preg_replace("/<!--col3-->/",$replace,$html);
+   
+  //リスト作成
+  $tr="";
+  foreach($data as $key=>$val){
+   $tr.="<tr>";
+   $hiduke=$val["nen"]."年".$val["tuki"]."月";
+   $tr.="<td>{$hiduke}</td>";
+   $tr.="<td>{$val["itemcnt"]}</td>";
+   $tr.="<td><span data-strcode={$val["strcode"]} data-saletype=5 data-year={$val["nen"]} data-month={$val["tuki"]}>削除</span></td>";
+   $tr.="</tr>";
+  }
+
+  $html=preg_replace("/<!--list-->/",$tr,$html);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+
 ?>
