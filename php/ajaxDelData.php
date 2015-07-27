@@ -17,7 +17,7 @@ try{
   throw new exception("セール番号が数字ではありません");
  }
 
- if($_GET["saletype"]==3){
+ if($_GET["saletype"]==3|| $_GET["saletype"]==5){
   if(! preg_match("/^20[0-9]{2}$/",$_GET["nen"])){
    throw new exception("年が正しくありません");
   }
@@ -41,7 +41,7 @@ try{
  $db=new DB();
  $db->from=TABLE_PREFIX.JANSALE;
  $db->where="strcode={$strcode} and saletype={$saletype}";
- if($saletype==3){
+ if($saletype==3 || $saletype==5){
   $kaisi=date("Y-m-d",strtotime($nen."-".$tuki."-1"));
   $owari=date("Y-m-t",strtotime($nen."-".$tuki."-1"));
 
