@@ -78,6 +78,9 @@ htmlHeader("メニュー");
    <div class="calendarlist">
    </div><!--div class="calendarlist"-->
 
+   <div class="gotyumonlist">
+   </div><!--div class="gotyumonlist"-->
+
   </div><!--div id="wrapper"-->
 
 <?php
