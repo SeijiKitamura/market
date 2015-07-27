@@ -54,6 +54,10 @@ htmlHeader("メニュー");
        <td>カレンダー</td>
        <td>カレンダーをインポートします</td>
       </tr>
+      <tr id="gotyumon">
+       <td>ご注文</td>
+       <td>ご注文をインポートします</td>
+      </tr>
      </tbody>
     </table>
    </div><!--div class="tablearea"-->
@@ -93,6 +97,7 @@ $(function(){
  inpmail();
  inposusume();
  inpcalendar();
+ inpgotyumon();
  getlist();
 });
 
