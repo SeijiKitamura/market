@@ -434,6 +434,7 @@ function getlist(){
  maillist();
  osusumelist();
  calendarlist();
+ gotyumonlist();
  delevent();
  tableHover();
 }
@@ -560,6 +561,36 @@ function osusumelist(){
 }
 
 //-----------------------------------------//
+// ご注文リスト
+//-----------------------------------------//
+function gotyumonlist(){
+ var fname="gotyumonlist";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetGotyumonList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.gotyumonlist").empty()
+                       .append(html);
+   
+   //削除イベント
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
 // 削除イベント
 //-----------------------------------------//
 function delevent(){
@@ -569,7 +600,7 @@ function delevent(){
   q.strcode=$(this).attr("data-strcode");
   q.saletype=$(this).attr("data-saletype");
   
-  if(q.saletype==3){
+  if(q.saletype==3 || q.saletype==5){
    q.nen =$(this).attr("data-year");
    q.tuki=$(this).attr("data-month");
   }
