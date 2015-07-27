@@ -491,3 +491,9 @@ span.dyen{
  margin:12px 0 0 0;
 }
 /*calendar.php*/
+
+/*menu.php*/
+div.tablearea table td>span{
+ cursor:pointer;
+}
+/*menu.php*/

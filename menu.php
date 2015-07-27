@@ -54,12 +54,33 @@ htmlHeader("メニュー");
        <td>カレンダー</td>
        <td>カレンダーをインポートします</td>
       </tr>
+      <tr id="gotyumon">
+       <td>ご注文</td>
+       <td>ご注文をインポートします</td>
+      </tr>
      </tbody>
     </table>
    </div><!--div class="tablearea"-->
    
    <div class="msgarea">
    </div><!--div class="msgarea"-->
+
+   <div class="tirasilist">
+   </div><!--div class="tirasilist"-->
+
+   <div class="maillist">
+   </div><!--div class="maillist"-->
+
+   <div class="osusumelist">
+   </div><!--div class="osusumelist"-->
+
+
+   <div class="calendarlist">
+   </div><!--div class="calendarlist"-->
+
+   <div class="gotyumonlist">
+   </div><!--div class="gotyumonlist"-->
+
   </div><!--div id="wrapper"-->
 
 <?php
@@ -79,6 +100,8 @@ $(function(){
  inpmail();
  inposusume();
  inpcalendar();
+ inpgotyumon();
+ getlist();
 });
 
 
