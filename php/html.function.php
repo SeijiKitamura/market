@@ -247,8 +247,8 @@ function htmlContents($data){
     }
    }
 
-   //メール、おすすめ
-   if($val["saletype"]==1||$val["saletype"]==2){
+   //メール、おすすめ、ご注文
+   if($val["saletype"]==1||$val["saletype"]==2||$val["saletype"]==5){
     //リンク生成
     $link="saleitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}&saletype={$val["saletype"]}";
     
@@ -259,6 +259,9 @@ function htmlContents($data){
      }
      elseif($val["saletype"]==2){
       $replace =date("n月j日",strtotime($val["saleday"]))."のおすすめ商品";
+     }
+     elseif($val["saletype"]==5){
+      $replace ="ご注文商品";
      }
      $title=preg_replace("/<!--grpname-->/",$replace,$grp);
      $html.=$title;

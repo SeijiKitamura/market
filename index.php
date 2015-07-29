@@ -45,9 +45,11 @@ htmlHeader("ホーム");
     </div><!--div class="col2"-->
 
     <div class="col2">
-     <h2>パーティーメニュー</h2>
-     <p>お祝いごと、ホームパーティー、法事などにぜひご利用ください。詳しくはサービスカウンターまで</p>
-     <img src="img/goyoyaku.png" alt="パーティーメニュー">
+     <h2><a href="gotyumon.php">パーティーメニュー</a></h2>
+     <a href="gotyumon.php">
+      <p>お祝いごと、ホームパーティー、法事などにぜひご利用ください。詳しくはサービスカウンターまで</p>
+      <img src="img/goyoyaku.png" alt="パーティーメニュー">
+     </a>
     </div><!--div class="col2"-->
     <div class="clr"></div>
 

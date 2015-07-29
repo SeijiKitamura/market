@@ -409,6 +409,142 @@ function getTirasi(){
 }
 
 //-----------------------------------------//
+// 日付リストイベント(ご注文用)
+//-----------------------------------------//
+function G_DayEvent(){
+ var fname="G_DayEvent";wlog("start:"+fname);
+ $("div.daylist ul li").click(function(){
+  $(this).siblings().removeClass("hoverColor");
+  $(this).addClass("hoverColor");
+
+  //部門リストを抽出
+  var q={};
+  q.strcode=$(this).attr("data-strcode");
+  q.year =$(this).attr("data-year");
+  q.month=$(this).attr("data-month");
+
+  //データゲット
+  $.ajax({
+   url:"php/ajaxGetGotyumonGrpList.php",
+   type:"GET",
+   dataType:"html",
+   data:q,
+   async:false,
+   complete:function(){},
+   success:function(html){
+    wlog(fname+": ajax success");
+    console.log(html);
+    $("div.grplist ul").empty()
+                       .append(html);
+    //ここから
+    G_LinEvent();
+    getGotyumon();
+   },
+   error:function(XMLHttpRequest,textStatus,errorThrown){
+    console.log(XMLHttpRequest.responseText);
+   }
+  });
+
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 部門リストイベント(ご注文用)
+//-----------------------------------------//
+function G_LinEvent(){
+ var fname="G_LinEvent";wlog("start:"+fname);
+ $("div.grplist ul li").click(function(){
+  $(this).siblings().removeClass("hoverColor");
+  $(this).addClass("hoverColor");
+  getGotyumon();
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// ご注文商品抽出
+//-----------------------------------------//
+function getGotyumon(){
+ var fname="getGotyumon";wlog("start:"+fname);
+ var url;
+ var q={};
+
+ //年月、店舗番号をゲット
+ if($("div.daylist ul li").hasClass("hoverColor")){
+  var strcode=$("div.daylist ul li.hoverColor").attr("data-strcode");
+  var nen= $("div.daylist ul li.hoverColor").attr("data-year");
+  var tuki=$("div.daylist ul li.hoverColor").attr("data-month");
+ }
+ 
+ //チラシ番号,部門番号をゲット
+ if($("div.grplist ul li").hasClass("hoverColor")){
+  var strcode=$("div.grplist ul li.hoverColor").attr("data-strcode");
+  var saleday=$("div.grplist ul li.hoverColor").attr("data-saleday");
+  var grpnum =$("div.grplist ul li.hoverColor").attr("data-grpnum");
+ }
+
+ //引数チェック
+ if(! strcode.match(/^[0-9]+$/)){
+  alert("店舗番号が不正です");
+  wlog(fname+":店舗番号が不正"+strcode);
+  return false;
+ }
+
+ if(nen && ! nen.match(/^[0-9]+$/)){
+  alert("年数が不正です");
+  wlog(fname+":年数が不正"+nen);
+  return false;
+ }
+
+ if(tuki && ! tuki.match(/^[0-9]+$/)){
+  alert("月が不正です");
+  wlog(fname+":月が不正"+tuki);
+  return false;
+ }
+
+ if(saleday && ! chkdate(saleday)){
+  alert("日付が不正です");
+  wlog(fname+":日付が不正"+saleday);
+  return false;
+ }
+
+ if(grpnum && ! grpnum.match(/^[0-9]+$/)){
+  alert("グループ番号が不正です");
+  wlog(fname+":グループ番号が不正"+grpnum);
+  return false;
+ }
+ 
+ //queryセット
+ if(strcode) q.strcode=strcode;
+ if(nen) q.year=nen;
+ if(tuki) q.month=tuki;
+ if(saleday) q.saleday=saleday;
+ if(grpnum) q.grpnum=grpnum;
+ console.log(q);
+
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetGotyumon.php",
+  type:"GET",
+  dataType:"html",
+  data:q,
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div.items").empty()
+                 .append(html);
+   //console.log(html);
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
 // 画像スライド
 //-----------------------------------------//
 function slideImg(){

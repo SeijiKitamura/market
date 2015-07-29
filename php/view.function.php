@@ -44,8 +44,8 @@ EOF;
   $order=<<<EOF
     t.adnum
    ,t.saleday
-   ,t.specialflg desc
    ,t.grpnum
+   ,t.specialflg
    ,t.clscode
    ,t.maker
    ,t.sname
@@ -698,7 +698,7 @@ EOF;
 //----------------------------------------------------//
 // 年月とアイテム数を返す
 //----------------------------------------------------//
-function viewGetMonthList($strcode,$saletype){
+function viewGetMonthList($strcode,$saletype,$w=null){
  $mname="viewGetMonthList(view.function.php) ";
  try{
   wLog("start:".$mname);
@@ -716,10 +716,13 @@ function viewGetMonthList($strcode,$saletype){
        t.strcode={$strcode}
    and t.saletype={$saletype}
 EOF;
+  if($w){
+   $where.=" and ".$w;
+  }
 
   $order=<<<EOF
-       to_char(t.saleday,'yyyy') desc
-      ,to_char(t.saleday,'MM') desc
+       to_char(t.saleday,'yyyy') 
+      ,to_char(t.saleday,'MM')
 EOF;
 
   return dsetGetMonthList($where,$order);
@@ -730,5 +733,89 @@ EOF;
  }
 }
 
+//----------------------------------------------------//
+// ご注文商品のグループを返す
+//----------------------------------------------------//
+function viewGetGroupList($strcode,$saletype,$saleday){
+ $mname="viewGetGroupList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+  
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+  
+  if(! chkDate($saleday)){
+   throw new exception("saledayが正しくありません({$saleday})");
+  }
 
+  $startday=date("Y-m-1",strtotime($saleday));
+  $endday=date("Y-m-t",strtotime($saleday));
+
+  $where=<<<EOF
+       strcode={$strcode} 
+   and saletype={$saletype}
+   and saleday between '{$startday}' and '{$endday}'
+EOF;
+  return dsetGetSaleGrpList($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// ご注文商品を返す
+//----------------------------------------------------//
+function viewGetGotyumonGrpItem($strcode,$saleday,$grpnum){
+ $mname="viewGetGotyumonGrpItem(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=5;
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$grpnum)){
+   throw new exception("grpnumが数字ではありません(".$grpnum.")");
+  }
+
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saleday ='{$saleday}'
+   and t.saletype={$saletype}
+EOF;
+  if($grpnum){
+   $where.=" and t.grpnum={$grpnum}";
+  }
+
+  $order=<<<EOF
+    t.grpnum
+   ,t.specialflg
+   ,t.clscode
+   ,t.maker
+   ,t.sname
+   ,t.jcode
+   ,t.tani
+   ,t.price
+EOF;
+  return dsetGetSaleItem($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
 ?>
