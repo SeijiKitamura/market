@@ -68,7 +68,7 @@ if($saletype==0){
 }
 
 //メール商品 引数チェック
-if($saletype==1||$saletype==2){
+if($saletype==1||$saletype==2||$saletype==5){
  if(! $_GET["strcode"] || ! preg_match("/^[0-9]+$/",$_GET["strcode"])){
   wLog("error:".$mname.": 店舗番号 不正({$_GET["strcode"]})");
   $flg=0;
@@ -95,7 +95,7 @@ if($saletype==1||$saletype==2){
  
  
   if(! count($items)){
-   wLog("error:".$mname.": メール商品リスト該当なしsaleday({$_GET["saleday"]})");
+   wLog("error:".$mname.": 商品リスト該当なしsaleday({$_GET["saleday"]})");
    $flg=0;
   }
  
@@ -108,9 +108,16 @@ if($saletype==1||$saletype==2){
   }
  
   if(!count($item)){
-   wLog("error:".$mname.": メール商品該当なし jcode({$_GET["jcode"]})");
+   wLog("error:".$mname.": 商品該当なし jcode({$_GET["jcode"]})");
    $flg=0;
   }
+ }
+
+ //アイテムリスト再構築(同じgrpnumだけ抽出)
+ if($saletype==5){
+  $items=array();
+  $grpnum=$item[0]["grpnum"];
+  $items=viewGetGotyumonGrpItem($strcode,$saleday,$grpnum);
  }
  
  //タイトル
@@ -124,6 +131,10 @@ if($saletype==1||$saletype==2){
   elseif($saletype==2){
    $title="おすすめ商品";
   }
+  elseif($saletype==5){
+   $title="ご注文商品";
+  }
+
   $title.=" {$item[0]["maker"]} {$item[0]["sname"]} {$item[0]["tani"]} {$item[0]["price"]}{$item[0]["yen"]}";
  }
 
