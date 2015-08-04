@@ -59,6 +59,11 @@ if(!count($mail) && !count($osusume)){
 
 
    </div><!--div class="items"-->
+   <div id="footer">
+<?php
+htmlFooter();
+?>
+   </div><!--div id="footer"-->
   </div><!--div id="wrapper"-->
  </body>
 <script>

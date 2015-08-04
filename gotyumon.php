@@ -79,6 +79,11 @@ else{
     </ul>
    </div><!--div class="notice"-->
    <div class="clr"></div>
+   <div id="footer">
+<?php
+htmlFooter();
+?>
+   </div><!--div id="footer"-->
   </div><!--div id="wrapper"-->
  </body>
 <script>
