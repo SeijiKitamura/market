@@ -72,8 +72,10 @@ function htmlHeader($title,$description=null){
   //メールリンク
   $html=preg_replace("/<!--mailto-->/",MAILADDRESS,$html);
 
-  //ログアウト
-    
+  //ソーシャル
+  $html=preg_replace("/<!--TWITTER-->/",TWITTER,$html);
+  $html=preg_replace("/<!--LINE-->/",LINE,$html);
+  
   //イベントバー
   $eventbar="";
   foreach($MININAVI as $key=>$val){
@@ -84,6 +86,9 @@ function htmlHeader($title,$description=null){
   
   //ナビゲーション
   $navibar="";
+  foreach($NAVI as $key=>$val){
+   $navibar.="<li><a href='{$key}'>{$val}</a></li>";
+  }
   $html=preg_replace("/<!--navibar-->/",$navibar,$html);
 
   echo $html;

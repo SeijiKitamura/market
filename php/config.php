@@ -59,7 +59,7 @@ define("JANSALE","jansale");
 define("NEWLIST","-3days") ;
 define("RANKLIMIT",5);
 define("BROTHERLIMIT",4);
-define("SITEHELP","");
+define("SITEHELP","当店は青果、精肉、鮮魚、惣菜、お酒、タバコなどを扱う食品スーパーマーケットです。");
 define("SITEABOUT","");
 
 //---------------------------------------------------//
@@ -72,6 +72,11 @@ $PAGEARY=array(
               );
 
 $NAVI  =array(
+                "index.php" =>"ホーム"
+               ,"tirasilist.php"=>"チラシ"
+               ,"maillist.php"=>"メール"
+               ,"calendar.php"=>"カレンダー"
+               ,"gotyumon.php"=>"ご注文"
               );
 
 $MININAVI=array(
@@ -82,6 +87,11 @@ $INFO=array    (
                );
 
 $SITECONTENTS=array(
+                "index.php" =>"ホーム"
+               ,"tirasilist.php"=>"チラシ"
+               ,"maillist.php"=>"メール"
+               ,"calendar.php"=>"カレンダー"
+               ,"gotyumon.php"=>"ご注文"
                    );
 //未使用
 $BIGNAVI=array(
