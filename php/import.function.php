@@ -96,6 +96,9 @@ function impFile2DB($tablename,$filename){
        echo "既存データ削除完了<br>";
       }
      }
+     
+     //単品マスタは何もしない
+
      $db->updatearray($sql);
      $c="end ".$mname;wLog($c);
      echo "DB登録完了<br>";
