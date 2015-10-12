@@ -350,4 +350,148 @@ function dsetGetMonthList($where=null,$order=null,$having=null){
  }
 }
 
+//----------------------------------------------------//
+// JANMASのDPSグループを返す
+//----------------------------------------------------//
+function dsetGetDpsList($where=null,$order=null,$having=null){
+ $mname="dsetGetDpsList(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t.strcode";
+  $db->select.=",t3.dpscode";
+  $db->select.=",t3.dpsname";
+  $db->select.=",count(*) as itemcnt";
+  $db->from =TABLE_PREFIX.JANMAS." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode";
+  if ($where)  $db->where=$where;
+  $db->group =" t.strcode";
+  $db->group.=",t3.dpscode";
+  $db->group.=",t3.dpsname";
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="t.strcode,t3.dpscode";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANMASのLINグループを返す
+//----------------------------------------------------//
+function dsetGetLinList($where=null,$order=null,$having=null){
+ $mname="dsetGetLinList(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t.strcode";
+  $db->select.=",t2.lincode";
+  $db->select.=",t2.linname";
+  $db->select.=",count(*) as itemcnt";
+  $db->from =TABLE_PREFIX.JANMAS." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
+  if ($where)  $db->where=$where;
+  $db->group =" t.strcode";
+  $db->group.=",t2.lincode";
+  $db->group.=",t2.linname";
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="t.strcode,t2.lincode";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANMASのCLSグループを返す
+//----------------------------------------------------//
+function dsetGetClsList($where=null,$order=null,$having=null){
+ $mname="dsetGetClsList(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t.strcode";
+  $db->select.=",t1.clscode";
+  $db->select.=",t1.clsname";
+  $db->select.=",count(*) as itemcnt";
+  $db->from =TABLE_PREFIX.JANMAS." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  if ($where)  $db->where=$where;
+  $db->group =" t.strcode";
+  $db->group.=",t1.clscode";
+  $db->group.=",t1.clsname";
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="t.strcode,t1.clscode";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANMASを返す
+//----------------------------------------------------//
+function dsetGetJanMas($where=null,$group=null,$order=null,$having=null){
+ $mname="dsetGetJanMas(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t.strcode";
+  $db->select.=",t3.dpscode";
+  $db->select.=",t3.dpsname";
+  $db->select.=",t2.lincode";
+  $db->select.=",t2.linname";
+  $db->select.=",t1.clscode";
+  $db->select.=",t1.clsname";
+  $db->select.=",t.jcode";
+  $db->select.=",t.sname";
+  $db->select.=",t.maker";
+  $db->select.=",t.tani";
+  $db->select.=",t.stdprice";
+  $db->select.=",t.price";
+  $db->select.=",t.comment";
+  $db->select.=",t.firstsale";
+  $db->select.=",t.lastsale";
+  $db->from =TABLE_PREFIX.JANMAS." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode";
+  if ($where)  $db->where=$where;
+  if ($group)  $db->group=$group;
+  if ($order)  $db->order=$order;
+  else{
+   $db->order="t.strcode,t3.dpscode,t2.lincode,t1.clscode,t.jcode";
+  }
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
 ?>

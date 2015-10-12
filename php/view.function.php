@@ -818,4 +818,20 @@ EOF;
   return false;
  }
 }
+//----------------------------------------------------//
+// 新商品を返す
+//----------------------------------------------------//
+function viewGetNewItem(){
+ $mname="viewGetNewItem(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where ="t.firstsale>='".date("Y-m-d",strtotime("-14days"))."'";
+  $where.=" and t.lastsale>'1970/1/1'";
+  return dsetGetJanMas($where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
 ?>
