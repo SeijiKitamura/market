@@ -9,71 +9,48 @@
   <link rel="shortcut icon" href="img/kitamura.ico">
   <link rel="stylesheet" type="text/css" href="./css/slider-pro.min.css"> 
   <link rel="stylesheet" type="text/css" href="./css/market.css">
-<!--
-  <link rel="stylesheet" type="text/css" media="(min-width:640px)" href="./css/market.css">
-  <link rel="stylesheet" type="text/css" media="(max-width:640px)" href="./css/marketphone.css"> 
--->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
   <script src="js/market.js"></script>
   <script src="js/jquery.sliderPro.js"></script>
-<!--
-  <script src="js/jquery.meanmenu.min.js"></script>
-  -->
-
+  <script>
+  </script>
  </head>
  <body>
-  <div id="header">
+  <div class="header">
 
-   <div id="titleSpace">
-    <h1><!--title--></h1>
-   </div><!--div id="titleSpace"-->
-   <div class="clr"></div>
+   <!-- ヘッダー(PCのみ)-->
+   <div class="HeaderZone">
 
-   <div id="header_inner">
-    <div class="logoSpace">
+    <!-- ロゴ -->
+    <div class="Logo">
      <!--logo-->
-    </div><!-- div class="logoSpace" -->
-    
-    <div class="eventSpace">
+    </div><!--div class="Logo"-->
+
+    <!-- SNS -->
+    <div class="SNS">
+    </div><!--div class="SNSZone"-->
+
+    <!-- ミニナビ -->
+    <div class="MiniNavi">
+    </div><!--div class="MiniNavi"-->
+
+   </div><!--div class="HeaderZone"-->
+   
+   <!--ナビゲーション-->
+   <div class="NaviZone">
+    <nav id="slide_menu">
      <ul>
-      <!--eventBar-->
+      <!--navibar-->
      </ul>
-    </div><!-- div class="eventSpace" -->
+     <div class="clr"></div>
+    </nav>
+   </div><!--div class="NaviZone"-->
 
-    <div class="storeInfo">
-     <!--img src="img/tel.png"-->
-     <!--logout-->
-    </div><!-- div class="storeinfo" -->
-   </div><!--div id="header_inner"-->
-  
-   <div class="socialSpace">
-    <ul>
-     <li><!--TWITTER--></li>
-     <li><!--LINE--></li>
-     <li><div id="fb-root"></div>
-      <script>
-      (function(d, s, id) {
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) return;
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.4&appId=147348422266027";
-       fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));</script>
-    <div class="fb-like" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
-     </li>
-   </div><!--div class="socialSpace"-->
+   <!--トップイメージ-->
+   <div class="TopImageZone">
+     <img src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
+   </div><!--div class="TopImageZone"-->
 
-   <div class="naviBar">
-    <ul>
-     <!--navibar-->
-    </ul>
-    <div class="clr"></div>
-   </div><!-- div class="naviBar" -->
-   <div class="clr"></div>
+  </div><!--div class="header"-->
 
-   <div id="main_line">
-    <p></p>
-   </div><!--div id="main_line"-->
-
-  </div><!--div id="header" -->

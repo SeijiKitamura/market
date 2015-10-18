@@ -1,4 +1,38 @@
 //-----------------------------------------//
+// スライドメニュー
+//-----------------------------------------//
+function slideMenu(){
+ var menu=$("#slide_menu");
+ var menuBtn=$("#btn");
+ var body=$(document.body);
+ var menuWidth=menu.outerWidth();
+ var layer=$(".layer");
+
+ menuBtn.on("click",function(){
+  var w=$(window).width();
+  console.log(w);
+
+  body.toggleClass("open");
+  if(body.hasClass("open")){
+   layer.show();
+   body.animate({"left":menuWidth},300);
+   menu.animate({"left":0        },300);
+  }
+  else{
+   layer.hide();
+   menu.animate({"left":-menuWidth},300);
+   body.animate({"left":0         },300);
+  }
+ });
+
+ layer.on("click",function(){
+   menu.animate({"left":-menuWidth},300);
+   body.animate({"left":0         },300).removeClass("open");
+   layer.hide();
+ });
+}
+
+//-----------------------------------------//
 // データベース初期化イベント
 //-----------------------------------------//
 function dbinit(){

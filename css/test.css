@@ -1,16 +1,5 @@
-/*
- * html5doctor.com Reset Stylesheet
- * v1.4.1
- * 2010-03-01
- * Author: Richard Clark - http://richclarkdesign.com
- * */
-
 /*全ページ共通*/
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; } body { line-height:1; } article,aside,canvas,details,figcaption,figure, footer,header,hgroup,menu,nav,section,summary { display:block; } nav ul { list-style:none; } blockquote, q { quotes:none; } blockquote:before, blockquote:after, q:before, q:after { content:''; content:none; } a { margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline; background:transparent; } ins { background-color:#ff9; color:#000; text-decoration:none; } mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; } del { text-decoration: line-through; } abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; } table { border-collapse:collapse; border-spacing:0; } hr { display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0; } input, select { vertical-align:middle; }
-
-*{
- font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック","sans-seriff";
-}
 
 body{
  margin:0;
@@ -24,17 +13,25 @@ body.open{
  position:fixed;
 }
 
-a{
- text-decoration:none;
- color:#000000;
-}
-
 div.clr{
  clear:both;
 }
 
-span.yen{
- font-size:0.5em;
+div.layer{
+ position:fixed;
+ top:0;
+ z-index:1;
+ display:none;
+ width:100%;
+ height:100%;
+ background-color:transparent;
+}
+
+div#wrapper{
+ max-width :80%;
+ border:1px solid #DCDCDC;
+ margin:0 auto;
+ padding:0;
 }
 
 
@@ -56,14 +53,6 @@ div.col4{
  float:left;
 }
 
-/*ヘッダー*/
-div.header{
- width:100%;
-}
-
-/*ヘッダー*/
-
-/*ナビゲーション系*/
 nav#slide_menu ul{
  margin:0;
  padding:0;
@@ -74,16 +63,15 @@ nav#slide_menu ul li+li{
 }
 
 nav#slide_menu ul li{
- border   :solid 1px #DCDCDC;
+ border-bottom:solid 1px #DCDCDC;
  list-style:none;
  float:left;
- width:15%;
- margin:0 5px;
+ width:20%;
 }
 
 nav#slide_menu li a{
  display:block;
- padding:5px 0;
+ padding:20px 0;
  /*color:#FFF;*/
  text-align:center;
  text-decoration:none;
@@ -93,58 +81,6 @@ button#btn{
  display:none;
 }
 
-div.layer{
- position:fixed;
- top:0;
- z-index:1;
- display:none;
- width:100%;
- height:100%;
- background-color:transparent;
-}
-/*ナビゲーション系*/
-
-div#wrapper{
- max-width :80%;
- /*border:1px solid #DCDCDC;*/
- margin:0 auto;
- padding:0;
-}
-
-div.News{
- width:90%;
- margin:0 auto;
-}
-
-div.NewsHeader{
- border:1px solid #D4D4D4;
- border-radius:5px;
- -moz-border-radius:5px;
-}
-
-div.NewsHeader h2{
- border:1px solid #FFFFFF;
- background-color:#D4D4D4;
- border-radius:5px;
- -moz-border-radius:5px;
- padding:10px;
-}
-
-div.NewsBody{
- border-left:1px solid #D4D4D4;
- border-right:1px solid #D4D4D4;
-}
-
-div.NewsBody dt,div.NewsBody dd{
- font-size:0.8em;
- padding:10px 5px;
-}
-
-div.NewsBody dd{
- border-bottom:1px solid #D4D4D4;
-}
-
-/*スマホ用*/
 @media screen and (max-width:380px){
  div#wrapper{
   max-width:100%;
@@ -153,10 +89,6 @@ div.NewsBody dd{
 
  div.col2,div.col4{
   width:100%;
- }
-
- div.HeaderZone{
-  display:none;
  }
 
  nav#slide_menu{
@@ -171,9 +103,7 @@ div.NewsBody dd{
 
  nav#slide_menu ul li{
   clear:both;
-  width:90%;
-  margin:0;
-  border-bottom:1px solid #DCDCDC;
+  width:100%;
  }
 
  button#btn{
@@ -192,6 +122,5 @@ div.NewsBody dd{
  }
 
 }
-/*スマホ用*/
 
 
