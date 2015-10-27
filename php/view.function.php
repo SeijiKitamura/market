@@ -10,6 +10,99 @@
 require_once("dset.function.php");
 
 //----------------------------------------------------//
+// セールアイテム単品販売履歴を返す(日別)
+//----------------------------------------------------//
+function viewGetSaleItemDayResult($strcode,$saletype,$saleday,$jcode){
+ $mname="viewGetSaleItemDayResult(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+ 
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+ 
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$jcode)){
+   throw new exception("jcodeが数字ではありません(".$jcode.")");
+  }
+  
+  //where句セット
+  $where=<<<EOF
+       t.strcode  = {$strcode}
+   and t.saleday <='{$saleday}'
+   and t.saletype = {$saletype}
+   and t.jcode    = '{$jcode}'
+EOF;
+  
+  //order句セット
+  $order=<<<EOF
+    t.saleday desc
+EOF;
+
+  return dsetGetSaleItem($where,$order);
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// セールアイテム単品販売履歴を返す(集計サマリー)
+//----------------------------------------------------//
+function viewGetSaleItemResult($strcode,$saletype,$saleday,$jcode){
+ $mname="viewGetSaleItemResult(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+ 
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+ 
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$jcode)){
+   throw new exception("jcodeが数字ではありません(".$jcode.")");
+  }
+  
+  //where句セット
+  $where=<<<EOF
+       t.strcode  = {$strcode}
+   and t.saleday <='{$saleday}'
+   and t.saletype = {$saletype}
+   and t.jcode    = '{$jcode}'
+EOF;
+  
+  //order句セット
+  $order=<<<EOF
+    max(t.saleday) desc
+   ,min(t.saleday) desc
+EOF;
+
+  return dsetGetSaleItemSum($where,$order);
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
 // 該当日付のセールアイテムを返す
 //----------------------------------------------------//
 function viewGetSaleItem($strcode,$saletype=null,$saleday=null){
@@ -43,7 +136,7 @@ EOF;
   //order句セット
   $order=<<<EOF
     t.adnum
-   ,t.saleday
+   ,min(t.saleday)
    ,t.grpnum
    ,t.specialflg
    ,t.clscode
@@ -54,7 +147,7 @@ EOF;
    ,t.price
 EOF;
 
-  return dsetGetSaleItem($where,$order);
+  return dsetGetSaleItemSum($where,$order);
  }
  catch(Exception $e){
   wLog("error:".$mname." ".$e->getMessage());
@@ -257,7 +350,7 @@ function viewGetFlyersItemCls($strcode,$adnum,$saleday=null,$clscode=null){
    throw new exception("clscodeが数字ではありません(".$clscode.")");
   }
 
-  $where="t.adnum={$adnum}";
+  $where="t.adnum={$adnum} and t.strcode={$strcode}";
   if($saleday) $where.=" and t.saleday>='{$saleday}'";
   if($clscode) $where.=" and t.clscode={$clscode}";
 
@@ -315,7 +408,7 @@ function viewGetFlyersItemLin($strcode,$adnum,$saleday=null,$lincode=null){
    throw new exception("lincodeが数字ではありません(".$lincode.")");
   }
 
-  $where="t.adnum={$adnum}";
+  $where="t.adnum={$adnum} and t.strcode={$strcode}";
   if($saleday) $where.=" and t.saleday>='{$saleday}'";
   if($lincode) $where.=" and t1.lincode={$lincode}";
 
@@ -373,7 +466,7 @@ function viewGetFlyersItemDps($strcode,$adnum,$saleday=null,$dpscode=null){
    throw new exception("dpscodeが数字ではありません(".$dpscode.")");
   }
 
-  $where="t.adnum={$adnum}";
+  $where="t.adnum={$adnum} and t.strcode={$strcode}";
   if($saleday) $where.=" and t.saleday>='{$saleday}'";
   if($dpscode) $where.=" and t2.dpscode={$dpscode}";
 
@@ -600,6 +693,52 @@ EOF;
    ,t.tani
    ,t.price
 EOF;
+  return dsetGetSaleItem($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// メールを返す
+//----------------------------------------------------//
+function viewGetMailList($strcode,$saleday){
+ $mname="viewGetMailList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=1;
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  //月末をセット
+  $endday=date("Y-m-t",strtotime($saleday));
+  $where=<<<EOF
+       t.strcode  ={$strcode}
+   and t.saletype ={$saletype}
+EOF;
+  if($saleday==$endday){
+   $where.=" and t.saleday='{$saleday}'";
+  }
+  else{
+   $where.=" and t.saleday between '{$saleday}' and '{$endday}'";
+  }
+
+  $order=<<<EOF
+    t.saleday
+   ,t.clscode
+   ,t.jcode
+EOF;
+
   return dsetGetSaleItem($where,$order);
  }
  catch(Exception $e){

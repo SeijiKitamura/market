@@ -1,109 +1,177 @@
 <?php
+require_once("php/view.function.php");
 require_once("php/html.function.php");
 htmlHeader("ホーム");
+
+//店舗番号確定
+if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
+ $strcode=$_GET["strcode"];
+}
+else{
+ $strcode=1;
+}
+
+//日付確定
+if($_GET["saleday"] &&chkDate($_GET["saleday"])){
+ $saleday=$_GET["saleday"];
+} 
+else{
+ $saleday=date("Y-m-d");
+}
+
 ?>
 
   <div id="wrapper">
+   <!--トップイメージ-->
+   <div class="TopImageZone">
+     <img src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
+   </div><!--div class="TopImageZone"-->
 
-   <a href="tirasilist.php">
-    <div class="col2">
-     <div class="TirasiBox" style="background-image:url('img/koukoku.png');height:120px;background-repeat:no-repeat;">
-     </div><!--div class="TirasiBox"-->
-    </div><!--div class="col2"-->
-   </a>
-   <div class="clr"></div>
-
-   <a href="maillist.php">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/mail2.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <a href="calendar.php">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/calendar.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <a href="gotyumon.php">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/goyoyaku.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <a href="#">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/haitatuhead.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <a href="#">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/osusume.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <a href="#">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/newitem.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <a href="#">
-    <div class="col2"> 
-     <div class="MailBox" style="background-image:url('img/gift.png');height:120px;">
-    <!-- <img src="img/mail.jpg" alt="メール会員募集中"> -->
-     </div><!--div class="MailBox" style="background-image:url('img/mail.jpg');height:120px;"-->
-    </div><!--div class="col2"-->
-   </a>
-
-   <div class="clr"></div>
    <div class="col1">
-    <div class="News">
-     <div class="NewsHeader">
-      <h2>お知らせ</h2>
-     </div><!--div class="NewsHeader"-->
-     <div class="NewsBody">
-      <dl>
-       <a href="#">
-        <dt>2015年10月22日</dt>
-        <dd>創業祭</dd>
-       </a>
-       <a href="#">
-        <dt>2015年10月20日</dt>
-        <dd>11月カレンダー配布開始</dd>
-       </a>
-      </dl>
-     </div><!--div class="NewsBody"-->
-    </div><!--div class="News"-->
+    <h2>チラシ商品<span><a href="tirasilist.php">一覧</a></span></h2>
+    <div id="TirasiZone" class="owl-carousel">
+<?php
+//チラシ番号確定
+$ary=viewGetAdnum($strcode,$saleday);
+$adnum=$ary[0]["adnum"];
+
+
+//チラシアイテム
+$data=viewGetFlyersItemCls($strcode,$adnum,$saleday,null);
+
+if(count($data)){
+ htmlItemList($data);
+}
+?>
+    </div><!--div id="TirasiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
- 
-   <div class="col2">
-<!--
-    <h2>アクセス</h2>
-    <p>当店までのアクセス</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3244.774081547887!2d139.71252230000005!3d35.58396760000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601860228bd60055%3A0xa4faaa4f05d8a7c8!2z44CSMTQzLTAwMjUg5p2x5Lqs6YO95aSn55Sw5Yy65Y2X6aas6L6877yU5LiB55uu77yS77yR4oiS77yR77yQ!5e0!3m2!1sja!2sjp!4v1435217541076" width="100%" height="250" frameborder="0" style="border:0;float:left;" allowfullscreen></iframe>
-    <div class="clr"></div>
--->
-   </div><!--div class="col2"-->
+
+   <div class="col1">
+    <h2>メール商品 <span><a href="maillist.php">一覧</a></span></h2>
+    <div id="MailZone" class="owl-carousel">
+<?php
+$data=array();
+
+//メールアイテム
+$data=viewGetSaleItem($strcode,1,$saleday);
+
+if(count($data)){
+ htmlItemList($data);
+}
+
+?>
+    </div><!--div id="MailZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <h2>おすすめ商品</h2>
+    <div id="OsusumeZone" class="owl-carousel">
+<?php
+$data=array();
+
+//おすすめ
+$data=viewGetSaleItem($strcode,2,$saleday);
+
+if(count($data)){
+ htmlItemList($data);
+}
+?>
+    </div><!--div id="OsusumeZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <h2>ご予約商品</h2>
+    <div id="GoyoyakuZone" class="owl-carousel">
+<?php
+$data=array();
+
+//ご予約
+$data=viewGetSaleItem($strcode,5,$saleday);
+
+if(count($data)){
+ htmlItemList($data);
+}
+?>
+    </div><!--div id="GoyoyakuZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <h2>月間お買得品</h2>
+    <div id="GekkanZone" class="owl-carousel">
+<?php
+$data=array();
+
+//ご予約
+$data=viewGetSaleItem($strcode,6,$saleday);
+
+if(count($data)){
+ htmlItemList($data);
+}
+?>
+    </div><!--div id="GekkanZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+   <div class="col1">
+    <h2>カレンダー</h2>
+    <div id="CalendarZone" class="owl-carousel">
+<?php
+$data=array();
+//終了日をゲット
+$endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
+
+$data=viewGetCalendar($strcode,$saleday,$endday);
+if(count($data)){
+ htmlCalendarList2($data);
+}
+
+?>
+    </div><!--div id="CalendarZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
 
    <div id="footer">
 <?php
-htmlFooter();
+//htmlFooter();
 ?>
    </div><!--div id="footer"-->
   </div><!--div id="wrapper"-->
  </body>
+<script>
+$(function(){
+ $("#TirasiZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#MailZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#OsusumeZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#GoyoyakuZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#CalendarZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#GekkanZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+});
+</script>
 </html>

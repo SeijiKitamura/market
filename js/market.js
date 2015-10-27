@@ -277,6 +277,31 @@ function inpgotyumon(){
  wlog("end:"+fname);
 }
 
+//-----------------------------------------//
+// 月間お買得品Inputボタンセット
+//(これをひな形として他のデータをセットしていく)
+//-----------------------------------------//
+function inpgekkan(){
+ var fname="inpgotyumon";wlog("start:"+fname);
+
+ $("table tr#gekkan").on("click",function(){
+  var e="gekkan click ";wlog("start:"+e);
+  
+  //既存Inputボタン削除
+  $(this).find("input").remove();
+
+  //Inputボタン生成(ここをDBのテーブル名とあわせる)
+  var inp=mkInpTag("jansale");
+
+  //tdにボタン追加
+  $(this).find("td").last().append(inp);
+
+  //イベント開始
+  inp.click();
+ });
+ wlog("end:"+fname);
+}
+
 
 //-----------------------------------------//
 // Inputタグ生成

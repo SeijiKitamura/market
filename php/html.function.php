@@ -332,6 +332,96 @@ function htmlContents($data){
 }
 
 //-------------------------------------------------------//
+// アイテムリスト表示
+//-------------------------------------------------------//
+function htmlItemList($data){
+ try{
+  $mname="htmlItemList(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //リストスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemlist.html");
+  $item=file_get_contents($path);
+  
+  //画像ディレクトリセット
+  $imgdir=realpath(__DIR__."/..".IMG);
+
+  $html="";
+  $grpname="";
+  $startday="";$endday="";
+  foreach($data as $key=>$val){
+   //スケルトン代入
+   $i=$item;
+   
+   //リンク
+   if($val["saletype"]==0){
+    $replace="tirasiitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}&adnum={$val["adnum"]}";
+   }
+
+   if($val["saletype"]==1){
+    $replace="mailitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
+   }
+   $i=preg_replace("/<!--link-->/",$replace,$i);
+    
+   //画像
+   $imgpath=$imgdir."/".$val["jcode"].".jpg";
+   if(file_exists($imgpath)){
+    //$replace ="<a href='{$link}'>";
+    $replace="";
+    $replace.="<img src='.".IMG."/{$val["jcode"]}.jpg' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]}'>";
+    //$replace.="</a>";
+    $i=preg_replace("/<!--imgtag-->/",$replace,$i);
+   }
+
+   //終了日
+   if($val["saletype"]==0){
+    $replace=date("m月d日",strtotime($val["endday"]));
+    if(strtotime($val["startday"])===strtotime($val["endday"])){
+     $replace.="限り";
+    }
+    else{
+     $replace.="まで";
+    }
+   }
+   else{
+    $replace=date("m月d日",strtotime($val["saleday"]));
+    $replace="";
+   }
+
+   $i=preg_replace("/<!--endday-->/",$replace,$i);
+   
+   //メーカー
+   $replace=$val["maker"];
+   $i=preg_replace("/<!--maker-->/",$replace,$i);
+   
+   //商品名
+   $replace=$val["sname"];
+   $i=preg_replace("/<!--sname-->/",$replace,$i);
+   
+   //単位
+   $replace=$val["tani"];
+   $i=preg_replace("/<!--tani-->/",$replace,$i);
+
+   //売価
+   $replace=$val["price"];
+   $i=preg_replace("/<!--price-->/",$replace,$i);
+
+   //通貨単位
+   $replace=$val["yen"];
+   $i=preg_replace("/<!--yen-->/",$replace,$i);
+
+   $html.=$i;
+  }//foreach($data as $key=>$val){
+
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
 // 単品表示
 //-------------------------------------------------------//
 function htmlItem($data){
@@ -385,22 +475,14 @@ function htmlItem($data){
    $i=$item;
    $replace="";
    
-   //画像リスト(大サイズ)
-   //;$imgpath=$imgdir."/".$val["clscode"]."/".$val["jcode"].".jpg";
-   $imgpath=$imgdir."/".$val["jcode"]."*.jpg";
-   foreach(glob($imgpath) as $filename){
-    $f=basename($filename);
-    $replace.="<div class='sp-slide'>";
-    $replace.="<img src='.".IMG."/{$f}' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]} {$filename}' class='sp-image'>";
-    $replace.="</div>";
-   }
-   $i=preg_replace("/<!--bigPhoto-->/",$replace,$i);
-
    //画像リスト(小サイズ)
+   $imgpath=$imgdir."/".$val["jcode"]."*.jpg";
    $replace="";
    foreach(glob($imgpath) as $filename){
     $f=basename($filename);
-    $replace.="<img src='.".IMG."/{$f}' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]} {$filename}' class='sp-thumbnail'>";
+    $replace.="<div class='Tanpin'>";
+    $replace.="<img src='.".IMG."/{$f}' alt='{$val["maker"]} {$val["sname"]} {$val["tani"]} {$val["price"]}{$val["yen"]}'>";
+    $replace.="</div>";
    }
    $i=preg_replace("/<!--imgtag-->/",$replace,$i);
 
@@ -435,6 +517,11 @@ function htmlItem($data){
    $replace=$val["maker"];
    $i=preg_replace("/<!--maker-->/",$replace,$i);
    
+   //メーカー
+   $replace=$val["jcode"];
+   $i=preg_replace("/<!--jcode-->/",$replace,$i);
+   
+   
    //商品名
    $replace=$val["sname"];
    $i=preg_replace("/<!--sname-->/",$replace,$i);
@@ -468,6 +555,124 @@ function htmlItem($data){
    $html.=$i;
 
   }
+
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// 単品履歴(日別)
+//-------------------------------------------------------//
+function htmlItemDayTable($data){
+ try{
+  $mname="htmlItemDayTable(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  //アイテムテーブルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemtable2.html");
+  $item=file_get_contents($path);
+
+  $html="";
+  $i="";
+  foreach($data as $key=>$val){
+   $i.="<tr>";
+   $i.="<td>".date("y年m月d日",strtotime($val["saleday"]))."</td>";
+   $i.="<td>".$val["tani"]."</td>";
+   $i.="<td>".$val["price"].$val["yen"]."</td>";
+   $i.="<td>".$val["comment"]."</td>";
+   $i.="</tr>";
+  }
+  $html=preg_replace("/<!--itemdata-->/",$i,$item);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// 単品履歴(サマリー)
+//-------------------------------------------------------//
+function htmlItemTable($data){
+ try{
+  $mname="htmlItemTable(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  //アイテムテーブルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemtable.html");
+  $item=file_get_contents($path);
+
+  $html="";
+  $i="";
+  foreach($data as $key=>$val){
+   $i.="<tr>";
+   $i.="<td>".date("y年m月d日",strtotime($val["startday"]))."</td>";
+   $i.="<td>".date("y年m月d日",strtotime($val["endday"]))."</td>";
+   $i.="<td>".$val["tani"]."</td>";
+   $i.="<td>".$val["price"].$val["yen"]."</td>";
+   $i.="</tr>";
+  }
+  $html=preg_replace("/<!--itemdata-->/",$i,$item);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// カレンダーリスト表示
+//-------------------------------------------------------//
+function htmlCalendarList2($data){
+ try{
+  $mname="htmlCalendarList2(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //カレンダースケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/calendarlist.html");
+  $item=file_get_contents($path);
+
+  $html="";
+
+  foreach($data as $key=>$val){
+   //スケルトン代入
+   $i=$item;
+
+   //月
+   $replace=date("m",strtotime($val["saleday"]));
+   $i=preg_replace("/<!--month-->/",$replace,$i);
+   
+   //日
+   $replace=date("d",strtotime($val["saleday"]));
+   $i=preg_replace("/<!--day-->/",$replace,$i);
+   
+   //グループ
+   $replace=$val["grpname"];
+   $i=preg_replace("/<!--grpname-->/",$replace,$i);
+   
+   //商品名
+   $replace=$val["sname"];
+   $i=preg_replace("/<!--sname-->/",$replace,$i);
+   
+   //単位
+   $replace=$val["tani"];
+   $i=preg_replace("/<!--tani-->/",$replace,$i);
+
+   //売価
+   $replace=$val["price"];
+   $i=preg_replace("/<!--price-->/",$replace,$i);
+
+   //通貨単位
+   $replace=$val["yen"];
+   $i=preg_replace("/<!--yen-->/",$replace,$i);
+
+   $html.=$i;
+
+  }//foreach($data as $key=>$val){
 
   echo $html;
   $c="end ".$mname;wLog($c);

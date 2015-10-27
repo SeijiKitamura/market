@@ -1,72 +1,112 @@
 <?php
-require_once("php/html.function.php");
 require_once("php/view.function.php");
+require_once("php/html.function.php");
 
-//店舗番号
-if(! $_GET["strcode"]) $strcode=1;
+//引数
+// strcode 店舗番号 [推奨] ない場合は1になる
+// saleday 日付 [推奨] ない場合は当日になる
+// 最小引数 ?strcode=1&saleday=yyyy-mm-dd
 
-//販売日
-if(! $_GET["saleday"]) $saleday=date("Y-m-d");
-else{
- $saleday=$_GET["saleday"];
+//店舗番号確定
+if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
+ $strcode=$_GET["strcode"];
 }
-if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
- wLog("maillist.php 日付無効のため本日日付をセット({$_GET["saleday"]})");
+else{
+ $strcode=1;
+}
+
+//日付確定
+if($_GET["saleday"] &&chkDate($_GET["saleday"])){
+ $saleday=$_GET["saleday"];
+} 
+else{
  $saleday=date("Y-m-d");
 }
 
-//メール商品データゲット
-$mail=viewGetSaleItem($strcode,1,$saleday);
+//メールデータゲット
+$item=viewGetMailList($strcode,$saleday);
 
-//おすすめ商品ゲット
-$osusume=viewGetSaleItem($strcode,2,$saleday);
 
-//タイトル
-if(count($mail)){
- $title=date("Y年m月d日",strtotime($mail[0]["saleday"]))."のメール商品";
-}
-elseif(count($osusume)){
- $title=date("Y年m月d日",strtotime($mail[0]["saleday"]))."のおすすめ商品";
+//タイトル決定
+if(count($item)){
+ $title=date("Y年m月d日",strtotime($saleday))."のメール商品";
 }
 else{
- $title="本日はメール商品、おすすめ商品がございません";
+ $title="申し訳ございません。本日はご案内するメール商品がございません。";
 }
 
 htmlHeader($title);
 ?>
-
   <div id="wrapper">
-   <div class="items">
+   <div class="col1">
 <?php
-//メール商品
-if(count($mail)){
- htmlContents($mail);
-}
-
-//おすすめ商品
-if(count($osusume)){
- htmlContents($osusume);
-}
-
-if(!count($mail) && !count($osusume)){
-?>
-    <h1>申し訳ございません。本日はご案内できる商品がございません。</h1>
-    <p>次回をご期待くださいませ。</p>
-    
-<?php
+if(! $item){
+ echo "<h1>申し訳ございません。本日、ご案内するメール商品がございません。</h1>";
 }
 ?>
-
-
-   </div><!--div class="items"-->
-   <div id="footer">
+    <div class="NaviDiv" style="margin:0 0 0 35%;">
+     <a class="grad" href="#MailHead">メール会員とは?</a>   
+     <a class="grad" href="mailto:0873@14142.com?body=このまま送信してください。このメールを送信すると登録完了のお知らせがメールで届きます。もし届かない場合は、「ドメイン指定」をご確認していただき「14142.com」からのメールを許可するよう設定をお願いいたします。">今すぐ登録！</a>
+     <div class="clr"></div>
+    </div>
+   
+   </div><!--div class="col1"-->
 <?php
-htmlFooter();
+if(count($item)){
+ $d="";
+ foreach($item as $key=>$val){
+  if($d!==$val["saleday"]){
+   echo "<div class='clr'></div>";
+   echo "<h2 style='line-height:1.5em'>".date("Y年m月d日",strtotime($val["saleday"]))."限り</h2>";
+  }
 ?>
-   </div><!--div id="footer"-->
+   <div class="col3">
+<?php 
+  $ary=array();
+  $ary[]=$item[$key];
+  htmlItemList($ary);
+?>
+   </div><!--div class="col3"-->
+<?php
+  $d=$val["saleday"];
+ }
+?>
+   <div class="clr"></div>
+<?php 
+}
+?>
+<!-- ここにSNSを追加-->
+
+   <div class="col1">
+    <div id="MailHead"></div>
+    <div class="MailDetail">
+     <h2>メール会員とは?</h2>
+     <p>
+      当店からのお買い得情報をメールでお知らせします。チラシ商品はもちろん、「カレンダー情報」、「ポイント5倍デー」、「朝市」、「ほぼ全品10%OFF」などスペシャルサービスデーももれなくご案内中！<br>
+      会費はもちろん無料です。
+      登録方法は簡単！「<a href="mailto:0873@14142.com?body=このまま送信してください。このメールを送信すると登録完了のお知らせがメールで届きます。もし届かない場合は、「ドメイン指定」をご確認していただき「14142.com」からのメールを許可するよう設定をお願いいたします。"><span>0873@14142.com</span></a>」にメールするだけです。
+     </p>
+
+     <h2>メール会員特別価格</h2>
+     <p>
+      さらにメール会員様限定「特別価格商品」もご案内中！レジにてメール画面を係員にお見せください。対象商品を値引きさせていただきます。
+     </p>
+     
+     <h2>メールが届かない・・・</h2>
+     <p>
+      登録したにも関わらずメールが届かない場合は、「ドメイン指定」をご確認し「14142.com」からのメールを許可してください。
+     </p>
+
+     <h2>退会方法</h2>
+     <p>
+      退会方法も簡単です。当店から送信されたメールをご返信ください。
+     </p>
+    </div><!--div class="MailDetail"-->
+   </div><!--div class="col1"-->
   </div><!--div id="wrapper"-->
  </body>
 <script>
 </script>
 </html>
+
 

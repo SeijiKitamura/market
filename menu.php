@@ -58,6 +58,11 @@ htmlHeader("メニュー");
        <td>ご注文</td>
        <td>ご注文をインポートします</td>
       </tr>
+      <tr id="gekkan">
+       <td>月間お買得品</td>
+       <td>月間お買得品をインポートします</td>
+      </tr>
+
      </tbody>
     </table>
    </div><!--div class="tablearea"-->
@@ -101,6 +106,7 @@ $(function(){
  inposusume();
  inpcalendar();
  inpgotyumon();
+ inpgekkan();
  getlist();
 });
 
