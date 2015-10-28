@@ -367,7 +367,7 @@ function htmlItemList($data){
    }
 
    if($val["saletype"]==6){
-    $replace="test2.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
+    $replace="monthitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
    }
 
    $i=preg_replace("/<!--link-->/",$replace,$i);
@@ -479,6 +479,12 @@ function htmlItem($data){
      $title=preg_replace("/<!--grpname-->/",$replace,$grp);
      $html.=$title;
     }
+   }
+
+   if($val["saletype"]==6){
+    $replace =date("n月j日",strtotime($val["saleday"]))."の月間お買得品";
+    $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+    $html.=$title;
    }
    
    $i=$item;
