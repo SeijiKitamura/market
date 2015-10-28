@@ -482,7 +482,7 @@ function htmlItem($data){
    }
 
    if($val["saletype"]==6){
-    $replace =date("n月j日",strtotime($val["saleday"]))."の月間お買得品";
+    $replace =date("Y年n月",strtotime($val["saleday"]))."の月間お買得品";
     $title=preg_replace("/<!--grpname-->/",$replace,$grp);
     $html.=$title;
    }

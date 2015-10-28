@@ -19,6 +19,23 @@ else{
  $saleday=date("Y-m-d");
 }
 
+//チラシ
+$ary=viewGetAdnum($strcode,$saleday);
+$adnum=$ary[0]["adnum"];
+$tirasilist=viewGetFlyersItemCls($strcode,$adnum,$saleday,null);
+
+//メールアイテム
+$maillist=viewGetSaleItem($strcode,1,$saleday);
+
+//ご予約
+$goyoyakulist=viewGetSaleItem($strcode,5,$saleday);
+
+//月間お買得品
+$gekkanlist=viewGetSaleItem($strcode,6,$saleday);
+
+//カレンダー
+$endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
+$calendarlist=viewGetCalendar($strcode,$saleday,$endday);
 ?>
 
   <div id="wrapper">
@@ -28,35 +45,30 @@ else{
    </div><!--div class="TopImageZone"-->
 
    <div class="col1">
-    <h2>チラシ商品<span><a href="tirasilist.php">一覧</a></span></h2>
+<?php
+if(count($tirasilist)){
+ echo "<h2>チラシ商品<span><a href='tirasilist.php'>一覧</a></span></h2>";
+}
+?>
     <div id="TirasiZone" class="owl-carousel">
 <?php
-//チラシ番号確定
-$ary=viewGetAdnum($strcode,$saleday);
-$adnum=$ary[0]["adnum"];
-
-
-//チラシアイテム
-$data=viewGetFlyersItemCls($strcode,$adnum,$saleday,null);
-
-if(count($data)){
- htmlItemList($data);
+if(count($tirasilist)){
+ htmlItemList($tirasilist);
 }
 ?>
     </div><!--div id="TirasiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>メール商品 <span><a href="maillist.php">一覧</a></span></h2>
+<?php
+if(count($maillist)){
+ echo "<h2>メール商品 <span><a href='maillist.php'>一覧</a></span></h2>";
+}
+?>
     <div id="MailZone" class="owl-carousel">
 <?php
-$data=array();
-
-//メールアイテム
-$data=viewGetSaleItem($strcode,1,$saleday);
-
-if(count($data)){
- htmlItemList($data);
+if(count($maillist)){
+ htmlItemList($maillist);
 }
 
 ?>
@@ -64,65 +76,45 @@ if(count($data)){
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>おすすめ商品</h2>
-    <div id="OsusumeZone" class="owl-carousel">
 <?php
-$data=array();
-
-//おすすめ
-$data=viewGetSaleItem($strcode,2,$saleday);
-
-if(count($data)){
- htmlItemList($data);
+if(count($goyoyakulist)){
+ echo "<h2>ご予約商品<span><a href=''>一覧</a></span></h2>";
 }
 ?>
-    </div><!--div id="OsusumeZone" class="owl-carousel"-->
-   </div><!--div class="col1"-->
-
-   <div class="col1">
-    <h2>ご予約商品</h2>
     <div id="GoyoyakuZone" class="owl-carousel">
 <?php
-$data=array();
-
-//ご予約
-$data=viewGetSaleItem($strcode,5,$saleday);
-
-if(count($data)){
- htmlItemList($data);
+if(count($goyoyakulist)){
+ htmlItemList($goyoyakulist);
 }
 ?>
     </div><!--div id="GoyoyakuZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>月間お買得品 <span><a href="monthlist.php">一覧</a></span></h2>
+<?php
+if($gekkanlist){
+ echo "<h2>月間お買得品 <span><a href='monthlist.php'>一覧</a></span></h2>";
+}
+?>
     <div id="GekkanZone" class="owl-carousel">
 <?php
-$data=array();
-
-//ご予約
-$data=viewGetSaleItem($strcode,6,$saleday);
-
-if(count($data)){
- htmlItemList($data);
+if(count($gekkanlist)){
+ htmlItemList($gekkanlist);
 }
 ?>
     </div><!--div id="GekkanZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
    <div class="col1">
-    <h2>カレンダー</h2>
+<?php
+if(count($calendarlist)){
+ echo "<h2>カレンダー</h2>";
+}
+?>
     <div id="CalendarZone" class="owl-carousel">
 <?php
-$data=array();
-//終了日をゲット
-$endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
-
-$data=viewGetCalendar($strcode,$saleday,$endday);
-if(count($data)){
- htmlCalendarList2($data);
+if(count($calendarlist)){
+ htmlCalendarList2($calendarlist);
 }
-
 ?>
     </div><!--div id="CalendarZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
