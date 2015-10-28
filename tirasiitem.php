@@ -1,7 +1,5 @@
 <?php
-require_once("php/view.function.php");
-require_once("php/html.function.php");
-
+//チラシ単品ページ
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // adnum 広告番号　[推奨]  なくても日付から判定する
@@ -9,8 +7,16 @@ require_once("php/html.function.php");
 // saleday 日付 [オプション] ない場合は当日になる
 // 最小引数 ?strcode=1&adnum=xxx&jcode=0123456789012
 
+//配列
+//$item     単品データ
+//$itemlist 同日、同部門の単品リスト
+//$itemary  単品販売履歴
+
+require_once("php/view.function.php");
+require_once("php/html.function.php");
+
 //ファイル名
-$me="test2.php";
+$me="tirasiitem.php";
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
@@ -25,11 +31,6 @@ if($_GET["saleday"] &&chkDate($_GET["saleday"])){
  $saleday=$_GET["saleday"];
 } 
 else{
- $saleday=date("Y-m-d");
-}
-
-if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
- wLog($me." 日付無効のため本日日付をセット({$_GET["saleday"]})");
  $saleday=date("Y-m-d");
 }
 

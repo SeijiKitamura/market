@@ -1,13 +1,21 @@
 <?php
-//月間お買得品リスト
-require_once("php/view.function.php");
-require_once("php/html.function.php");
-
+//月間お買得品単品
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // saleday 日付     [推奨] ない場合は当日になる
 // jcode JANコード  [必須]
 // 最小引数 ?strcode=1&jcode=0123456789012
+
+//配列
+//$item     単品データ
+//$itemlist 月間お買得品全リスト
+//$itemary  単品販売履歴
+//$linitem  単品と同じ部門の商品リスト
+//$clsitem  単品と同じクラスの商品リスト
+//$calendarlist カレンダーリスト(saleday+7日)
+
+require_once("php/view.function.php");
+require_once("php/html.function.php");
 
 //ファイル名
 $me="monthitem.php";
@@ -89,6 +97,11 @@ if($itemlist){
  }
 }
 
+//カレンダー情報
+$calendarlist=array();
+$endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
+$calendarlist=viewGetCalendar($strcode,$saleday,$endday);
+
 //タイトル決定
 if(! $itemary ||! $itemlist){
  $title="申し訳ございません。ご案内できる商品が見当たりません";
@@ -142,16 +155,15 @@ if($clsitem){
 
 <!--カレンダー表示-->
    <div class="col1">
-    <h2>カレンダー情報</h2>
+<?php
+if(count($calendarlist)){
+ echo "<h2>カレンダー情報</h2>";
+}
+?>
     <div id="CalendarZone" class="owl-carousel">
 <?php
-$data=array();
-//終了日をゲット
-$endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
-
-$data=viewGetCalendar($strcode,$saleday,$endday);
-if(count($data)){
- htmlCalendarList2($data);
+if(count($calendarlist)){
+ htmlCalendarList2($calendarlist);
 }
 
 ?>
