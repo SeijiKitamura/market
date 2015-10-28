@@ -96,7 +96,7 @@ if(count($data)){
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>月間お買得品</h2>
+    <h2>月間お買得品 <span><a href="monthlist.php">一覧</a></span></h2>
     <div id="GekkanZone" class="owl-carousel">
 <?php
 $data=array();
