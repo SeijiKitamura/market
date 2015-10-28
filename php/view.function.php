@@ -136,7 +136,7 @@ EOF;
   //order句セット
   $order=<<<EOF
     t.adnum
-   ,min(t.saleday)
+   ,t.saleday
    ,t.grpnum
    ,t.specialflg
    ,t.clscode
@@ -147,7 +147,7 @@ EOF;
    ,t.price
 EOF;
 
-  return dsetGetSaleItemSum($where,$order);
+  return dsetGetSaleItem($where,$order);
  }
  catch(Exception $e){
   wLog("error:".$mname." ".$e->getMessage());

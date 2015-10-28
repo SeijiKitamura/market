@@ -361,6 +361,15 @@ function htmlItemList($data){
    if($val["saletype"]==1){
     $replace="mailitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
    }
+
+   if($val["saletype"]==2){
+    $replace="test2.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
+   }
+
+   if($val["saletype"]==6){
+    $replace="test2.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
+   }
+
    $i=preg_replace("/<!--link-->/",$replace,$i);
     
    //画像
@@ -556,6 +565,40 @@ function htmlItem($data){
 
   }
 
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// 単品履歴(月別)
+//-------------------------------------------------------//
+function htmlItemMonthTable($data){
+ try{
+  $mname="htmlItemMonthTable(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  //アイテムテーブルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemtable2.html");
+  $item=file_get_contents($path);
+
+  $html="";
+  $i="";
+  $m="";
+  foreach($data as $key=>$val){
+   if(date("Y-m",strtotime($val["saleday"]))!==$m){
+    $i.="<tr>";
+    $i.="<td>".date("y年m月",strtotime($val["saleday"]))."</td>";
+    $i.="<td>".$val["tani"]."</td>";
+    $i.="<td>".$val["price"].$val["yen"]."</td>";
+    $i.="<td>".$val["comment"]."</td>";
+    $i.="</tr>";
+    $m=date("Y-m",strtotime($val["saleday"]));
+   }
+  }
+  $html=preg_replace("/<!--itemdata-->/",$i,$item);
   echo $html;
   $c="end ".$mname;wLog($c);
  }
