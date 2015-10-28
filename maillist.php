@@ -1,4 +1,6 @@
 <?php
+//メール商品リスト
+
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
@@ -24,11 +26,11 @@ else{
 }
 
 //メールデータゲット
-$item=viewGetMailList($strcode,$saleday);
+$itemlist=viewGetMailList($strcode,$saleday);
 
 
 //タイトル決定
-if(count($item)){
+if(count($itemlist)){
  $title=date("Y年m月d日",strtotime($saleday))."のメール商品";
 }
 else{
@@ -40,7 +42,7 @@ htmlHeader($title);
   <div id="wrapper">
    <div class="col1">
 <?php
-if(! $item){
+if(! $itemlist){
  echo "<h1>申し訳ございません。本日、ご案内するメール商品がございません。</h1>";
 }
 ?>
@@ -52,9 +54,9 @@ if(! $item){
    
    </div><!--div class="col1"-->
 <?php
-if(count($item)){
+if(count($itemlist)){
  $d="";
- foreach($item as $key=>$val){
+ foreach($itemlist as $key=>$val){
   if($d!==$val["saleday"]){
    echo "<div class='clr'></div>";
    echo "<h2 style='line-height:1.5em'>".date("Y年m月d日",strtotime($val["saleday"]))."限り</h2>";
@@ -63,7 +65,7 @@ if(count($item)){
    <div class="col3">
 <?php 
   $ary=array();
-  $ary[]=$item[$key];
+  $ary[]=$itemlist[$key];
   htmlItemList($ary);
 ?>
    </div><!--div class="col3"-->
