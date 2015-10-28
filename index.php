@@ -78,7 +78,7 @@ if(count($maillist)){
    <div class="col1">
 <?php
 if(count($goyoyakulist)){
- echo "<h2>ご予約商品<span><a href=''>一覧</a></span></h2>";
+ echo "<h2>ご予約商品<span><a href='goyoyakulist.php'>一覧</a></span></h2>";
 }
 ?>
     <div id="GoyoyakuZone" class="owl-carousel">

@@ -366,6 +366,10 @@ function htmlItemList($data){
     $replace="test2.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
    }
 
+   if($val["saletype"]==5){
+    $replace="goyoyakuitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
+   }
+
    if($val["saletype"]==6){
     $replace="monthitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
    }
@@ -479,6 +483,12 @@ function htmlItem($data){
      $title=preg_replace("/<!--grpname-->/",$replace,$grp);
      $html.=$title;
     }
+   }
+
+   if($val["saletype"]==5){
+    $replace =date("Y年n月",strtotime($val["saleday"]))."のご予約商品";
+    $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+    $html.=$title;
    }
 
    if($val["saletype"]==6){
