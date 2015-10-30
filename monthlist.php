@@ -41,6 +41,12 @@ htmlHeader($title);
   <div id="wrapper">
    <div class="col1">
 <?php
+echo htmlNaviBar();
+?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
 if(! $itemlist){
  echo "<h1>{$title}</h1>";
 }

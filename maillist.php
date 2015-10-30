@@ -42,6 +42,12 @@ htmlHeader($title);
   <div id="wrapper">
    <div class="col1">
 <?php
+echo htmlNaviBar();
+?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
 if(! $itemlist){
  echo "<h1>申し訳ございません。本日、ご案内するメール商品がございません。</h1>";
 }

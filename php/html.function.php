@@ -1110,6 +1110,24 @@ function htmlGotyumonList($data){
  }
 }
 
+//-------------------------------------------------------//
+// Navi
+//-------------------------------------------------------//
+function htmlNaviBar($data){
+ try{
+  $mname="htmlNaviBar(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  //スケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/navi.html");
+
+  $html=file_get_contents($path);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
 
 //-------------------------------------------------------//
 // SNSボタン

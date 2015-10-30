@@ -51,6 +51,11 @@ htmlHeader($title);
   <div id="wrapper">
    <div class="col1">
 <?php
+echo htmlNaviBar();
+?>
+   </div><!--div class="col1"-->
+   <div class="col1">
+<?php
 //日付リスト表示
 if($daylist){
  echo "<ul class='daylist'>";

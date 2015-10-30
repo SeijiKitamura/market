@@ -81,6 +81,41 @@ div.header{
 /*ヘッダー*/
 
 /*ナビゲーション系*/
+div.NaviZone{
+ background-color:#000000;
+ background: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #666), color-stop(1.00, #111));
+ background: -webkit-linear-gradient(#666, #111);
+ background: -moz-linear-gradient(#666, #111);
+ background: -o-linear-gradient(#666, #111);
+ background: -ms-linear-gradient(#666, #111);
+ background: linear-gradient(#666, #111);
+}
+
+div.NaviZone img{
+ width:13%;
+ float:left;
+ margin:2px;
+}
+
+ul.naviul{
+ list-style:none;
+}
+
+ul.naviul li{
+ float:left;
+ width:18%;
+ margin:10px 3px 0 3px;
+}
+
+ul.naviul li a{
+ display:block;
+ border:1px solid #DCDCDC;
+ text-align:center;
+ padding:0.8em 0;
+ color:#FFFFFF;
+ font-size:0.7em;
+}
+
 nav#slide_menu ul{
  margin:0;
  padding:0;
