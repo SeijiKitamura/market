@@ -82,6 +82,10 @@ if(count($itemlist)){
 }
 ?>
 
+<?php
+htmlSNSButton();
+?>
+
   </div><!--div id="wrapper"-->
 
 

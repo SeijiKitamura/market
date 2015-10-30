@@ -122,8 +122,12 @@ if($item){
 }
 ?>
 
-<!--あとでここにSNSを追加-->
    </div><!--div class="col1"-->
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
+
 
    <div class="col1">
 <?php

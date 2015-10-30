@@ -72,7 +72,11 @@ if(count($itemlist)){
 <?php 
 }
 ?>
-<!-- ここにSNSを追加-->
+
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
 
    <div class="col1">
     <div class="MailDetail">

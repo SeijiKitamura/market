@@ -119,6 +119,11 @@ if(count($calendarlist)){
     </div><!--div id="CalendarZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
+
    <div id="footer">
 <?php
 //htmlFooter();
