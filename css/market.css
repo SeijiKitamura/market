@@ -62,10 +62,18 @@ div.col4{
 }
 
 
-h1,h2,h3,h4{
+h1,h2{
  background-color:#2e8b57;
  color:#FFFFFF;
  margin:1em 0 0 0;
+ line-height:2.5em;
+}
+
+h2 span a{
+ margin:0 0 0 10px;
+ color:#FFFFFF;
+ border:1px solid #DCDCDC;
+ padding:0 10px;
 }
 
 p{
@@ -73,6 +81,15 @@ p{
  font-size:0.9em;
 }
 
+img.backimage{
+ position:relative;
+}
+img.logoimg{
+ width:15%;
+ position:absolute;
+ top:150px;
+ left:5px;
+}
 /*ヘッダー*/
 div.header{
  width:100%;
@@ -304,12 +321,17 @@ ul.daylist li a{
  padding:5px 0 0 0;
 }
 
-div.grptitle h2,
-div.grptitle p
+div.grptitle h2
 {
  background-color:#2e8b57;
  color:#FFFFFF;
  text-align:center;
+ line-height:1.5em;
+}
+
+div.grptitle p{
+ background-color:#2e8b57;
+ color:#FFFFFF;
 }
 
 div.titemdetail span{
@@ -333,7 +355,6 @@ span.tsname{
 
 span.ttani{
  width:40%;
- float:left;
  height:1em;
  text-align:right;
  overflow:hidden;
@@ -346,6 +367,7 @@ span.tprice{
  font-size:3em;
  color:#dc143c;
  font-weight:bold;
+ margin:0 0 0 45%;
 }
 
 span.tyen{

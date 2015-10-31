@@ -41,7 +41,8 @@ $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
   <div id="wrapper">
    <!--トップイメージ-->
    <div class="TopImageZone">
-     <img src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
+     <img class="backimage" src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
+     <img class="logoimg"   src="img/kita5.jpg" alt="スーパーキタムラ ロゴ">
    </div><!--div class="TopImageZone"-->
 
    <div class="col1">
