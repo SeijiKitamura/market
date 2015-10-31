@@ -66,6 +66,7 @@ h1,h2{
  background-color:#2e8b57;
  color:#FFFFFF;
  margin:1em 0 0 0;
+ padding:0 0 0 0.5em;
  line-height:2.5em;
 }
 
@@ -411,6 +412,38 @@ div.MailDetail p a span{
  color:#8B0000;
  text-decoration:underline;
 }
+
+/*フッター*/
+div#footer{
+ width:100%;
+}
+
+div.footerBox h3{
+ background-color:#8FBC9F;
+ font-size:1em;
+ line-height:1.8em;
+ padding:0 0 0 0.5em;
+ color:#FFFFFF;
+}
+
+div.footerBox ul{
+ list-style:none;
+}
+
+div.footerBox ul li {
+ display:block;
+ width:100%;
+ margin:0.5em 0;
+ padding:0.5em 0 0.5em 0.5em;
+ border-bottom:1px solid #DCDCDC;
+ font-size:0.8em;
+}
+
+div.footerBox ul li a{
+ display:block;
+ width:100%;
+}
+/*フッター*/
 
 /*スマホ用*/
 @media screen and (max-width:380px){

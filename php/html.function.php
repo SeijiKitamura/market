@@ -48,49 +48,42 @@ function htmlHeader($title,$description=null){
   $description.=$PAGEARY[$nowpage]["description"];
   $html=preg_replace("/<!--description-->/",$description,$html);
   
-  //キャッチワード
-  $html=preg_replace("/<!--catchword-->/",CATCHWORD,$html);
-
-  //ロゴ
-  $logo=htmlLogo();
-  $html=preg_replace("/<!--logo-->/",$logo,$html);
+//  //キャッチワード
+//  $html=preg_replace("/<!--catchword-->/",CATCHWORD,$html);
+//
+//  //ロゴ
+//  $logo=htmlLogo();
+//  $html=preg_replace("/<!--logo-->/",$logo,$html);
+//  
+//  //イベント（未対応）
+//  
+//  //会社名
+//  $html=preg_replace("/<!--corpname-->/",CORPNAME,$html);
+//
+//  //会社住所
+//  $html=preg_replace("/<!--corpaddress-->/",CORPADDRESS,$html);
+//  
+//  //電話
+//  $html=preg_replace("/<!--corptel-->/",CORPTEL,$html);
+//  
+//  //FAX
+//  $html=preg_replace("/<!--corpfax-->/",CORPFAX,$html);
+//  
+//  //メールリンク
+//  $html=preg_replace("/<!--mailto-->/",MAILADDRESS,$html);
+//
+//  //ソーシャル
+//  $html=preg_replace("/<!--TWITTER-->/",TWITTER,$html);
+//  $html=preg_replace("/<!--LINE-->/",LINE,$html);
+//  
+//  //イベントバー
+//  $eventbar="";
+//  foreach($MININAVI as $key=>$val){
+//   $eventbar.="<li><a href='".$key."'";
+//   $eventbar.=">".$val."</a></li>";
+//  }
+//  $html=preg_replace("/<!--eventBar-->/",$eventbar,$html);
   
-  //イベント（未対応）
-  
-  //会社名
-  $html=preg_replace("/<!--corpname-->/",CORPNAME,$html);
-
-  //会社住所
-  $html=preg_replace("/<!--corpaddress-->/",CORPADDRESS,$html);
-  
-  //電話
-  $html=preg_replace("/<!--corptel-->/",CORPTEL,$html);
-  
-  //FAX
-  $html=preg_replace("/<!--corpfax-->/",CORPFAX,$html);
-  
-  //メールリンク
-  $html=preg_replace("/<!--mailto-->/",MAILADDRESS,$html);
-
-  //ソーシャル
-  $html=preg_replace("/<!--TWITTER-->/",TWITTER,$html);
-  $html=preg_replace("/<!--LINE-->/",LINE,$html);
-  
-  //イベントバー
-  $eventbar="";
-  foreach($MININAVI as $key=>$val){
-   $eventbar.="<li><a href='".$key."'";
-   $eventbar.=">".$val."</a></li>";
-  }
-  $html=preg_replace("/<!--eventBar-->/",$eventbar,$html);
-  
-  //ナビゲーション
-  $navibar="";
-  foreach($NAVI as $key=>$val){
-   $navibar.="<li><a href='{$key}'>{$val}</a></li>";
-  }
-  $html=preg_replace("/<!--navibar-->/",$navibar,$html);
-
   echo $html;
   $c="end ".$mname;wLog($c);
  }
@@ -147,6 +140,7 @@ function htmlTopImage(){
 //-------------------------------------------------------//
 function htmlFooter(){
  global $NAVI;
+ global $INFO;
  global $SITECONTENTS;
  try{
   $mname="htmlFooter(html.function.php) ";
@@ -159,41 +153,27 @@ function htmlFooter(){
   $path=realpath("./").SKELETON."/footer.html";
   $html=file_get_contents($path);
 
-  //メールアドレス
-  $html=preg_replace("/<!--mailto-->/",MAILADDRESS,$html);
-  
-  //ページ説明
-  $sitehelp="このページは".CORPNAME."の";
-  if($nowpage=="index.php"){
-   $sitehelp.="トップページです。";
+  //CorpInfo
+  $replace="";
+  $replace.="<li>".CORPNAME."</li>";
+  $replace.="<li>".CORPADDRESS."</li>";
+  $replace.="<li>".CORPTEL." ".CORPFAX."</li>";
+  $replace.="<li>".EIGYOJIKAN."</li>";
+  $html=preg_replace("/<!--CorpInfo-->/",$replace,$html);
+
+  //Gaiyo
+  $replace="";
+  foreach($INFO as $key=>$val){
+   $replace.="<li><a href='{$val}'>{$key}</a></li>";
   }
-  $sitehelp.=SITEHELP;
-  $html=preg_replace("/<!--sitehelp-->/",$sitehelp,$html);
-
-  //サイト説明
-  $siteabout=SITEABOUT;
-  $html=preg_replace("/<!--siteabout-->/",$siteabout,$html);
-
-  //サイトコンテンツ($SITECONTENTS)
-  $navibar="";
+  $html=preg_replace("/<!--Gaiyo-->/",$replace,$html);
+  
+  //Contents
+  $replace="";
   foreach($SITECONTENTS as $key=>$val){
-   $navibar.="<li><a href='".$key."'";
-   $navibar.=">".$val."</a></li>";
+   $replace.="<li><a href='{$val}'>{$key}</a></li>";
   }
-  $html=preg_replace("/<!--link01-->/",$navibar,$html);
-  
-  //コピーライト
-  $replace="COPYRIGHT ".CORPNAME." ALL RIGHTS RESERVED";
-  $html=preg_replace("/<!--copyright-->/",$replace,$html);
-
-  $navibar="";
-  $navibar.="<li><a href='index.php'><img src='".LOGO."'></a></li>";
-  foreach($NAVI as $key=>$val){
-   $navibar.="<li><a href='".$key."'";
-   $navibar.=">".$val."</a></li>";
-  }
-  $html=preg_replace("/<!--shortnavi-->/",$navibar,$html);
-
+  $html=preg_replace("/<!--Contents-->/",$replace,$html);
   echo $html;
 
   $c="end ".$mname;wLog($c);

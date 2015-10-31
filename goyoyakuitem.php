@@ -148,6 +148,12 @@ if($clsitem){
 
 <!--ここに注釈を入れる（写真はイメージ、商品は豊富に、予告なく変更、店頭とページ上の価格に差異が、etc-->
 
+   <div id="footer">
+<?php
+htmlFooter();
+?>
+   </div><!--div id="footer"-->
+
   </div><!--div id="wrapper"-->
  </body>
 <script>

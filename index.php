@@ -127,7 +127,7 @@ htmlSNSButton();
 
    <div id="footer">
 <?php
-//htmlFooter();
+htmlFooter();
 ?>
    </div><!--div id="footer"-->
   </div><!--div id="wrapper"-->

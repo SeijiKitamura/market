@@ -91,6 +91,12 @@ if(count($itemlist)){
 htmlSNSButton();
 ?>
 
+   <div id="footer">
+<?php
+htmlFooter();
+?>
+   </div><!--div id="footer"-->
+
   </div><!--div id="wrapper"-->
 
 

@@ -95,6 +95,13 @@ htmlSNSButton();
     
    </div><!--div class="col1"-->
 
+   <div id="footer">
+<?php
+htmlFooter();
+?>
+   </div><!--div id="footer"-->
+
+
   </div><!--div id="wrapper"-->
  </body>
 <script>

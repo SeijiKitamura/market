@@ -72,26 +72,33 @@ $PAGEARY=array(
               );
 
 $NAVI  =array(
-                "index.php" =>"ホーム"
-               ,"tirasilist.php"=>"チラシ"
-               ,"maillist.php"=>"メール"
-               ,"calendar.php"=>"カレンダー"
-               ,"gotyumon.php"=>"ご注文"
+                     "チラシ"=>"tirasilist.php"
+                    ,"メール"=>"maillist.php"
+                    ,"ご予約"=>"goyoyakulist.php"
+                    ,"月間"  =>"monthlist.php"
               );
 
 $MININAVI=array(
                );
 
-//未使用
 $INFO=array    (
+                 "アクセス"=>"map.php"
+                ,"会社概要"=>"gaiyou.php"
+                ,"募集事項"=>"bosyu.php"
+                ,"新卒採用"=>"sinsotu.php"
+                ,"このサイトについて"=>"privacy.php"
                );
 
 $SITECONTENTS=array(
-                "index.php" =>"ホーム"
-               ,"tirasilist.php"=>"チラシ"
-               ,"maillist.php"=>"メール"
-               ,"calendar.php"=>"カレンダー"
-               ,"gotyumon.php"=>"ご注文"
+                     "チラシ"=>"tirasilist.php"
+                    ,"メール会員"=>"maillist.php"
+                    ,"ご予約商品"=>"goyoyakulist.php"
+                    ,"月間お買得品"  =>"monthlist.php"
+                    ,"取扱商品"  =>"itemlist.php"
+                    ,"最新ニュース"=>"news.php"
+                    ,"ギフト商品"  =>"giftlist.php"
+                    ,"早期ご予約商品"=>"soukilist.php"
+                    ,"商品について"=>"aboutitem.php"
                    );
 //未使用
 $BIGNAVI=array(
