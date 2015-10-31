@@ -1094,13 +1094,20 @@ function htmlGotyumonList($data){
 // Navi
 //-------------------------------------------------------//
 function htmlNaviBar($data){
+ global $NAVI;
  try{
   $mname="htmlNaviBar(html.function.php) ";
   $c="start ".$mname;wLog($c);
   //スケルトン読み込み
   $path=realpath(__DIR__."/..".SKELETON."/navi.html");
-
   $html=file_get_contents($path);
+
+  $replace="";
+  foreach($NAVI as $key=>$val){
+   $replace.="<li><a href='{$val}'>{$key}</a></li>";
+  }
+
+  $html=preg_replace("/<!--Navi-->/",$replace,$html);
   echo $html;
   $c="end ".$mname;wLog($c);
  }
