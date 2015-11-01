@@ -351,6 +351,25 @@ function dsetGetMonthList($where=null,$order=null,$having=null){
 }
 
 //----------------------------------------------------//
+// JANSALEのデータを返す(ニュース用）
+//----------------------------------------------------//
+function dsetGetNews($where=null,$order=null){
+ $mname="dsetGetNews(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select="t.*";
+  $db->from=TABLE_PREFIX.JANSALE." as t";
+  if ($where)  $db->where=$where;
+  if ($order)  $db->order=$order;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
 // JANMASのDPSグループを返す
 //----------------------------------------------------//
 function dsetGetDpsList($where=null,$order=null,$having=null){

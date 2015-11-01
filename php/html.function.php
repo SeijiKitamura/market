@@ -664,6 +664,96 @@ function htmlItemTable($data){
 }
 
 //-------------------------------------------------------//
+// ニュースリスト表示
+//-------------------------------------------------------//
+function htmlNewsList($data){
+ try{
+  $mname="htmlNewsList(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //イベントスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/newstable.html");
+  $html=file_get_contents($path);
+
+  $replace="";
+  foreach($data as $key=>$val){
+   $replace.="<tr>";
+   $replace.="<td>".date("Y.m.d",strtotime($val["saleday"]))."</td>";
+   $replace.="<td><a href='newsitem.php?newsid={$val["id"]}'>".$val["sname"]."</a></td>";
+   $replace.="</tr>";
+
+   if($key>MAXNEWS) break;
+   
+  }
+
+  $html=preg_replace("/<!--event-->/",$replace,$html);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// ニュース単体表示
+//-------------------------------------------------------//
+function htmlNewsItem($data){
+ try{
+  $mname="htmlNewsItem(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  
+  //タイトルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
+  $grp=file_get_contents($path);
+  
+  //ニューススケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/newsitem.html");
+  $i=file_get_contents($path);
+  
+  //画像ディレクトリセット
+  $imgdir=realpath(__DIR__."/..".IMG);
+
+  $html="";
+  foreach($data as $key=>$val){
+   //日付セット
+   $replace="";
+   $replace=date("Y年m月d日",strtotime($val["saleday"]));
+   $replace.="配信";
+   $html.=preg_replace("/<!--grpname-->/",$replace,$grp);
+   
+   //画像リスト(小サイズ)
+   $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
+   $replace="";
+   foreach(glob($imgpath) as $filename){
+    $f=basename($filename);
+    $replace.="<div class='Tanpin'>";
+    $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
+    $replace.="</div>";
+   }
+   $item=preg_replace("/<!--imgtag-->/",$replace,$i);
+
+   //タイトルセット
+   $replace =$val["sname"];
+   $item=preg_replace("/<!--sname-->/",$replace,$item);
+
+   //内容をセット
+   $replace =$val["comment"];
+   $item=preg_replace("/<!--comment-->/",$replace,$item);
+
+   $html.=$item;
+  }
+
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
 // カレンダーリスト表示
 //-------------------------------------------------------//
 function htmlCalendarList2($data){

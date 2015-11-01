@@ -957,6 +957,45 @@ EOF;
   return false;
  }
 }
+
+//----------------------------------------------------//
+// 最新ニュースを返す
+//----------------------------------------------------//
+function viewGetNews($strcode,$saleday){
+ $mname="viewGetNews(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=7;
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if($saleday && ! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saleday <='{$saleday}'
+   and t.saletype={$saletype}
+EOF;
+
+  $order=<<<EOF
+    t.saleday desc
+   ,t.idate desc
+EOF;
+
+  return dsetGetNews($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
 //----------------------------------------------------//
 // 新商品を返す
 //----------------------------------------------------//
