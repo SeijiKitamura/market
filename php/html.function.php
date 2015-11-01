@@ -680,27 +680,34 @@ function htmlNewsListAll($data){
 
   $html="";$replace="";
   foreach($data as $key=>$val){
+   $item="";
    //画像リスト(小サイズ)
-   $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
-   $replace="";
-   foreach(glob($imgpath) as $filename){
-    $f=basename($filename);
-    $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
+   if($val["grpname"]){
+    $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
+    $replace="";
+    foreach(glob($imgpath) as $filename){
+     $f=basename($filename);
+     $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
+    }
+    $item=preg_replace("/<!--imgtag-->/",$replace,$i);
    }
-   $item=preg_replace("/<!--imgtag-->/",$replace,$i);
 
    //日付
+   $replace="";
    $replace=date("Y年m月d日",strtotime($val["saleday"]));
    $item=preg_replace("/<!--saleday-->/",$replace,$item);
 
    //タイトル
+   $replace="";
    $replace=$val["sname"];
    $item=preg_replace("/<!--sname-->/",$replace,$item);
    
    //リンク
-   $replace="<a href='newsitem.php?newsid={$val["id"]}'>";
+   $replace="";
+   $replace="<a href='newsitem.php?newsid={$val["id"]}&saleday={$val["saleday"]}'>";
    $item=preg_replace("/<!--linkstart-->/",$replace,$item);
 
+   $replace="";
    $replace="</a>";
    $item=preg_replace("/<!--linkend-->/",$replace,$item);
    $html.=$item;
