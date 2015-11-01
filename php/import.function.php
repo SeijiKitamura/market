@@ -104,6 +104,14 @@ function impFile2DB($tablename,$filename){
        $db->delete();
        echo "既存データ削除完了<br>";
       }
+      
+      //店舗イベントは一括削除
+      if($sql[0]["col"]["saletype"]==7){
+       $db->from=TABLE_PREFIX.JANSALE;
+       $db->where.=" saletype=7";
+       $db->delete();
+       echo "既存データ削除完了<br>";
+      }
      }
      
      //単品マスタは何もしない

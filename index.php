@@ -36,6 +36,9 @@ $gekkanlist=viewGetSaleItem($strcode,6,$saleday);
 //カレンダー
 $endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
 $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
+
+//店舗イベント
+$newslist=viewGetNews($strcode,$saleday);
 ?>
 
   <div id="wrapper">
@@ -118,6 +121,22 @@ if(count($calendarlist)){
 }
 ?>
     </div><!--div id="CalendarZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($newslist){
+ echo "<h2>最新ニュース <span><a href='newslist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="NewsZone">
+<?php
+if($newslist){
+ htmlNewsList($newslist);
+}
+?>
+    </div><!--div id="NewsZone"-->
+
    </div><!--div class="col1"-->
 
 <?php
