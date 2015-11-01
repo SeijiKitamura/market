@@ -413,6 +413,34 @@ div.MailDetail p a span{
  text-decoration:underline;
 }
 
+div.NewsZone{
+ width:90%;
+ margin:0 auto;
+ border-bottom:1px solid #DCDCDC;
+ padding:5%;
+ height:5em;
+}
+
+div.NewsImage{
+ float:left;
+ width:30%;
+ height:5em;
+ overflow:hidden;
+ margin:0 1em 0 0;
+}
+
+div.NewsImage img{
+ max-width:100%;
+}
+
+div.NewsDetail dt{
+ margin:0 0 0.5em 0;
+}
+
+div.NewsDetail dd{
+ height:2em;
+ overflow:hidden;
+}
 /*フッター*/
 div#footer{
  width:100%;

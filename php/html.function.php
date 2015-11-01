@@ -664,7 +664,58 @@ function htmlItemTable($data){
 }
 
 //-------------------------------------------------------//
-// ニュースリスト表示
+// ニュースリスト一覧表示
+//-------------------------------------------------------//
+function htmlNewsListAll($data){
+ try{
+  $mname="htmlNewsListAll(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //ニューススケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/newslist.html");
+  $i=file_get_contents($path);
+  
+  //画像ディレクトリセット
+  $imgdir=realpath(__DIR__."/..".IMG);
+
+  $html="";$replace="";
+  foreach($data as $key=>$val){
+   //画像リスト(小サイズ)
+   $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
+   $replace="";
+   foreach(glob($imgpath) as $filename){
+    $f=basename($filename);
+    $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
+   }
+   $item=preg_replace("/<!--imgtag-->/",$replace,$i);
+
+   //日付
+   $replace=date("Y年m月d日",strtotime($val["saleday"]));
+   $item=preg_replace("/<!--saleday-->/",$replace,$item);
+
+   //タイトル
+   $replace=$val["sname"];
+   $item=preg_replace("/<!--sname-->/",$replace,$item);
+   
+   //リンク
+   $replace="<a href='newsitem.php?newsid={$val["id"]}'>";
+   $item=preg_replace("/<!--linkstart-->/",$replace,$item);
+
+   $replace="</a>";
+   $item=preg_replace("/<!--linkend-->/",$replace,$item);
+   $html.=$item;
+  }
+
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// ニュースリスト表示(index.php用)
 //-------------------------------------------------------//
 function htmlNewsList($data){
  try{
