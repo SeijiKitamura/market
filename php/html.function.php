@@ -334,7 +334,7 @@ function htmlItemList($data){
    $i=$item;
    
    //リンク
-   if($val["saletype"]==0){
+   if($val["saletype"]===0){
     $replace="tirasiitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}&adnum={$val["adnum"]}";
    }
 
@@ -354,6 +354,10 @@ function htmlItemList($data){
     $replace="monthitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
    }
 
+   if($val["saletype"]===null){
+    $replace="item.php?strcode={$val["strcode"]}&jcode={$val["jcode"]}";
+   }
+
    $i=preg_replace("/<!--link-->/",$replace,$i);
     
    //画像
@@ -365,9 +369,13 @@ function htmlItemList($data){
     //$replace.="</a>";
     $i=preg_replace("/<!--imgtag-->/",$replace,$i);
    }
+   elseif($val["saletype"]===null){
+    //商品マスタ画像なしは処理を飛ばす
+    continue;
+   }
 
    //終了日
-   if($val["saletype"]==0){
+   if($val["saletype"]===0){
     $replace=date("m月d日",strtotime($val["endday"]));
     if(strtotime($val["startday"])===strtotime($val["endday"])){
      $replace.="限り";
@@ -401,6 +409,9 @@ function htmlItemList($data){
 
    //通貨単位
    $replace=$val["yen"];
+   if($val["saletype"]===null){
+    $replace="円";
+   }
    $i=preg_replace("/<!--yen-->/",$replace,$i);
 
    $html.=$i;
@@ -435,7 +446,7 @@ function htmlItem($data){
 
   $html="";
   foreach($data as $key=>$val){
-   if($val["saletype"]==0){
+   if($val["saletype"]===0){
     if($startday!==$val["startday"] || $endday!==$val["endday"] ||$grpname!==$val["grpname"]){
      $replace ="広告の品 ";
      if(strtotime($val["startday"])==strtotime($val["endday"])){
@@ -476,13 +487,19 @@ function htmlItem($data){
     $title=preg_replace("/<!--grpname-->/",$replace,$grp);
     $html.=$title;
    }
+
+   if($val["saletype"]===null){
+    $replace ="取扱商品のご案内";
+    $title=preg_replace("/<!--grpname-->/",$replace,$grp);
+    $html.=$title;
+   }
    
    $i=$item;
    $replace="";
    
    //画像リスト(小サイズ)
    $imgpath=$imgdir."/".$val["jcode"]."*.jpg";
-   $replace="";
+   $replace="";$filename="";
    foreach(glob($imgpath) as $filename){
     $f=basename($filename);
     $replace.="<div class='Tanpin'>";
@@ -492,7 +509,7 @@ function htmlItem($data){
    $i=preg_replace("/<!--imgtag-->/",$replace,$i);
 
    
-   if($val["saletype"]==0){
+   if($val["saletype"]===0){
     //開始日
     $replace=date("Y年n月j日",strtotime($val["startday"]));
     $i=preg_replace("/<!--startday-->/",$replace,$i);
@@ -517,12 +534,31 @@ function htmlItem($data){
     $i=preg_replace("/<!--endday-->/",$replace,$i);
    }
 
+   if($val["saletype"]===null){
+    //開始日
+    //$replace="登録日:".date("Y年n月j日",strtotime($val["firstsale"]));
+    //$i=preg_replace("/<!--startday-->/",$replace,$i);
+
+    //終了日
+    if(strtotime($val["lastsale"])==strtotime("1970/1/1")){
+     if(! $filename){
+      $replace="取り扱いしていない場合もございます。詳しくは係員までお尋ねください";
+     }
+     else{
+      $replace="登録日:".date("Y年n月j日",strtotime($val["firstsale"]));
+     }
+    }
+    else{
+     $replace="最終販売日:".date("Y年n月j日",strtotime($val["lastsale"]));
+    }
+    $i=preg_replace("/<!--endday-->/",$replace,$i);
+   }
 
    //メーカー
    $replace=$val["maker"];
    $i=preg_replace("/<!--maker-->/",$replace,$i);
    
-   //メーカー
+   //JANコード
    $replace=$val["jcode"];
    $i=preg_replace("/<!--jcode-->/",$replace,$i);
    
@@ -541,10 +577,13 @@ function htmlItem($data){
 
    //通過単位
    $replace=$val["yen"];
+   if($val["saletype"]===null){
+    $replace="円";
+   }
    $i=preg_replace("/<!--yen-->/",$replace,$i);
 
    //通常売価
-   if($val["stdprice"]){
+   if($val["stdprice"] && $val["saletype"]){
     $replace=$val["stdprice"]."円のところ";
     $i=preg_replace("/<!--stdprice-->/",$replace,$i);
    }

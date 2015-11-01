@@ -999,12 +999,14 @@ EOF;
 //----------------------------------------------------//
 // 新商品を返す
 //----------------------------------------------------//
-function viewGetNewItem(){
+function viewGetNewItem($strcode,$saleday){
  $mname="viewGetNewItem(view.function.php) ";
  try{
   wLog("start:".$mname);
-  $where ="t.firstsale>='".date("Y-m-d",strtotime("-14days"))."'";
-  $where.=" and t.lastsale>'1970/1/1'";
+  $firstsale=date("Y-m-d",strtotime("-14days",strtotime($saleday)));
+  $where =" t.strcode={$strcode}";
+  $where.=" and t.firstsale>='{$firstsale}'";
+  //$where.=" and t.lastsale>'1970/1/1'";
   return dsetGetJanMas($where);
  }
  catch(Exception $e){
@@ -1012,4 +1014,42 @@ function viewGetNewItem(){
   return false;
  }
 }
+
+//----------------------------------------------------//
+// 商品マスタを返す
+//----------------------------------------------------//
+function viewGetItem($strcode,$jcode){
+ $mname="viewGetItem(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where =" t.strcode={$strcode}";
+  $where.=" and t.jcode='{$jcode}'";
+
+  return dsetGetJanMas($where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 指定されたクラスの商品マスタを返す
+//----------------------------------------------------//
+function viewGetItemCls($strcode,$clscode){
+ $mname="viewGetItemCls(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $lastsale=date("Y-m-d",strtotime("-30days"));
+  $where =" t.strcode={$strcode}";
+  $where.=" and t.clscode='{$clscode}'";
+  $where.=" and t.lastsale>'{$lastsale}'";
+  return dsetGetJanMas($where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
 ?>
