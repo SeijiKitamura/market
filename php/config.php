@@ -94,6 +94,7 @@ $SITECONTENTS=array(
                     ,"メール会員"=>"maillist.php"
                     ,"ご予約商品"=>"goyoyakulist.php"
                     ,"月間お買得品"  =>"monthlist.php"
+                    ,"新商品"  =>"newitemlist.php"
                     ,"取扱商品"  =>"itemlist.php"
                     ,"最新ニュース"=>"newslist.php"
                     ,"ギフト商品"  =>"giftlist.php"

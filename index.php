@@ -33,6 +33,9 @@ $goyoyakulist=viewGetSaleItem($strcode,5,$saleday);
 //月間お買得品
 $gekkanlist=viewGetSaleItem($strcode,6,$saleday);
 
+//新商品
+$newitemlist=viewGetNewItem($strcode,$saleday);
+
 //カレンダー
 $endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
 $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
@@ -108,6 +111,22 @@ if(count($gekkanlist)){
 ?>
     </div><!--div id="GekkanZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($newitemlist){
+ echo "<h2>新商品のご案内 <span><a href='newitemlist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="NewItemZone" class="owl-carousel">
+<?php
+if(count($newitemlist)){
+ htmlItemList($newitemlist);
+}
+?>
+    </div><!--div id="NewItemZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
    <div class="col1">
 <?php
 if(count($calendarlist)){
@@ -178,6 +197,12 @@ $(function(){
  });
 
  $("#CalendarZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#NewItemZone").owlCarousel({
   items:5,
   itemsMobile:[400,3],
   pagination:false
