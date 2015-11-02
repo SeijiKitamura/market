@@ -97,6 +97,7 @@ $SITECONTENTS=array(
                     ,"新商品"  =>"newitemlist.php"
                     ,"取扱商品"  =>"itemlist.php"
                     ,"最新ニュース"=>"newslist.php"
+                    ,"商品検索"=>"searchlist.php"
                     ,"ギフト商品"  =>"giftlist.php"
                     ,"早期ご予約商品"=>"soukilist.php"
                     ,"商品について"=>"aboutitem.php"

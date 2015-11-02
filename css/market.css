@@ -473,6 +473,14 @@ div.footerBox ul li a{
 }
 /*フッター*/
 
+div.PC{
+  display:block;
+ }
+
+div.SP{
+ display:none;
+}
+
 /*スマホ用*/
 @media screen and (max-width:380px){
  div#wrapper{
@@ -516,6 +524,13 @@ div.footerBox ul li a{
   display:block;
  }
 
+ div.PC{
+  display:none;
+ }
+
+ div.SP{
+  display:block;
+ }
 }
 /*スマホ用*/
 

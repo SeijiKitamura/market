@@ -158,7 +158,9 @@ function htmlFooter(){
   $replace.="<li>".CORPNAME."</li>";
   $replace.="<li>".CORPADDRESS."</li>";
   $replace.="<li>".CORPTEL." ".CORPFAX."</li>";
-  $replace.="<li>".EIGYOJIKAN."</li>";
+  $replace.="<li>".TEIKYUBI." ".EIGYOJIKAN."</li>";
+  $replace.="<li>最寄駅:".STATION."</li>";
+
   $html=preg_replace("/<!--CorpInfo-->/",$replace,$html);
 
   //Gaiyo
