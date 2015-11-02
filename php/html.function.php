@@ -404,15 +404,17 @@ function htmlItemList($data){
    $i=preg_replace("/<!--tani-->/",$replace,$i);
 
    //売価
-   $replace=$val["price"];
-   $i=preg_replace("/<!--price-->/",$replace,$i);
+   if($val["price"]){
+    $replace=$val["price"];
+    $i=preg_replace("/<!--price-->/",$replace,$i);
 
-   //通貨単位
-   $replace=$val["yen"];
-   if($val["saletype"]===null){
-    $replace="円";
+    //通貨単位
+    $replace=$val["yen"];
+    if($val["saletype"]===null){
+     $replace="円";
+    }
+    $i=preg_replace("/<!--yen-->/",$replace,$i);
    }
-   $i=preg_replace("/<!--yen-->/",$replace,$i);
 
    $html.=$i;
   }//foreach($data as $key=>$val){
@@ -572,13 +574,15 @@ function htmlItem($data){
    $i=preg_replace("/<!--tani-->/",$replace,$i);
 
    //売価
-   $replace=$val["price"];
-   $i=preg_replace("/<!--price-->/",$replace,$i);
+   if($val["price"]){
+    $replace=$val["price"];
+    $i=preg_replace("/<!--price-->/",$replace,$i);
 
-   //通過単位
-   $replace=$val["yen"];
-   if($val["saletype"]===null){
-    $replace="円";
+    //通過単位
+    $replace=$val["yen"];
+    if($val["saletype"]===null){
+     $replace="円";
+    }
    }
    $i=preg_replace("/<!--yen-->/",$replace,$i);
 

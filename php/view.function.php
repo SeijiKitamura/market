@@ -1034,6 +1034,33 @@ function viewGetItem($strcode,$jcode){
 }
 
 //----------------------------------------------------//
+// 検索結果を返す
+//----------------------------------------------------//
+function viewGetSearchItem($strcode,$jcode=null,$keyword=null){
+ $mname="viewGetSearchItem(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where =" t.strcode={$strcode}";
+
+  if($jcode){
+   $where.=" and t.jcode like '{$jcode}%'";
+  }
+
+  if($keyword){
+   $where.=" and t.sname like '%{$keyword}%'";
+  }
+
+  //$order="t.sname";
+
+  return dsetGetJanMas($where,null,$order,null);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
 // 指定されたクラスの商品マスタを返す
 //----------------------------------------------------//
 function viewGetItemCls($strcode,$clscode){
