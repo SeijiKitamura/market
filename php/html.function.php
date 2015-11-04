@@ -160,6 +160,7 @@ function htmlFooter(){
   $replace.="<li>".CORPTEL." ".CORPFAX."</li>";
   $replace.="<li>".TEIKYUBI." ".EIGYOJIKAN."</li>";
   $replace.="<li>最寄駅:".STATION."</li>";
+  $replace.="<li><a href='map.php'>アクセス</a></li>";
 
   $html=preg_replace("/<!--CorpInfo-->/",$replace,$html);
 
