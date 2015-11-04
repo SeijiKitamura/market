@@ -82,8 +82,8 @@ $MININAVI=array(
                );
 
 $INFO=array    (
-                 "アクセス"=>"map.php"
-                ,"会社概要"=>"gaiyou.php"
+                 "会社概要"=>"gaiyou.php"
+                ,"キタムラのこだわり"=>"kodawari.php"
                 ,"募集事項"=>"bosyu.php"
                 ,"新卒採用"=>"sinsotu.php"
                 ,"このサイトについて"=>"privacy.php"

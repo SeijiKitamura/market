@@ -91,6 +91,11 @@ img.logoimg{
  top:150px;
  left:5px;
 }
+
+blockquote{
+ font-size:0.8em;
+ margin:1.2em;
+}
 /*ヘッダー*/
 div.header{
  width:100%;
@@ -441,6 +446,11 @@ div.NewsDetail dd{
  height:2em;
  overflow:hidden;
 }
+
+col.nen{
+ width:6em;
+}
+
 /*フッター*/
 div#footer{
  width:100%;
