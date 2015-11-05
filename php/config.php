@@ -86,7 +86,8 @@ $INFO=array    (
                 ,"キタムラのこだわり"=>"kodawari.php"
                 ,"募集事項"=>"bosyu.php"
                 ,"新卒採用"=>"sinsotu.php"
-                ,"このサイトについて"=>"privacy.php"
+                ,"このサイトについて"=>"siteabout.php"
+                ,"プライバシーポリシー"=>"privacy.php"
                );
 
 $SITECONTENTS=array(
