@@ -1311,6 +1311,34 @@ function htmlNaviBar($data){
 }
 
 //-------------------------------------------------------//
+// Navi2
+//-------------------------------------------------------//
+function htmlNaviBar2($data,$home){
+ try{
+  $mname="htmlNaviBar2(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  $prev="";
+  $next="";
+  $html="<ul>";
+  foreach($data as $key=>$val){
+   if($prev){
+    $html.="<li><a href='{$val}'>{$key}</a></li>";
+   }
+   else{
+    $html.="<li></li>";
+   }
+   $prev=$data[$key];
+  }
+  $html.="</ul>";
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
 // SNSボタン
 //-------------------------------------------------------//
 function htmlSNSButton($data){

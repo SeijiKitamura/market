@@ -81,7 +81,13 @@ echo htmlNaviBar();
       </tr>
      </tbody>
     </table>
-<a href="interview.php">次ページ　インタビュー</a>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul class="SinsotuNavi">
+     <li><a href="saiyojisseki.php">戻る</a></li>
+     <li><a href="sinsotu.php">目次</a></li>
+    </ul>
    </div><!--div class="col1"-->
 <?php
 htmlSNSButton();

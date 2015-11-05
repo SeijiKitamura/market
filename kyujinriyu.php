@@ -38,6 +38,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h1>求人理由</h1>
+    <img class="backimage" src="img/kyujin_1.jpg" alt="求人理由|スーパーキタムラ">
     <p>
      スーパーキタムラがなぜ新入社員を募集しているか、そしてこれから実現したいことをご説明します。
     </p>
@@ -46,6 +47,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>創業からの考え方</h2>
+    <img class="backimage" src="img/kyujin_2.jpg" alt="創業からの考え方|スーパーキタムラ">
     <p>
      1958年（昭和33年)に八百屋さんとしてこの場所で開業しました。
      当時の売場面積はおよそ30平方メートル。<br />
@@ -55,6 +57,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>今、挑戦していること</h2>
+    <img class="backimage" src="img/kyujin_3.jpg" alt="挑戦していること|スーパーキタムラ">
     <p>
      大手スーパーマーケットのように何十店舗も展開しているスーパーマーケットと違い、 ここに1店舗しかない我々にとっては、自分で仕入、自分で販売することが当たり前となっています。<br />
      ご来店されるお客様のもっとも近くで仕事しているからこそ、お客様のご要望に素早く応えられるメリットがあります。
@@ -79,6 +82,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>実現したいこと</h2>
+    <img class="backimage" src="img/kyujin_4.jpg" alt="実現したいこと|スーパーキタムラ">
     <p>
      「より地域の皆様に貢献したい」<br />
      「もっと多くのお客様のお役に立ちたい」<br />
@@ -90,7 +94,13 @@ echo htmlNaviBar();
      我々の思いに共感してもらえる新しい仲間を1人ずつでも着実に増やしていきたいと思っています。
      これがキタムラが新入社員を求人している理由です。
     </p>
-    <a href="saiyohousin.php">次ページ 採用方針</a>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul class="SinsotuNavi">
+     <li><a href="sinsotu.php">目次</a></li>
+     <li><a href="saiyohousin.php">次へ</a></li>
+    </ul>
    </div><!--div class="col1"-->
 
 <?php

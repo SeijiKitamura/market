@@ -106,6 +106,14 @@ echo htmlNaviBar();
     </table>
    </div><!--div class="col1"-->
 
+   <div class="col1">
+    <ul class="SinsotuNavi">
+     <li><a href="interview.php">戻る</a></li>
+     <li><a href="sinsotu.php">目次</a></li>
+     <li><a href="schedule.php">次へ</a></li>
+    </ul>
+   </div><!--div class="col1"-->
+
    <div class="clr"></div>
 
 <?php

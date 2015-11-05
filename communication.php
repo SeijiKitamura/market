@@ -40,6 +40,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h1>コミュニケーション</h1>
+    <img class="backimage" src="img/comm_1.jpg" alt="コミュニケーション|スーパーキタムラ">
     <p>
 1人でやる仕事はどんなに頑張っても1人分です。ですがそれを仲間同士協力し合えると、ものすごい効果を発揮します。
 ここでは、スーパーキタムラが実際に行っているコニュニケーション強化方法をご案内します。
@@ -48,6 +49,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>新入社員歓迎会</h2>
+    <img class="backimage" src="img/comm_2.jpg" alt="新入社員歓迎会|スーパーキタムラ">
     <p>
 もうスーパーキタムラの恒例行事と言っても過言ではありません。
 入ってくる新入社員よりも緊張している先輩社員が見れます。(残念ながらほとんどの新入社員の方は他の方を
@@ -59,6 +61,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>山中湖保養所</h2>
+    <img class="backimage" src="img/comm_3.jpg" alt="山中湖保養所|スーパーキタムラ">
     <p>
 25歳以下の社員限定で、山中湖保養所に1泊2日にて実施します。
 ただ、山中湖に行くだけではなくそのための準備としてさまざまなことをしていただきます。
@@ -66,9 +69,15 @@ echo htmlNaviBar();
 チームで仕事をする難しさを学びます。学校で行く「修学旅行」や友達といく「旅行」とは違う
 「難しさ」と「楽しさ」が待っています。
     </p>
-<a href="schedule.php">次ページ 採用スケジュール</a>
    </div><!--div class="col1"-->
 
+   <div class="col1">
+    <ul class="SinsotuNavi">
+     <li><a href="stepup.php">戻る</a></li>
+     <li><a href="sinsotu.php">目次</a></li>
+     <li><a href="interview.php">次へ</a></li>
+    </ul>
+   </div><!--div class="col1"-->
 
    <div id="footer">
 <?php

@@ -43,10 +43,16 @@ echo htmlNaviBar();
    <div class="col1">
     <h2>2016年募集要項</h2>
     <table id="ItemData">
+     <colgroup>
+      <col class="nen">
+     </colgroup>
+     <colgroup>
+      <col class="naiyo">
+     </colgroup>
      <tbody>
       <tr>
        <td>募集職種</td>
-       <td>部門担当として商品化及び商品管理業務。またはPOSレジのオペレーション及び接客のレジ業務からスタート</td>
+       <td>部門担当として商品化及び商品管理業務。<br>または<br>POSレジのオペレーション及び接客のレジ業務</td>
       </tr>
 
       <tr>
@@ -61,7 +67,7 @@ echo htmlNaviBar();
 
       <tr>
        <td>初任給与</td>
-       <td>???,???円</td>
+       <td>185,000円</td>
       </tr>
 
       <tr>
@@ -81,7 +87,7 @@ echo htmlNaviBar();
 
       <tr>
        <td>休日/(休暇)</td>
-       <td>年間???日(年次有給休暇　初年度10日・出産育児休暇制度）</td>
+       <td>年間105日(年次有給休暇　初年度10日）</td>
       </tr>
 
       <tr>
@@ -106,7 +112,7 @@ echo htmlNaviBar();
 
       <tr>
        <td>連絡先</td>
-       <td>株式会社スーパーキタムラ　採用担当　電話番号:03-3778-1271 住所：東京都大田区南馬込4-21-10</td>
+       <td>株式会社スーパーキタムラ　採用担当<br>電話番号:03-3778-1271<br>住所：東京都大田区南馬込4-21-10</td>
       </tr>
      </tbody>
     </table>

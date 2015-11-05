@@ -38,6 +38,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h1>採用方針</h1>
+    <img class="backimage" src="img/saiyo_1.jpg" alt="採用方針|スーパーキタムラ">
     <p>
      スーパーキタムラが採用する際に、基準としている考え方、方針をご説明します。
     </p>
@@ -67,6 +68,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>仕事は楽しく</h2>
+    <img class="backimage" src="img/saiyo_2.jpg" alt="仕事は楽しく|スーパーキタムラ">
     <p>
      「仕事は楽しくやろう」というのが当社の合言葉です。<br />
      これが簡単なようで実はすごく難しいんです。<br />
@@ -77,7 +79,14 @@ echo htmlNaviBar();
     <p>
      採用はこの2点の考え方に協調できるかに重点をおいています。設定した目標にむかって努力し、達成できたときの喜びに共感できる方を当社は求めています。
     </p>
-    <a href="sagyonaiyo.php">次ページ 作業内容</a>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul class="SinsotuNavi">
+     <li><a href="kyujinriyu.php">戻る</a></li>
+     <li><a href="sinsotu.php">目次</a></li>
+     <li><a href="sagyonaiyo.php">次へ</a></li>
+    </ul>
    </div><!--div class="col1"-->
 
 <?php

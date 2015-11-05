@@ -82,7 +82,7 @@ $MININAVI=array(
                );
 
 $INFO=array    (
-                 "会社概要"=>"gaiyou.php"
+                 "会社概要"=>"gaiyo.php"
                 ,"キタムラのこだわり"=>"kodawari.php"
                 ,"募集事項"=>"bosyu.php"
                 ,"新卒採用"=>"sinsotu.php"

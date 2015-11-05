@@ -38,6 +38,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h1>求人募集</h1>
+    <img class="backimage" src="img/bosyu_1.jpg" alt="アルバイト募集|スーパーキタムラ">
     <p>
      現在、以下の求人募集を行っております。キタムラで一緒にお仕事できる方、ぜひご連絡ください。
     </p>
@@ -77,8 +78,6 @@ echo htmlNaviBar();
 htmlSNSButton();
 ?>
    <div class="clr"></div>
-
-
 
    <div id="footer">
 <?php

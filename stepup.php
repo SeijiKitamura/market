@@ -40,6 +40,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h1>ステップアップ</h1>
+    <img class="backimage" src="img/stepup_1.jpg" alt="ステップアップ|スーパーキタムラ">
     <p>
 入社後のキャリアアップについて説明します。スーパーキタムラは1店舗しかないため、他のスーパーに比べると
 キャリアアップ期間が長めですが、その分より専門的な知識を得ることができます。
@@ -47,7 +48,7 @@ echo htmlNaviBar();
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>1〜3年目</h1>
+    <h2>1〜3年目</h2>
     <p>
 担当<br>
 その部門の基礎的な内容をすべて把握する期間となります。さらに狭い範囲で任されるようになり、
@@ -58,7 +59,7 @@ echo htmlNaviBar();
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>4〜5年目</h1>
+    <h2>4〜5年目</h2>
     <p>
 サブチーフ<br>
 チーフがお休みの時などに代理として部門を運営していきます。技術的な作業はほぼできる方が１つの目安となります。
@@ -72,7 +73,7 @@ echo htmlNaviBar();
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>6年目〜</h1>
+    <h2>6年目〜</h2>
     <p>
 チーフ<br>
 部門全体のマネジメントを行います。売上や売場、商品の管理が主な仕事となってきます。部下の休日をコントロールするのも
@@ -84,9 +85,15 @@ echo htmlNaviBar();
 ありますが、たまに成功すると「やめられない快感」を感じることができます。
     </p>
 
-    <a href="communication.php">次ページ　コミュニケーション</a>
    </div><!--div class="col1"-->
 
+   <div class="col1">
+    <ul class="SinsotuNavi">
+     <li><a href="sagyonaiyo.php">戻る</a></li>
+     <li><a href="sinsotu.php">目次</a></li>
+     <li><a href="communication.php">次へ</a></li>
+    </ul>
+   </div><!--div class="col1"-->
 
    <div id="footer">
 <?php
