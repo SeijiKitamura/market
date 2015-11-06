@@ -1359,8 +1359,7 @@ function htmlSNSButton($data){
   //スケルトン読み込み
   $path=realpath(__DIR__."/..".SKELETON."/sns.html");
   $html=file_get_contents($path);
-  $url=empty($_SERVER["HTTPS"] ? "http://" : "https://").$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-  
+  $url=$_SERVER["HTTPS"] ? "https://" : "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 
   $html=preg_replace("/<!--pageurl-->/",$url,$html);
 
