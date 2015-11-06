@@ -73,7 +73,7 @@ if($item){
   $title.="JANコード:".$val["jcode"];
   $title.=" ".$val["dpsname"]." ".$val["clsname"];
 
-  $description =" ギフト商品".$title."のご案内。";
+  $description =$title."のご案内。";
   $description.="当店は東京都大田区の食品スーパーマーケット、スーパーキタムラ";
   $description.="のメール商品ご案内ページです。年中無休、朝9:30から";
   $description.="夜10:00まで営業。";
@@ -104,9 +104,13 @@ echo htmlNaviBar();
    </div><!--div class="col1"-->
 
    <div class="col1">
+    <h1>ギフト商品</h1>
 <?php
 if($item){
  htmlItem($item);
+}
+else{
+ echo $title;
 }
 ?>
 

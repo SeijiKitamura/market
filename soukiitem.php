@@ -74,9 +74,7 @@ if($item){
   $title.=" ".$val["dpsname"]." ".$val["clsname"];
 
   $description =" 早期ご予約".$title."のご案内。";
-  $description.="当店は東京都大田区の食品スーパーマーケット、スーパーキタムラ";
-  $description.="のメール商品ご案内ページです。年中無休、朝9:30から";
-  $description.="夜10:00まで営業。";
+  $description.="数量限定、期間限定商品ばかりを取り揃えました。この機会をお見逃しなく〜！";
   break;
  }
 }

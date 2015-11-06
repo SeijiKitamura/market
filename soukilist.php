@@ -31,12 +31,15 @@ $itemlist=viewGetSaleItem($strcode,9,$saleday);
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."の早期ご予約商品";
+ $discription =$title." 特典満載の当店の早期ご予約商品。限定品やご予約することで";
+ $discription.="価格が安くなる商品など多数ご用意しました。ぜひこの機会をお見逃しなく!";
 }
 else{
  $title="申し訳ございません。現在早期ご予約商品は取り扱っておりません。";
+ $discpription=$title;
 }
 
-htmlHeader($title);
+htmlHeader($title,$discription);
 ?>
   <div id="wrapper">
    <div class="col1">
@@ -49,6 +52,7 @@ echo htmlNaviBar();
 <?php
 if($itemlist){
  echo "<h1>早期ご予約商品一覧 (".date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."現在)</h1>";
+ echo "<p>年末に「あったらうれしい」商品を取り揃えました。数量に限りがある商品もございます。ご予約はサービスカウンターにて承り中です。</p>";
 }
 else{
  echo $title;

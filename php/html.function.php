@@ -599,8 +599,10 @@ function htmlItem($data){
 
    //通常売価
    if($val["stdprice"] && $val["saletype"]){
-    $replace=$val["stdprice"]."円のところ";
-    $i=preg_replace("/<!--stdprice-->/",$replace,$i);
+    if($val["stdprice"] !== $val["price"]){
+     $replace=$val["stdprice"]."円のところ";
+     $i=preg_replace("/<!--stdprice-->/",$replace,$i);
+    }
    }
    
    //コメント
