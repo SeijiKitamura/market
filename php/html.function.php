@@ -357,6 +357,11 @@ function htmlItemList($data){
     $replace="monthitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
    }
 
+   if($val["saletype"]==8){
+    $replace="giftitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}";
+   }
+
+
    if($val["saletype"]===null){
     $replace="item.php?strcode={$val["strcode"]}&jcode={$val["jcode"]}";
    }
