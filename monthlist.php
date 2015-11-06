@@ -46,6 +46,17 @@ echo htmlNaviBar();
    </div><!--div class="col1"-->
 
    <div class="col1">
+    <div class="MailDetail">
+     <h2>月間お買得品とは?</h2>
+     <p>
+      毎月1日から月末までの1ヶ月間、通常価格よりも割引された価格で販売される商品です。
+      これから「必要になる」、「あったらいいな」という商品を中心にセレクトしました。
+      今月はいつ来てもこのお値段にて販売しております。ぜひ、お買い求めくださいませ。
+     </p>
+    
+   </div><!--div class="col1"-->
+
+   <div class="col1">
 <?php
 if(! $itemlist){
  echo "<h1>{$title}</h1>";
@@ -84,16 +95,6 @@ htmlSNSButton();
 ?>
    <div class="clr"></div>
 
-   <div class="col1">
-    <div class="MailDetail">
-     <h2>月間お買得品とは?</h2>
-     <p>
-      毎月1日から月末までの1ヶ月間、通常価格よりも割引された価格で販売される商品です。
-      これから「必要になる」、「あったらいいな」という商品を中心にセレクトしました。
-      今月はいつ来てもこのお値段にて販売しております。ぜひ、お買い求めくださいませ。
-     </p>
-    
-   </div><!--div class="col1"-->
 
    <div id="footer">
 <?php

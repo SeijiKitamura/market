@@ -96,7 +96,6 @@ $SITECONTENTS=array(
                     ,"ご予約商品"=>"goyoyakulist.php"
                     ,"月間お買得品"  =>"monthlist.php"
                     ,"新商品"  =>"newitemlist.php"
-                    ,"取扱商品"  =>"itemlist.php"
                     ,"最新ニュース"=>"newslist.php"
                     ,"商品検索"=>"searchlist.php"
                     ,"ギフト商品"  =>"giftlist.php"
