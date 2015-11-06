@@ -47,31 +47,42 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>新商品のご案内</h2>
-    <p>当店で新しく取り扱いを始めた商品のご案内です。</p>
+    <p>
+<?php
+if(count($itemlist)){
+ echo "当店で新しく取り扱いを始めた商品のご案内です。";
+}
+else{
+ echo $title;
+}
+?>
+    </p>
    </div><!--div class="col1"-->
 <?php
 if(count($itemlist)){
  $linname="";
+ $imgdir=realpath(__DIR__."/".IMG);
+
  foreach($itemlist as $key=>$val){
-  if($linname!=$val["linname"]){
-   echo "<div class='clr'></div>";
-   echo "<h2>{$val["linname"]}</h2>";
+  $imgpath=$imgdir."/".$val["jcode"].".jpg";
+  //画像判定
+  if(file_exists($imgpath)){
+   //部門判定
+   if($linname!=$val["linname"]){
+    echo "<div class='clr'></div>";
+    echo "<h2>{$val["linname"]}</h2>";
+    $linname=$val["linname"];
+   }
+   //商品表示
+   echo "<div class='col3'>";
+   $ary=array();
+   $ary[]=$itemlist[$key];
+   htmlItemList($ary);
+   echo "</div>";
   }
-?>
-   <div class="col3">
-<?php 
-  $ary=array();
-  $ary[]=$itemlist[$key];
-  htmlItemList($ary);
-?>
-   </div><!--div class="col3"-->
-<?php
-  $linname=$val["linname"];
  }
 }
-?>
 
-<?php
 htmlSNSButton();
 ?>
 
