@@ -51,37 +51,38 @@ echo htmlNaviBar();
 
    <div class="col1">
 <?php
+echo "<h1>{$title}</h1>";
+
 if(! count($itemlist)){
- echo "<h1>{$title}</h1>";
+ echo "<p>".$title."</p>";
+}
+else{
+ $comment=<<<EOF
+<p>
+ご家族が揃った時やホームパーティ、法事などにぜひご利用くださいませ。
+</p>
+EOF;
+ echo $comment;
 }
 ?>
    </div><!--div class="col1"-->
 <?php
 if(count($itemlist)){
- $d="";
+ $grpname="";
  foreach($itemlist as $key=>$val){
-  if($d!==$val["saleday"]){
+  if($grpname!==$val["grpname"]){
    echo "<div class='clr'></div>";
-   echo "<h2 style='line-height:1.5em'>".date("Y年m月",strtotime($val["saleday"]))."ご予約商品一覧</h2>";
+   echo "<h2>{$val["grpname"]}</h2>";
+   $grpname=$val["grpname"];
   }
-?>
-   <div class="col3">
-<?php 
+  echo "<div class='col3'>";
   $ary=array();
   $ary[]=$itemlist[$key];
   htmlItemList($ary);
-?>
-   </div><!--div class="col3"-->
-<?php
-  $d=$val["saleday"];
+  echo "</div>";
  }
-?>
-   <div class="clr"></div>
-<?php 
 }
-?>
 
-<?php
 htmlSNSButton();
 ?>
    <div class="clr"></div>
