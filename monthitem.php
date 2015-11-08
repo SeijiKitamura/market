@@ -129,10 +129,6 @@ if($item){
 ?>
 
    </div><!--div class="col1"-->
-<?php
-htmlSNSButton();
-?>
-   <div class="clr"></div>
 
 
    <div class="col1">
@@ -148,7 +144,7 @@ if($itemary){
 <?php
 if($clsitem){
 ?>
-    <h3>こちらも月間お買得品商品です</h3>
+    <h2>こちらも月間お買得品商品です</h2>
 <?php
 }
 ?>
@@ -162,6 +158,10 @@ if($clsitem){
     </div><!--div id="TirasiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 <!--店舗イベントを表示-->
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
 
 <!--カレンダー表示-->
    <div class="col1">

@@ -123,10 +123,6 @@ if($item){
 ?>
 
    </div><!--div class="col1"-->
-<?php
-htmlSNSButton();
-?>
-   <div class="clr"></div>
 
    <div class="col1">
 <?php
@@ -167,6 +163,11 @@ if($clsitem){
 
     </div><!--div class="MailDetail"-->
    </div><!--div class="col1"-->
+
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
 
 
    <div id="footer">

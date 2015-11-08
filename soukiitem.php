@@ -110,11 +110,6 @@ if($item){
 
    </div><!--div class="col1"-->
 
-<?php
-htmlSNSButton();
-?>
-   <div class="clr"></div>
-
 
 
    <div class="col1">
@@ -136,6 +131,12 @@ if($itemary){
 
    <div class="col1">
    </div><!--div class="col1"-->
+
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
+
 <!--店舗イベントを表示-->
 
 <!--カレンダー表示-->

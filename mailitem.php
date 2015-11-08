@@ -117,13 +117,6 @@ if($item){
 
    </div><!--div class="col1"-->
 
-<?php
-htmlSNSButton();
-?>
-   <div class="clr"></div>
-
-
-
    <div class="col1">
 <?php
 if($itemary){
@@ -136,7 +129,7 @@ if($itemary){
 <?php
 if($itemlist){
 ?>
-    <h3>こちらもメール商品です</h3>
+    <h2>こちらもメール商品です</h2>
 <?php
 }
 ?>
@@ -150,6 +143,11 @@ if($itemlist){
     </div><!--div id="TirasiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 <!--店舗イベントを表示-->
+
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
 
 <!--カレンダー表示-->
    <div class="col1">
@@ -167,6 +165,10 @@ if(count($calendarlist)){
 ?>
     </div><!--div id="CalendarZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
+
+
+
+
 
 <!--ここに注釈を入れる（写真はイメージ、商品は豊富に、予告なく変更、店頭とページ上の価格に差異が、etc-->
 
