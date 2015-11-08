@@ -38,6 +38,7 @@ span.yen{
 }
 
 
+
 div img{
  max-height:100%;
 }
@@ -84,10 +85,11 @@ p{
  line-height:2em;
 }
 
-/*
 img.backimage{
- position:relative;
+ max-width:100%;
 }
+
+/*
 img.logoimg{
  width:15%;
  position:absolute;
@@ -235,6 +237,7 @@ div#wrapper{
  padding:0;
 }
 
+
 div.News{
  width:90%;
  margin:0 auto;
@@ -314,10 +317,10 @@ span.sname{
 
 span.tani{
  float:left;
- width:30%;
+ width:40%;
  height:1em;
  overflow:hidden;
- font-size:0.2em;
+ font-size:0.5em;
 }
 
 span.price{
