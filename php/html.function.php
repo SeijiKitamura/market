@@ -26,6 +26,7 @@ require_once("db.class.php");
 function htmlHeader($title,$description=null){
  global $PAGEARY;
  global $NAVI;
+ global $PCNAVI;
  global $MININAVI;
  try{
   $mname="htmlHeader(html.function.php) ";
@@ -52,8 +53,8 @@ function htmlHeader($title,$description=null){
 //  $html=preg_replace("/<!--catchword-->/",CATCHWORD,$html);
 //
 //  //ロゴ
-//  $logo=htmlLogo();
-//  $html=preg_replace("/<!--logo-->/",$logo,$html);
+  $logo=htmlLogo();
+  $html=preg_replace("/<!--logo-->/",$logo,$html);
 //  
 //  //イベント（未対応）
 //  
@@ -76,13 +77,22 @@ function htmlHeader($title,$description=null){
 //  $html=preg_replace("/<!--TWITTER-->/",TWITTER,$html);
 //  $html=preg_replace("/<!--LINE-->/",LINE,$html);
 //  
-//  //イベントバー
-//  $eventbar="";
-//  foreach($MININAVI as $key=>$val){
-//   $eventbar.="<li><a href='".$key."'";
-//   $eventbar.=">".$val."</a></li>";
-//  }
-//  $html=preg_replace("/<!--eventBar-->/",$eventbar,$html);
+  
+  //ミニナビ
+  $eventbar="";
+  foreach($MININAVI as $key=>$val){
+   $eventbar.="<li><a href='".$val."'";
+   $eventbar.=">".$key."</a></li>";
+  }
+  $html=preg_replace("/<!--mininavi-->/",$eventbar,$html);
+  
+  //ナビ
+  $eventbar="";
+  foreach($PCNAVI as $key=>$val){
+   $eventbar.="<li><a href='".$val."'";
+   $eventbar.=">".$key."</a></li>";
+  }
+  $html=preg_replace("/<!--navi-->/",$eventbar,$html);
   
   echo $html;
   $c="end ".$mname;wLog($c);

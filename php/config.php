@@ -78,12 +78,23 @@ $NAVI  =array(
                     ,"月間"  =>"monthlist.php"
               );
 
+$PCNAVI =array (
+                     "チラシ"=>"tirasilist.php"
+                    ,"メール"=>"maillist.php"
+                    ,"ご予約"=>"goyoyakulist.php"
+                    ,"月間"  =>"monthlist.php"
+                    ,"キタムラとは?"=>"kodawari.php"
+               );
 $MININAVI=array(
+                     "新卒採用"=>"sinsotu.php"
+                    ,"会社概要"=>"gaiyo.php"
+                    ,"最新ニュース"=>"newslist.php"
+                    ,"アクセス"=>"map.php"
                );
 
 $INFO=array    (
                  "会社概要"=>"gaiyo.php"
-                ,"キタムラのこだわり"=>"kodawari.php"
+                ,"キタムラとは?"=>"kodawari.php"
                 ,"募集事項"=>"bosyu.php"
                 ,"新卒採用"=>"sinsotu.php"
                 ,"このサイトについて"=>"siteabout.php"

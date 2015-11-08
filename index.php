@@ -45,10 +45,12 @@ $newslist=viewGetNews($strcode,$saleday);
 ?>
 
   <div id="wrapper">
+   <!--PC用ヘッダー-->
+
    <!--トップイメージ-->
    <div class="TopImageZone">
      <img class="backimage" src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
-     <img class="logoimg"   src="img/kita5.jpg" alt="スーパーキタムラ ロゴ">
+     <!--img class="logoimg"   src="img/kita5.jpg" alt="スーパーキタムラ ロゴ"-->
    </div><!--div class="TopImageZone"-->
 
    <div class="col1">

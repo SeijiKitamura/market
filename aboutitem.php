@@ -56,6 +56,13 @@ echo htmlNaviBar();
      <li>商品名と写真が違う</li>
     </ul>
    </div><!--div class="footerBox"-->
+   <div class="col1">
+    <h2>消費税について</h2>
+    <p>
+表示しております商品はすべて消費税抜きの価格となっております。
+お会計の際、別途消費税を加算させていただきます。
+    </p>
+   </div><!--div class="col1"-->
 
 <?php
 htmlSNSButton();
