@@ -55,13 +55,13 @@ $newslist=viewGetNews($strcode,$saleday);
 
    <div class="col1">
 <?php
-if(count($tirasilist)){
+if($tirasilist){
  echo "<h2>チラシ商品<span><a href='tirasilist.php'>一覧</a></span></h2>";
 }
 ?>
     <div id="TirasiZone" class="owl-carousel">
 <?php
-if(count($tirasilist)){
+if($tirasilist){
  htmlItemList($tirasilist);
 }
 ?>
@@ -70,13 +70,13 @@ if(count($tirasilist)){
 
    <div class="col1">
 <?php
-if(count($maillist)){
+if($maillist){
  echo "<h2>メール商品 <span><a href='maillist.php'>一覧</a></span></h2>";
 }
 ?>
     <div id="MailZone" class="owl-carousel">
 <?php
-if(count($maillist)){
+if($maillist){
  htmlItemList($maillist);
 }
 
@@ -86,13 +86,13 @@ if(count($maillist)){
 
    <div class="col1">
 <?php
-if(count($goyoyakulist)){
+if($goyoyakulist){
  echo "<h2>ご予約商品<span><a href='goyoyakulist.php'>一覧</a></span></h2>";
 }
 ?>
     <div id="GoyoyakuZone" class="owl-carousel">
 <?php
-if(count($goyoyakulist)){
+if($goyoyakulist){
  htmlItemList($goyoyakulist);
 }
 ?>
@@ -107,7 +107,7 @@ if($gekkanlist){
 ?>
     <div id="GekkanZone" class="owl-carousel">
 <?php
-if(count($gekkanlist)){
+if($gekkanlist){
  htmlItemList($gekkanlist);
 }
 ?>
@@ -122,7 +122,7 @@ if($newitemlist){
 ?>
     <div id="NewItemZone" class="owl-carousel">
 <?php
-if(count($newitemlist)){
+if($newitemlist){
  htmlItemList($newitemlist);
 }
 ?>
@@ -131,13 +131,13 @@ if(count($newitemlist)){
 
    <div class="col1">
 <?php
-if(count($calendarlist)){
+if($calendarlist){
  echo "<h2>カレンダー</h2>";
 }
 ?>
     <div id="CalendarZone" class="owl-carousel">
 <?php
-if(count($calendarlist)){
+if($calendarlist){
  htmlCalendarList2($calendarlist);
 }
 ?>

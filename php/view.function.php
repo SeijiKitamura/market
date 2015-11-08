@@ -188,7 +188,10 @@ EOF;
   $adnum=array();
   $adnum=dsetGetAdnum($where);
 
-  if(! isset($adnum)|| ! is_array($adnum)|| ! count($adnum)) throw new exception(" 該当日にチラシなし");
+  if(! isset($adnum)|| ! is_array($adnum)|| ! count($adnum)){
+   $adnum=null;
+   throw new exception(" 該当日にチラシなし");
+  }
 
   return $adnum;
  }
