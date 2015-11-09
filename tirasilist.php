@@ -54,10 +54,44 @@ htmlHeader($title);
 echo htmlNaviBar();
 ?>
    </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($itemlist){
+}
+
+if($daylist){
+ echo "<h1>".date("Y年m月d日",strtotime($daylist[0]["saleday"]))."投函のチラシ</h1>";
+ $imgpath=date("Ymd",strtotime($daylist[0]["saleday"]));
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/".$imgpath."a.jpg";
+ if(file_exists($path)){
+  echo "<a href='tirasiimg.php?strcode={$strcode}&saleday={$saleday}'>";
+  echo "<img src='.".IMG."/".$imgpath."a.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/".$imgpath."b.jpg";
+ if(file_exists($path)){
+  echo "<a href='tirasiimg.php?strcode={$strcode}&saleday={$saleday}'>";
+  echo "<img src='.".IMG."/".$imgpath."b.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='clr'></div>";
+}
+else{
+ echo "<p>申し訳ございません。本日はご案内するチラシ商品がございません</p>";
+}
+?>
+   </div><!--div class="col1"-->
+
    <div class="col1">
 <?php
 //日付リスト表示
 if($daylist){
+ echo "<h2>".date("Y年m月d日",strtotime($saleday))."のチラシ商品</h2>";
  echo "<ul class='daylist'>";
  foreach($daylist as $key=>$val){
   //$d=date("n月j日",strtotime($val["saleday"]));
@@ -72,7 +106,7 @@ if($daylist){
 ?>
    </div><!--div class="col1"-->
 <?php
-if(count($itemlist)){
+if($itemlist){
  foreach($itemlist as $key=>$val){
 ?>
    <div class="col3">
