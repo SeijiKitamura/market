@@ -36,6 +36,12 @@ $gekkanlist=viewGetSaleItem($strcode,6,$saleday);
 //新商品
 $newitemlist=viewGetNewItem($strcode,$saleday);
 
+//ギフト
+$giftlist=viewGetSaleItem($strcode,8,$saleday);
+
+//早期ご予約アイテムリストをゲット
+$soukilist=viewGetSaleItem($strcode,9,$saleday);
+
 //カレンダー
 $endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
 $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
@@ -53,6 +59,7 @@ $newslist=viewGetNews($strcode,$saleday);
      <!--img class="logoimg"   src="img/kita5.jpg" alt="スーパーキタムラ ロゴ"-->
    </div><!--div class="TopImageZone"-->
 
+
    <div class="col1">
 <?php
 if($tirasilist){
@@ -68,6 +75,7 @@ if($tirasilist){
     </div><!--div id="TirasiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
+
    <div class="col1">
 <?php
 if($maillist){
@@ -82,6 +90,36 @@ if($maillist){
 
 ?>
     </div><!--div id="MailZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($soukilist){
+ echo "<h2>歳末早期ご予約商品<span><a href='soukilist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="SoukiZone" class="owl-carousel">
+<?php
+if($soukilist){
+ htmlItemList($soukilist);
+}
+?>
+    </div><!--div id="SoukiZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($giftlist){
+ echo "<h2>ギフト商品<span><a href='giftlist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="GiftZone" class="owl-carousel">
+<?php
+if($giftlist){
+ htmlItemList($giftlist);
+}
+?>
+    </div><!--div id="GiftZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
    <div class="col1">
@@ -157,7 +195,6 @@ if($newslist){
 }
 ?>
     </div><!--div id="NewsZone"-->
-
    </div><!--div class="col1"-->
 
 <?php
@@ -191,6 +228,19 @@ $(function(){
   itemsMobile:[400,3],
   pagination:false
  });
+
+ $("#GiftZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#SoukiZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
 
  $("#GoyoyakuZone").owlCarousel({
   items:5,
