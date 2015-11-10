@@ -105,6 +105,15 @@ function impFile2DB($tablename,$filename){
        echo "既存データ削除完了<br>";
       }
       
+      //ニュースは1行目の日付以降を一括削除
+      if($sql[0]["col"]["saletype"]==7){
+       $db->from=TABLE_PREFIX.JANSALE;
+       $db->where =" saleday >='".$sql[0]["col"]["saleday"]."'";
+       $db->where.=" and saletype=7";
+       $db->delete();
+       echo "既存データ削除完了<br>";
+      }
+
       //ギフトは1行目の日付以降を一括削除
       if($sql[0]["col"]["saletype"]==8){
        $db->from=TABLE_PREFIX.JANSALE;
