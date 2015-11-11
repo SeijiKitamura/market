@@ -112,6 +112,9 @@ echo htmlNaviBar();
    <div class="col1">
     <h2>TVCM</h2>
     <iframe width="375" height="315" src="https://www.youtube.com/embed/Zxn8IO6jLzQ" frameborder="0" allowfullscreen></iframe>
+    <p>
+     2014年10月から2015年3月までJ:COM　大田にて放送されたいたTVCMです。
+    </p>
    </div><!--div class="TopImageZone"-->
 
 
