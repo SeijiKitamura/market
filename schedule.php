@@ -81,6 +81,10 @@ echo htmlNaviBar();
       </tr>
      </tbody>
     </table>
+    
+    <p>
+メールでも受付を承っております。<a href="contactus.php" style="color:blue">こちらのページ</a>をご確認の上、メールをご送信ください。
+    </p>
    </div><!--div class="col1"-->
 
    <div class="col1">
