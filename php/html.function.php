@@ -746,7 +746,7 @@ function htmlNewsListAll($data){
 
   $html="";$replace="";
   foreach($data as $key=>$val){
-   $item="";
+   $item=$i;
    //画像リスト(小サイズ)
    if($val["grpname"]){
     $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
@@ -755,7 +755,7 @@ function htmlNewsListAll($data){
      $f=basename($filename);
      $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
     }
-    $item=preg_replace("/<!--imgtag-->/",$replace,$i);
+    $item=preg_replace("/<!--imgtag-->/",$replace,$item);
    }
 
    //日付
