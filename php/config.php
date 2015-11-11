@@ -90,6 +90,7 @@ $MININAVI=array(
                     ,"会社概要"=>"gaiyo.php"
                     ,"最新ニュース"=>"newslist.php"
                     ,"アクセス"=>"map.php"
+                    ,"お問い合せ"=>"contactus.php"
                );
 
 $INFO=array    (
@@ -99,6 +100,7 @@ $INFO=array    (
                 ,"新卒採用"=>"sinsotu.php"
                 ,"このサイトについて"=>"siteabout.php"
                 ,"プライバシーポリシー"=>"privacy.php"
+                ,"お問い合せ"=>"contactus.php"
                );
 
 $SITECONTENTS=array(
