@@ -34,6 +34,9 @@ else{
  $saleday=date("Y-m-d");
 }
 
+//リスト用リンク作成
+$link="tirasilist.php?strcode={$strcode}&saleday={$saleday}";
+
 //チラシ番号をゲット(追い打ちチラシは非表示)
 if(! $_GET["adnum"] || ! preg_match("/^[0-9]+$/",$_GET["adnum"])){
  wLog($me." チラシ番号無効のため検索開始");
@@ -122,6 +125,12 @@ htmlHeader($title,$description);
 <?php
 echo htmlNaviBar();
 ?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul>
+    <li><a href="<?php echo $link; ?>">チラシ一覧へ戻る</a></li>
+    </ul>
    </div><!--div class="col1"-->
 
    <div class="col1">

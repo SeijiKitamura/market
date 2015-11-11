@@ -31,6 +31,9 @@ else{
  $saleday=date("Y-m-d");
 }
 
+//リスト用リンク作成
+$link="newslist.php?strcode={$strcode}&saleday={$saleday}";
+
 //ニュース番号
 if($_GET["newsid"] && preg_match("/^[0-9]+$/",$_GET["newsid"])){
  $newsid=$_GET["newsid"];
@@ -74,6 +77,12 @@ htmlHeader($title,$description);
 <?php
 echo htmlNaviBar();
 ?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul>
+    <li><a href="<?php echo $link; ?>">ニュース一覧へ戻る</a></li>
+    </ul>
    </div><!--div class="col1"-->
 
    <div class="col1">

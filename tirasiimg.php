@@ -25,6 +25,9 @@ else{
  $saleday=date("Y-m-d");
 }
 
+//リスト用リンク作成
+$link="tirasilist.php?strcode={$strcode}&saleday={$saleday}";
+
 //チラシ番号をゲット(追い打ちチラシは非表示)
 $adnumary=viewGetAdnum($strcode,$saleday);
 if(count($adnumary)){
@@ -50,6 +53,18 @@ else{
 htmlHeader($title);
 ?>
   <div id="wrapper">
+
+   <div class="col1">
+<?php
+echo htmlNaviBar();
+?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul>
+    <li><a href="<?php echo $link; ?>">チラシ一覧へ戻る</a></li>
+    </ul>
+   </div><!--div class="col1"-->
 
    <div class="col1">
 <?php

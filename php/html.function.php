@@ -348,7 +348,7 @@ function htmlItemList($data){
    
    //リンク
    if($val["saletype"]===0){
-    $replace="tirasiitem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}&jcode={$val["jcode"]}&adnum={$val["adnum"]}";
+    $replace="tirasiitem.php?strcode={$val["strcode"]}&saleday={$val["startday"]}&jcode={$val["jcode"]}&adnum={$val["adnum"]}";
    }
 
    if($val["saletype"]==1){

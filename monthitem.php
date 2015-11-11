@@ -36,6 +36,9 @@ else{
  $saleday=date("Y-m-d");
 }
 
+//リスト用リンク作成
+$link="monthlist.php?strcode={$strcode}&saleday={$saleday}";
+
 //JANコードゲット
 if($_GET["jcode"] && preg_match("/^[0-9]+$/",$_GET["jcode"])){
  $jcode=$_GET["jcode"];
@@ -119,6 +122,12 @@ htmlHeader($title,$description);
 <?php
 echo htmlNaviBar();
 ?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <ul>
+     <li><a href="<?php echo $link; ?>">月間おすすめ一覧へ戻る</a></li>
+    </ul>
    </div><!--div class="col1"-->
 
    <div class="col1">
