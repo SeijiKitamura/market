@@ -433,7 +433,8 @@ div#ItemResult h3{
 }
 
 table.ItemData {
- width:100%;
+ width:90%;
+ margin:0 auto;
 }
 table.ItemData th{
  background-color:#8FBC9F;

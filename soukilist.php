@@ -53,6 +53,23 @@ echo htmlNaviBar();
 if($itemlist){
  echo "<h1>早期ご予約商品一覧 (".date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."現在)</h1>";
  echo "<p>年末に「あったらうれしい」商品を取り揃えました。数量に限りがある商品もございます。ご予約はサービスカウンターにて承り中です。</p>";
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/souki_a.jpg";
+ if(file_exists($path)){
+  echo "<a href='.".IMG."/souki_a.pdf'>";
+  echo "<img src='.".IMG."/souki_a.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/souki_b.jpg";
+ if(file_exists($path)){
+  echo "<a href='.".IMG."/souki_b.pdf'>";
+  echo "<img src='.".IMG."/souki_b.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='clr'></div>";
 }
 else{
  echo $title;

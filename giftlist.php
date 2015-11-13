@@ -53,7 +53,24 @@ echo htmlNaviBar();
 <?php
 if($itemlist){
  echo "<h1>ギフト商品一覧 (".date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."現在)</h1>";
- echo "<p>大切なあの人への贈り物はスーパーキタムラで。ただいまギフト商品取扱中です。";
+ echo "<p>大切なあの人への贈り物はスーパーキタムラで。ただいまギフト商品取扱中です。</p>";
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/gift_a.jpg";
+ if(file_exists($path)){
+  echo "<a href='.".IMG."/gift_a.pdf'>";
+  echo "<img src='.".IMG."/gift_a.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/gift_b.jpg";
+ if(file_exists($path)){
+  echo "<a href='.".IMG."/gift_b.pdf'>";
+  echo "<img src='.".IMG."/gift_b.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='clr'></div>";
 }
 else{
  echo $title;
