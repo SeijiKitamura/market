@@ -53,6 +53,21 @@ echo htmlNaviBar();
 
    </div><!--div class="col1"-->
 
+   <div class="col1">
+    <h2>駐車場</h2>
+    <img src="img/carpark2.jpg">
+    <p>40台分の無料駐車場があります。坂の多い馬込ですからお車でのご来店をおすすめします。もちろん、駐輪場もあります。</p>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+    <h2>ご提供サービス</h2>
+    <p>
+     クレジットカード/Suica/PASUMO/QUICPay/大田区共通商品券/ビール券/
+     たばこ/切手/はがき/キタムラ商品券/
+     宅配便（クロネコ・佐川急便）/写真プリント/電子レンジ/配達
+    </p>
+   </div><!--div class="col1"-->
+
 <?php
 htmlSNSButton();
 ?>
