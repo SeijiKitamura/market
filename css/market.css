@@ -432,16 +432,16 @@ div#ItemResult h3{
  text-align:center;
 }
 
-table#ItemData {
+table.ItemData {
  width:100%;
 }
-table#ItemData th{
+table.ItemData th{
  background-color:#8FBC9F;
  color:#FFFFFF;
  border:1px solid #FFFFFF;
 }
 
-table#ItemData td{
+table.ItemData td{
  border:1px solid #DCDCDC;
  height:1.4em;
  font-size:0.8em;
