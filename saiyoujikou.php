@@ -23,7 +23,12 @@ else{
 $title="新卒採用事項";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+今年の採用事項についての詳細をご案内しています。弊社では新入社員は大きく分けて
+２つの職場に分けて配属されます。「生鮮・惣菜」もしくは「レジ」部門となります。
+どちらを希望するかよく検討の上、応募ください。もちろん、途中から配属先の変更を
+希望することも可能です。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);
@@ -42,7 +47,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>2016年募集要項</h2>
-    <table id="ItemData">
+    <table class="ItemData">
      <colgroup>
       <col class="nen">
      </colgroup>

@@ -23,7 +23,12 @@ else{
 $title="採用までのスケジュール";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+面接から採用までのスケジュールについてご案内しています。
+まずは職場見学から始まります。
+従業員一同みなさんの見学を心からお待ちしています。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);
@@ -57,7 +62,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>スケジュール</h2>
-    <table id="ItemData">
+    <table class="ItemData">
      <tbody>
       <tr>
        <td>1. 職場見学</td>

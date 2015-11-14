@@ -23,7 +23,12 @@ else{
 $title="アクセス";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+当店までのアクセス方法をご案内中。その他ご提供中のサービスをご紹介しております。
+都営浅草線西馬込駅から徒歩15分。駐車場40台あり。各種クレジットカード、交通系電子
+マネー、QUICPay、ビール券、大田区共通商品券などもご利用可能です。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);

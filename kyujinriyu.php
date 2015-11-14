@@ -23,7 +23,10 @@ else{
 $title="求人理由";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+なぜ、新入社員を募集しているのかその理由をご説明します。
+その前に当店の創業からの考え方、今挑戦していることなどをご理解していただきたいと思います。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);

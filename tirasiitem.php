@@ -90,9 +90,7 @@ if($itemary){
    $title.=" ".$val["dpsname"]." ".$val["clsname"];
 
    $description =" 本日の".$title."。";
-   $description.="当店は東京都大田区の食品スーパーマーケット、スーパーキタムラ";
-   $description.="の広告商品ご案内ページです。年中無休、朝9:30から";
-   $description.="夜10:00まで営業。";
+   $description.="あわせて過去のチラシ掲載履歴もご案内中です。";
 
    //当日チラシ商品データをゲット
    $item[]=$itemary[$key];

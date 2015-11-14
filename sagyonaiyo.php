@@ -20,10 +20,15 @@ else{
 
 
 //タイトル
-$title="採用方針";
+$title="作業内容";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+新入社員が入社してからの1年間の仕事内容について説明します。
+主に生鮮とレジについての作業内容を3ヶ月毎に区切ってご案内しております。
+最も大事なことはモチベーションです。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);

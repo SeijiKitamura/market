@@ -45,12 +45,16 @@ if($adnum){
 //タイトル決定
 if($daylist){
  $title=date("Y年m月d日",strtotime($adday))."投函のチラシ";
+ $description=<<<EOF
+新聞折込チラシの画像をそのままご覧いただけます。広告は表面フルカラー、裏面2色ですがインターネット上では
+両面フルカラーとなっています。ぜひこちらもご活用ください。
+EOF;
 }
 else{
  $title="申し訳ございません。本日はチラシが入っていません";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
 

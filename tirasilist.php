@@ -41,12 +41,17 @@ if($adnum){
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月d日",strtotime($itemlist[0]["startday"]))."の広告商品";
+ $description=<<<EOF
+新聞折込チラシで配布した商品をご紹介しております。また、広告には載せきれなかった商品を
+Web限定商品としてご案内中です。だから実際のチラシよりも内容が充実。
+スーパーキタムラのインターネットチラシ。こちらの広告をぜひご利用くださいませ。
+EOF;
 }
 else{
  $title="申し訳ございません。本日はチラシが入っていません";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
    <div class="col1">

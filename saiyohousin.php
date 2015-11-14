@@ -23,7 +23,11 @@ else{
 $title="採用方針";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+弊社新入社員を採用するにあたってどういった点を重視しているかをご案内しています。
+「基礎となる考え方」と仕事をする上で大事なマインドについて共通の認識を持ってい
+ただければと思っています。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);

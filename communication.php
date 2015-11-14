@@ -23,7 +23,11 @@ else{
 $title="コミュニケーション";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+コミュニケーションはお仕事をしていく上で大事なことです。難しい面もありますが、
+会社も全力でサポートしています。仲間がいれば仕事がより一層楽しくなります。
+まずは簡単な挨拶から始めてみましょう。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);

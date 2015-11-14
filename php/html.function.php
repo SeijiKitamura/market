@@ -47,6 +47,7 @@ function htmlHeader($title,$description=null){
   
   //Description 
   $description.=$PAGEARY[$nowpage]["description"];
+  $description=preg_replace("/\n/","",$description);
   $html=preg_replace("/<!--description-->/",$description,$html);
   
 //  //キャッチワード
@@ -847,16 +848,19 @@ function htmlNewsItem($data){
    $replace.="配信";
    $html.=preg_replace("/<!--grpname-->/",$replace,$grp);
    
+   $item=$i;
    //画像リスト(小サイズ)
-   $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
-   $replace="";
-   foreach(glob($imgpath) as $filename){
-    $f=basename($filename);
-    $replace.="<div class='Tanpin'>";
-    $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
-    $replace.="</div>";
+   if($val["grpname"]){
+    $imgpath=$imgdir."/".$val["grpname"]."*.jpg";
+    $replace="";
+    foreach(glob($imgpath) as $filename){
+     $f=basename($filename);
+     $replace.="<div class='Tanpin'>";
+     $replace.="<img src='.".IMG."/{$f}' alt='{$val["sname"]}'>";
+     $replace.="</div>";
+    }
+    $item=preg_replace("/<!--imgtag-->/",$replace,$item);
    }
-   $item=preg_replace("/<!--imgtag-->/",$replace,$i);
 
    //タイトルセット
    $replace =$val["sname"];

@@ -23,7 +23,11 @@ else{
 $title="採用実績";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+2009年以降入社した新入社員の採用実績と今も一緒に働いている人の数を表にまとめました。
+出身別高校もあわせてご紹介中。今いる人はみんな優しい人ばかりです。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);
@@ -58,7 +62,7 @@ echo htmlNaviBar();
 
    <div class="col1">
     <h2>採用者数と在籍者数</h2>
-    <table id="ItemData">
+    <table class="ItemData">
      <thead>
       <tr>
        <th>年</th>

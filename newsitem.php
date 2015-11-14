@@ -60,10 +60,10 @@ if(! $item){
  $descirption=$title;
 }
 else{
- $title =date("Y年m月d日",$item[0]["saleday"])."配信 ";
+ $title =date("Y年m月d日",strtotime($item[0]["saleday"]))."配信 ";
  $title.=$item[0]["sname"];
 
- $description=$item[0]["comment"];
+ $description =$title.$item[0]["comment"];
  $description.="　このページはスーパーキタムラの最新ニュースをご案内するページです。";
 }
 
@@ -113,11 +113,6 @@ htmlFooter();
  </body>
 <script>
 $(function(){
- $("#TanpinZone").owlCarousel({
-  items:5,
-  itemsMobile:[400,1],
-  pagination:false
- });
 });
 </script>
 </html>

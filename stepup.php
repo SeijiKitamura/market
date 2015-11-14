@@ -1,5 +1,5 @@
 <?php
-//作業内容
+//ステップアップ
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // 最小引数 ?strcode=1
@@ -8,7 +8,7 @@ require_once("php/view.function.php");
 require_once("php/html.function.php");
 
 //ファイル名
-$me="sagyonaiyo.php";
+$me="stepup.php";
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
@@ -20,10 +20,14 @@ else{
 
 
 //タイトル
-$title="採用方針";
+$title="ステップアップ";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+入社後のキャリアアップについて説明しています。他のスーパーに比べるとペースは遅めですが
+その分、専門的な知識や技術を身につけることができます。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);

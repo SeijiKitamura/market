@@ -23,7 +23,10 @@ else{
 $title="サイトポリシー";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+弊社の個人情報の取り扱い、個人情報保護方針の説明をさせて頂いております。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);

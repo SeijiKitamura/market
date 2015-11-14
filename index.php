@@ -1,7 +1,16 @@
 <?php
 require_once("php/view.function.php");
 require_once("php/html.function.php");
-htmlHeader("ホーム");
+
+$title="ホーム";
+$description=<<<EOF
+ようこそ！スーパーキタムラホームページへ。当店は東京都大田区南馬込の桜並木にある
+食品スーパーマーケットです。年中無休 9:30-22:00にて営業中。
+野菜、肉、魚、牛乳、たまご、一般食料品、お菓子、ビール、日本酒、ワイン、たばこなどを品揃しております。
+馬込文士村めぐりや桜まつり、お花見などの帰りにぜひお立ち寄り下さいませ。
+EOF;
+
+htmlHeader($title,$description);
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){

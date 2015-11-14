@@ -32,12 +32,17 @@ $itemlist=viewGetMailList($strcode,$saleday);
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月d日",strtotime($saleday))."のメール商品";
+ $description=<<<EOF
+毎日のお買得品をメールでお知らせいたします。さらにメール会員特別価格商品もご案内中。
+ポイント5倍や10%引きその他、朝市などのスペシャルサービスデーもメールにてお知らせいたします。
+会員登録は簡単！0873@14142.comにメールするだけです。この機会にぜひご登録くださいませ。
+EOF;
 }
 else{
  $title="申し訳ございません。本日はご案内するメール商品がございません。";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
    <div class="col1">

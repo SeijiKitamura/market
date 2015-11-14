@@ -60,25 +60,20 @@ if($itemary){
  foreach($itemary as $key=>$val){
   if(strtotime($saleday)==strtotime($val["saleday"])){
    $title ="メール商品 ";
+   $title.=date("Y年m月d日",strtotime($val["saleday"]))."限り ";
    $title.=$val["sname"]."(".$val["maker"].")";
    $title.=$val["tani"]." ".$val["price"].$val["yen"];
    $title.=$val["comment"]." ".$val["grpname"];
-   $title.=$val["startday"];
-   if(strtotime($val["startday"])==strtotime($val["endday"])){
-    $title.="限り";
-   }
-   else{
-    $title.="から".$val["endday"]."まで";
-   }
    $title.="JANコード:".$val["jcode"];
    $title.=" ".$val["dpsname"]." ".$val["clsname"];
 
    $description =" 本日の".$title."のご案内。";
    $description.="毎日のお買い得情報をメールでお知らせ！メール画面をレジ係員にお見せください。";
-   $description.="表示している価格に値引きさせていただきます。";
-   $description.="当店は東京都大田区の食品スーパーマーケット、スーパーキタムラ";
-   $description.="のメール商品ご案内ページです。年中無休、朝9:30から";
-   $description.="夜10:00まで営業。";
+   $description.="表示している価格で販売させていただきます。";
+   $description.="さらに過去のメール商品販売履歴もあわせてご案内中";
+   $description.="その他にもポイント5倍デーや10%引きデー、更に朝市などもお知らせいたします。";
+   $description.="メール会員は随時募集しており年会費無料です。お申し込みはページ下部を";
+   $description.="ご参照くださいませ";
 
    //当日メール商品データをゲット
    $item[]=$itemary[$key];

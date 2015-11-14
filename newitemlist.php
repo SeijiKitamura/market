@@ -31,12 +31,17 @@ $itemlist=viewGetNewItem($strcode,$saleday);
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月d日")."現在の新商品リスト";
+ $description=<<<EOF
+各メーカーから販売された新発売商品や当店で新しく取り扱いを始めた新商品のご案内です。
+新しい商品は生活や気分を豊かにしてくれますね。
+マンネリになりがちな食卓に新しい商品を加えてみてはいかがでしょうか。
+EOF;
 }
 else{
  $title="申し訳ございません。ただいまご案内できる新商品がございません";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
    <div class="col1">

@@ -34,12 +34,16 @@ $itemlist=viewGetSaleItem($strcode,5,$saleday);
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月",strtotime($saleday))."のご予約商品";
+ $description =$title."のご案内。";
+ $description.="今月末までのご案内となっております。";
+ $description ="当店が自信を持っておすすめする特別商品。どれも店頭にならばない特別な商品ばかりです。";
+ $description.="法事、ホームパーティなどにご利用できるオードブル、お寿司、お刺身盛合せ、お赤飯、サンドイッチ等各種取り揃えました。";
 }
 else{
  $title="申し訳ございません。本日はご案内するご予約商品がございません。";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
 

@@ -50,7 +50,11 @@ if($jcode || $keyword){
 //タイトル決定
 $title="商品検索";
 
-htmlHeader($title);
+$description=<<<EOF
+当店で取り扱っている商品の検索はこちらでできます。JANコード検索もしくは商品名にて検索可能です。
+表示される商品によってはすでに取り扱いを終了している商品もございます。
+EOF;
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
    <div class="col1">

@@ -23,7 +23,11 @@ else{
 $title="商品について";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+表示しております商品についてのご案内です。商品については正確性を保つよう最善努力をして
+おりますが以下の注意点がございます。また、ホームページ上での消費税についての扱いについ
+てご説明させて頂いております。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);

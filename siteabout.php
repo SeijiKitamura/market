@@ -23,7 +23,9 @@ else{
 $title="サイトポリシー";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+弊社のサイトポリシーについてご説明させていただきます。閲覧環境等もあわせてご案内中です。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);

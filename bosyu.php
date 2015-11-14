@@ -1,5 +1,5 @@
 <?php
-//アクセス
+//求人募集
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // 最小引数 ?strcode=1
@@ -20,10 +20,14 @@ else{
 
 
 //タイトル
-$title="会社概要";
+$title="求人について";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+スーパーキタムラでお仕事しませんか？このページでは現在の求人情報について
+ご案内しております。小売業に興味のある方を歓迎しております。特にアルバイト、
+パートご希望の方はぜひこのページをご覧ください。
+EOF;
 htmlHeader($title,$description);
 
 //print_r($item);
@@ -42,7 +46,7 @@ echo htmlNaviBar();
     <p>
      現在、以下の求人募集を行っております。キタムラで一緒にお仕事できる方、ぜひご連絡ください。
     </p>
-    <table id="ItemData">
+    <table class="ItemData">
      <colgroup>
       <col class="nen">
      </colgroup>
@@ -74,7 +78,7 @@ echo htmlNaviBar();
     </table>
 
     <p>
-メールでも面接を承っております。<a href="contactus.php" style="color:blue">こちらのページ</a>をご確認の上、メールをご送信ください。
+メールでも連絡を承っております。<a href="contactus.php" style="color:blue">こちらのページ</a>をご確認の上、メールをご送信ください。
     </p>
    </div><!--div class="col1"-->
 

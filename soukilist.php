@@ -31,7 +31,7 @@ $itemlist=viewGetSaleItem($strcode,9,$saleday);
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."の早期ご予約商品";
- $discription =$title." 特典満載の当店の早期ご予約商品。限定品やご予約することで";
+ $discription =$title." 特典満載の当店の早期ご予約商品。限定品や早期にご予約することで";
  $discription.="価格が安くなる商品など多数ご用意しました。ぜひこの機会をお見逃しなく!";
 }
 else{

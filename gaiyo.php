@@ -1,5 +1,5 @@
 <?php
-//アクセス
+//会社概要
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // 最小引数 ?strcode=1
@@ -23,7 +23,12 @@ else{
 $title="会社概要";
 
 //ページ説明文
-$description="";
+$description=<<<EOF
+弊社会社概要をご案内しております。最初は小さな八百屋から始まりお客様、
+取引先様のご愛顧によりここまで来ました。今後もより地域のお客様のお役に
+たてるよう努力してまいります。
+EOF;
+
 htmlHeader($title,$description);
 
 //print_r($item);
@@ -57,7 +62,7 @@ echo "<li>店舗数：".STORECOUNT."</li>";
    <div class="col1">
     <img class="backimage" src="img/gaiyo_2.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
     <h2>沿革</h2>
-    <table id="ItemData">
+    <table class="ItemData">
      <colgroup>
       <col class="nen">
      </colgroup>

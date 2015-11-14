@@ -60,11 +60,9 @@ if($itemary){
    $title.="JANコード:".$val["jcode"];
    $title.=" ".$val["dpsname"]." ".$val["clsname"];
 
-   $description =" 本日の".$title."のご案内。";
+   $description =$title."のご案内。";
    $description.="今月の月間お買得品のお知らせ！今月末までいつ来てもこのお値段。";
-   $description.="当店は東京都大田区の食品スーパーマーケット、スーパーキタムラ";
-   $description.="の月間お買得品ご案内ページです。年中無休、朝9:30から";
-   $description.="夜10:00まで営業。";
+   $description.="どれも当店おすすめの1品です。この機会にぜひお買い求めください";
 
    //当日月間商品データをゲット
    $item[]=$itemary[$key];

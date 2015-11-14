@@ -31,12 +31,16 @@ $itemlist=viewGetSaleItem($strcode,6,$saleday);
 //タイトル決定
 if(count($itemlist)){
  $title=date("Y年m月",strtotime($saleday))."の月間お買得品";
+ $description=<<<EOF
+月間お買得品のお知らせ！今月末までいつ来てもこのお値段。
+どれも当店おすすめの1品です。この機会にぜひお買い求めください。
+EOF;
 }
 else{
  $title="申し訳ございません。本日はご案内する月間お買得品がございません。";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
    <div class="col1">
