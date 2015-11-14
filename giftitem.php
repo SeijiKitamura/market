@@ -96,6 +96,8 @@ $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
 
 htmlHeader($title,$description);
 
+wLog("pagecount ".$me);
+
 //print_r($itemary);
 ?>
 

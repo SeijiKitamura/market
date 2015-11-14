@@ -2,6 +2,10 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
+//ファイル名
+$me="index.php";
+wLog("pagecount ".$me);
+
 $title="ホーム";
 $description=<<<EOF
 ようこそ！スーパーキタムラホームページへ。当店は東京都大田区南馬込の桜並木にある

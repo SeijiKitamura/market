@@ -9,6 +9,7 @@ require_once("php/html.function.php");
 
 //ファイル名
 $me="schedule.php";
+wLog("pagecount ".$me);
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){

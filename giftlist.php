@@ -4,6 +4,9 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
+//ファイル名
+$me="giftlist.php";
+
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // saleday 日付 [推奨] ない場合は当日になる
@@ -41,6 +44,8 @@ else{
 }
 
 htmlHeader($title,$discription);
+
+wLog("pagecount ".$me);
 ?>
   <div id="wrapper">
    <div class="col1">

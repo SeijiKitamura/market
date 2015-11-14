@@ -1,5 +1,5 @@
 <?php
-//サイトポリシー
+//プライバシーポリシー
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // 最小引数 ?strcode=1
@@ -8,7 +8,8 @@ require_once("php/view.function.php");
 require_once("php/html.function.php");
 
 //ファイル名
-$me="saiyohousin.php";
+$me="privacy.php";
+wLog("pagecount ".$me);
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){

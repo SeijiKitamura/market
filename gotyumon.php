@@ -2,6 +2,9 @@
 require_once("php/html.function.php");
 require_once("php/view.function.php");
 
+//ファイル名
+$me="gotyumon.php";
+
 //店舗番号
 if(! $_GET["strcode"]) $strcode=1;
 

@@ -18,6 +18,7 @@ require_once("php/html.function.php");
 
 //ファイル名
 $me="goyoyakuitem.php";
+wLog("pagecount ".$me);
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
@@ -106,6 +107,7 @@ if(! $itemary ||! $itemlist){
 
 
 htmlHeader($title,$description);
+
 
 //print_r($item);
 ?>
