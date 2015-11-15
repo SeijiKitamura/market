@@ -790,6 +790,37 @@ function htmlNewsListAll($data){
 }
 
 //-------------------------------------------------------//
+// カレンダーテーブル表示
+//-------------------------------------------------------//
+function htmlCalendarTable($data){
+ try{
+  $mname="htmlCalendarTable(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  
+  //イベントスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/newstable.html");
+  $html=file_get_contents($path);
+
+  $replace="";
+  foreach($data as $key=>$val){
+   $link="<a href='calendaritem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}'>";
+   $replace.="<tr>";
+   $replace.="<td>".$link.date("m月d日",strtotime($val["saleday"]))."</a></td>";
+   $replace.="<td>".$link;
+   $replace.="{$val["grpname"]} {$val["tani"]} {$val["price"]}{$val["yen"]}</td>";
+   $replace.="</a></tr>";
+  }
+
+  $html=preg_replace("/<!--event-->/",$replace,$html);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
 // ニュースリスト表示(index.php用)
 //-------------------------------------------------------//
 function htmlNewsList($data){
