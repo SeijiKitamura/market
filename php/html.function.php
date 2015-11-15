@@ -95,6 +95,7 @@ function htmlHeader($title,$description=null){
   }
   $html=preg_replace("/<!--navi-->/",$eventbar,$html);
   
+  aLog($_SERVER["REQUEST_URI"]);
   echo $html;
   $c="end ".$mname;wLog($c);
  }
