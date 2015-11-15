@@ -30,8 +30,7 @@ $description=<<<EOF
 EOF;
 htmlHeader($title,$description);
 
-wLog("pagecount ".$me);
-
+aLog($_SERVER["REQUEST_URI"]);
 //print_r($item);
 ?>
 

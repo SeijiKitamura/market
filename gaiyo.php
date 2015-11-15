@@ -9,6 +9,7 @@ require_once("php/html.function.php");
 
 //ファイル名
 $me="gaiyo.php";
+aLog($_SERVER["REQUEST_URI"]);
 
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
@@ -31,7 +32,6 @@ EOF;
 
 htmlHeader($title,$description);
 
-wLog("pagecount ".$me);
 //print_r($item);
 ?>
 

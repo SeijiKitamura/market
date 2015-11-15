@@ -4,7 +4,7 @@ require_once("php/html.function.php");
 
 //ファイル名
 $me="index.php";
-wLog("pagecount ".$me);
+aLog($_SERVER["REQUEST_URI"]);
 
 $title="ホーム";
 $description=<<<EOF

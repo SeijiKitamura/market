@@ -6,7 +6,7 @@ require_once("php/html.function.php");
 
 //ファイル名
 $me="monthlist.php";
-wLog("pagecount ".$me);
+aLog($_SERVER["REQUEST_URI"]);
 
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる

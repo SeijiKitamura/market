@@ -3,7 +3,7 @@ require_once("php/html.function.php");
 require_once("php/view.function.php");
 
 $mname="saleitem.php";
-wLog("pagecount ".$me);
+aLog($_SERVER["REQUEST_URI"]);
 
 $saletype=$_GET["saletype"];
 $flg=1;

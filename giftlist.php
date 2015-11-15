@@ -45,7 +45,7 @@ else{
 
 htmlHeader($title,$discription);
 
-wLog("pagecount ".$me);
+aLog($_SERVER["REQUEST_URI"]);
 ?>
   <div id="wrapper">
    <div class="col1">
