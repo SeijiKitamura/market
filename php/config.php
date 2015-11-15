@@ -232,6 +232,36 @@ function wLog($comment){
  fclose($fp);
 }
 
+function aLog($comment){
+ //ログディレクトリセット
+ $LOGDIR=dirname(__FILE__)."/..".LOG;
+ //ディレクトリ存在チェック
+ if(!file_exists($LOGDIR)){
+ echo "ログディレクトリが存在しません。".$LOGDIR;
+  return false;
+ }
+
+ //ファイルパスセット
+ $filepath=$LOGDIR."/access".date("Ymd").".log";
+ 
+ //日時セット
+ $c=date("Y-m-d H:i:s");
+ 
+ //ファイル書き込み
+ if(! $fp=fopen($filepath,"a")){
+  echo "ログファイルが開けません。".$filepath;
+  return false;
+ }
+
+ if(DEBUG && preg_match("/error:/",$c)) echo $c."<br>";
+
+ if(! isset($_SESSION["USERID"]) || $_SESSION["USERID"]==null || $_SESSION["USERID"]!==md5(USERID)){
+  session_start();
+  $c.=" ".$_COOKIE["PHPSESSID"]." ".$comment." ".$_SERVER["HTTP_REFERER"]."\n";
+  fwrite($fp,$c);
+ }
+ fclose($fp);
+}
 $YOUBI=array("日","月","火","水","木","金","土");
 //---------------------------------------------//
 // 日付チェック関数
