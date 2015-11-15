@@ -72,6 +72,7 @@ echo htmlNaviBar();
 <span style="color:blue;">アドバイス</span><br>
 "生鮮では「市場見学」がもっとも効果的です。小学校の社会科見学以来という方がほとんどですが、大人になってから見る市場は全然違うものに見えます。"
     </blockquote>
+<div class="pageBreak"></div>
     <blockquote>
 9ヶ月〜12ヶ月<br>
 仕入、販売、棚卸、粗利などより専門的な知識をみにつけていきます。市場動向、他店調査、販売計画などの重要性について学んでいき今後に活かします。
@@ -84,6 +85,7 @@ echo htmlNaviBar();
 
    </div><!--div class="col1"-->
 
+<div class="pageBreak"></div>
    <div class="col1">
     <h2>レジ</h2>
     <blockquote>
@@ -110,6 +112,7 @@ echo htmlNaviBar();
 <span style="color:blue;">アドバイス</span><br>
 "ほとんど「裏方(うらかた）業務」なんですが、店舗を支える大事な仕事ばかりです。レジとは違った接し方でお客様と対応しなければなりませんが、レジでは経験できない感動ややりがいもあります。"
     </blockquote>
+<div class="pageBreak"></div>
     <blockquote>
 9ヶ月から12ヶ月<br>
 ほぼ基礎的なことをマスターしたら次のステップはスピードです。ただスピードを上げるのではなく、お客様に雑と思われないようにスピードを上げるには

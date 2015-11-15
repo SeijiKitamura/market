@@ -1,0 +1,41 @@
+div.wrapper{
+ width:172mm;
+}
+
+div.MiniNavi{
+ display:none;
+}
+
+div.Navi {
+ display:none;
+}
+
+div.NaviZone{
+ display:none;
+}
+
+div.col1 img{
+ width:40%;
+}
+
+p{
+ line-height:1.5em;
+ font-size:0.8em;
+}
+
+div.social-area-syncer ul li{
+ display:none;
+}
+
+
+div#footer div.footerBox{
+ display:none;
+}
+
+ul.SinsotuNavi li{
+ display:none;
+}
+
+div.pageBreak{
+ page-break-after:always;
+}

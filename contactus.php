@@ -65,6 +65,7 @@ echo htmlNaviBar();
     </p>
    </div><!--div class="col1"-->
 
+<div class="pageBreak"></div>
    <div class="col1">
     <h2>取引先様へ</h2>
     <p>

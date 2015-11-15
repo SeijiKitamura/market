@@ -75,6 +75,7 @@ if(count($itemlist)){
  $grpname="";
  foreach($itemlist as $key=>$val){
   if($grpname!==$val["grpname"]){
+   if($grpname) echo "<div class='pageBreak'></div>";
    echo "<div class='clr'></div>";
    echo "<h2>{$val["grpname"]}</h2>";
    $grpname=$val["grpname"];
@@ -107,6 +108,11 @@ htmlSNSButton();
      <h2>ご注意点</h2>
      <p>
       特別な商品ばかりですので、ご利用になる3日前(1つの商品で10個を超える数量をご注文の場合は1週間前)までにご予約ください。 
+     </p>
+
+     <h2>消費税について</h2>
+     <p>
+      表示しております価格はすべて本体価格(消費税抜き)となっております。お会計の際、合計金額に消費税を加算させていただきます。 
      </p>
 
     </div><!--div class="MailDetail"-->

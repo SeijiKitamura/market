@@ -66,6 +66,7 @@ echo htmlNaviBar();
     </p>
    </div><!--div class="col1"-->
 
+   <div class="pageBreak"></div>
    <div class="col1">
     <h2>仕事は楽しく</h2>
     <img class="backimage" src="img/saiyo_2.jpg" alt="仕事は楽しく|スーパーキタムラ">

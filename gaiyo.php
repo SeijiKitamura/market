@@ -54,6 +54,7 @@ echo "<li>店舗数：".STORECOUNT."</li>";
     </div><!--div class="footerBox"-->
    </div><!--div class="col1"-->
 
+<div class="pageBreak"></div>
    <div class="col1">
     <img class="backimage" src="img/gaiyo_2.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
     <h2>沿革</h2>

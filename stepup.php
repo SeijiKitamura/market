@@ -72,6 +72,7 @@ echo htmlNaviBar();
     </p>
    </div><!--div class="col1"-->
 
+<div class="pageBreak"></div>
    <div class="col1">
     <h2>6年目〜</h2>
     <p>

@@ -61,6 +61,7 @@ echo htmlNaviBar();
     </p>
    </div><!--div class="col1"-->
 
+<div class="pageBreak"></div>
    <div class="col1">
     <h2>山中湖保養所</h2>
     <img class="backimage" src="img/comm_3.jpg" alt="山中湖保養所|スーパーキタムラ">
