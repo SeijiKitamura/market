@@ -7,10 +7,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="kodawari.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
  $strcode=$_GET["strcode"];
@@ -32,8 +28,6 @@ $description=<<<EOF
 あわせてTVCMもご案内中。そうです、当店もTVCM流していたんです。
 EOF;
 htmlHeader($title,$description);
-
-//print_r($item);
 ?>
 
   <div id="wrapper">

@@ -4,10 +4,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="searchlist.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //引数
 // strcode 店舗番号 [推奨] ない場合は1になる
 // 最小引数 ?strcode=1&saleday=yyyy-mm-dd

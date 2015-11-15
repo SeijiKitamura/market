@@ -29,9 +29,6 @@ $description=<<<EOF
 パートご希望の方はぜひこのページをご覧ください。
 EOF;
 htmlHeader($title,$description);
-
-aLog($_SERVER["REQUEST_URI"]);
-//print_r($item);
 ?>
 
   <div id="wrapper">

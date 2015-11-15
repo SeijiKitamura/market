@@ -7,10 +7,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="saiyohousin.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
  $strcode=$_GET["strcode"];
@@ -29,9 +25,8 @@ $description=<<<EOF
 「基礎となる考え方」と仕事をする上で大事なマインドについて共通の認識を持ってい
 ただければと思っています。
 EOF;
-htmlHeader($title,$description);
 
-//print_r($item);
+htmlHeader($title,$description);
 ?>
 
   <div id="wrapper">

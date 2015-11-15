@@ -7,10 +7,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="kyujinriyu.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
  $strcode=$_GET["strcode"];
@@ -29,8 +25,6 @@ $description=<<<EOF
 その前に当店の創業からの考え方、今挑戦していることなどをご理解していただきたいと思います。
 EOF;
 htmlHeader($title,$description);
-
-//print_r($item);
 ?>
 
   <div id="wrapper">

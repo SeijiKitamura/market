@@ -7,10 +7,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="privacy.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
  $strcode=$_GET["strcode"];
@@ -29,8 +25,6 @@ $description=<<<EOF
 EOF;
 
 htmlHeader($title,$description);
-
-//print_r($item);
 ?>
 
   <div id="wrapper">

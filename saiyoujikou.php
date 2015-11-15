@@ -7,10 +7,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="saiyoujikou.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
  $strcode=$_GET["strcode"];
@@ -30,9 +26,8 @@ $description=<<<EOF
 どちらを希望するかよく検討の上、応募ください。もちろん、途中から配属先の変更を
 希望することも可能です。
 EOF;
-htmlHeader($title,$description);
 
-//print_r($item);
+htmlHeader($title,$description);
 ?>
 
   <div id="wrapper">

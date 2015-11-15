@@ -13,10 +13,6 @@
 require_once("php/view.function.php");
 require_once("php/html.function.php");
 
-//ファイル名
-$me="soukiitem.php";
-aLog($_SERVER["REQUEST_URI"]);
-
 //店舗番号確定
 if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
  $strcode=$_GET["strcode"];
@@ -91,8 +87,6 @@ $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
 
 
 htmlHeader($title,$description);
-
-//print_r($itemary);
 ?>
 
   <div id="wrapper">
