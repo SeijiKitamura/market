@@ -350,6 +350,42 @@ function delevent(){
 }
 
 //-----------------------------------------//
+// 単品画像削除
+//-----------------------------------------//
+function delimg(){
+ var fname="delevent";wlog("start:"+fname);
+ $("button#delimg").on("click",function(){
+  $("div.Tanpin img").each(function(){
+   //console.log($(this).attr("src"));
+   var q={};
+   q.imgpath=$(this).attr("src");
+   $.ajax({
+    url:"php/ajaxDelImg.php",
+    type:"GET",
+    data:q,
+    dataType:"html",
+    async:false,
+    complete:function(){},
+    success:function(html){
+     wlog(fname+": ajaX success");
+     console.log(html);
+     if(html.match(/^error/)){
+      alert(html);
+      return false;
+     }
+     else{
+     }
+    },
+    error:function(XMLHttpRequest,textStatus,errorThrown){
+     console.log(XMLHttpRequest.responseText);
+    }
+   });
+  });
+  alert("削除しました");
+ });
+}
+
+//-----------------------------------------//
 // 日付チェック
 //-----------------------------------------//
 function chkdate(hiduke){

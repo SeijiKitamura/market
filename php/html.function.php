@@ -533,6 +533,12 @@ function htmlItem($data){
    }
    $i=preg_replace("/<!--imgtag-->/",$replace,$i);
 
+   //画像があってログイン中なら削除ボタンをセット
+   if($replace && $_SESSION["USERID"]==md5(USERID)){
+    $replace="<button id='delimg'>すべての画像を削除</button>";
+    $i=preg_replace("/<!--delbutton-->/",$replace,$i);
+   }
+
    
    if($val["saletype"]===0){
     //開始日
