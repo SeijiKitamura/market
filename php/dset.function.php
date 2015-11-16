@@ -132,10 +132,10 @@ function dsetGetAdnum($where=null,$order=null,$having=null){
  try{
   wLog("start:".$mname);
   $db=new DB();
-  $db->select="min(saleday) as saleday,adnum,strcode";
+  $db->select="min(saleday) as saleday,adnum,strcode,saletype";
   $db->from  =TABLE_PREFIX.JANSALE;
   if ($where)  $db->where=$where;
-  $db->group="strcode,adnum";
+  $db->group="strcode,adnum,saletype";
   if ($order)  $db->order=$order;
   else{
    $db->order="strcode,min(saleday) desc,adnum";
@@ -156,18 +156,18 @@ function dsetGetFlyersDay($where=null,$order=null,$having=null){
  try{
   wLog("start:".$mname);
   $db=new DB();
-  $db->select="t.strcode,t.saleday,count(t.jcode) as itemcnt";
+  $db->select="t.strcode,t.saletype,t.saleday,count(t.jcode) as itemcnt";
   $db->from  =TABLE_PREFIX.JANSALE." as t";
-  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" left outer join ".TABLE_PREFIX.CLSMAS." as t1 on";
   $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode ";
-  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" left outer join ".TABLE_PREFIX.LINMAS." as t2 on";
   $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode ";
-  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" left outer join ".TABLE_PREFIX.DPSMAS." as t3 on";
   $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode ";
-  $db->from.=" inner join ".TABLE_PREFIX.STRMAS." as t4 on";
+  $db->from.=" left outer join ".TABLE_PREFIX.STRMAS." as t4 on";
   $db->from.=" t3.strcode=t4.strcode";
   if ($where)  $db->where=$where;
-  $db->group ="t.strcode,t.saleday";
+  $db->group ="t.strcode,t.saleday,t.saletype";
   if ($order)  $db->order=$order;
   else{
    $db->order="t.saleday";
@@ -327,6 +327,7 @@ function dsetGetMonthList($where=null,$order=null,$having=null){
   wLog("start:".$mname);
   $db=new DB();
   $db->select =" t.strcode";
+  $db->select.=",t.saletype";
   $db->select.=",to_char(t.saleday,'yyyy') as nen";
   $db->select.=",to_char(t.saleday,'MM')   as tuki";
   $db->select.=",count(jcode) as itemcnt";
@@ -339,6 +340,7 @@ function dsetGetMonthList($where=null,$order=null,$having=null){
   $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode";
   if ($where)  $db->where=$where;
   $db->group =" t.strcode";
+  $db->group.=",t.saletype";
   $db->group.=",to_char(t.saleday,'yyyy')";
   $db->group.=",to_char(t.saleday,'MM')  ";
   if ($order)  $db->order=$order;

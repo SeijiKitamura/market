@@ -1,4 +1,28 @@
 //-----------------------------------------//
+// グローバル関数
+//-----------------------------------------//
+var SALETYPE=[0,1,2,3,5,6,7,8,9];
+
+//-----------------------------------------//
+// 画像スライド
+//-----------------------------------------//
+function slideImg(){
+ $("div#slideFl").sliderPro({
+  width:360,
+  thumbnailWidth:90,
+  thumbnailHeight:120,
+  aspectRatio:1,
+  thumbnailArrows:true,
+  autoHeight:true,
+  slideDistance:0,
+  arrows:true,
+  autoplay:false,
+  buttons:false
+ });
+}
+
+
+//-----------------------------------------//
 // スライドメニュー
 //-----------------------------------------//
 function slideMenu(){
@@ -153,8 +177,7 @@ function inpclsmas(){
 }
 
 //-----------------------------------------//
-// チラシ用Inputボタンセット
-//(これをひな形として他のデータをセットしていく)
+// 特売情報Inputボタンセット
 //-----------------------------------------//
 function inptirasi(){
  var fname="inptirasi";wlog("start:"+fname);
@@ -176,132 +199,6 @@ function inptirasi(){
  });
  wlog("end:"+fname);
 }
-
-//-----------------------------------------//
-// メール用Inputボタンセット
-//(これをひな形として他のデータをセットしていく)
-//-----------------------------------------//
-function inpmail(){
- var fname="inpmail";wlog("start:"+fname);
-
- $("table tr#mail").on("click",function(){
-  var e="mail click ";wlog("start:"+e);
-  
-  //既存Inputボタン削除
-  $(this).find("input").remove();
-
-  //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mkInpTag("jansale");
-
-  //tdにボタン追加
-  $(this).find("td").last().append(inp);
-
-  //イベント開始
-  inp.click();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// メール用Inputボタンセット
-//(これをひな形として他のデータをセットしていく)
-//-----------------------------------------//
-function inposusume(){
- var fname="inposusume";wlog("start:"+fname);
-
- $("table tr#osusume").on("click",function(){
-  var e="osusume click ";wlog("start:"+e);
-  
-  //既存Inputボタン削除
-  $(this).find("input").remove();
-
-  //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mkInpTag("jansale");
-
-  //tdにボタン追加
-  $(this).find("td").last().append(inp);
-
-  //イベント開始
-  inp.click();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// カレンダー用Inputボタンセット
-//(これをひな形として他のデータをセットしていく)
-//-----------------------------------------//
-function inpcalendar(){
- var fname="inpcalendar";wlog("start:"+fname);
-
- $("table tr#calendar").on("click",function(){
-  var e="calendar click ";wlog("start:"+e);
-  
-  //既存Inputボタン削除
-  $(this).find("input").remove();
-
-  //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mkInpTag("jansale");
-
-  //tdにボタン追加
-  $(this).find("td").last().append(inp);
-
-  //イベント開始
-  inp.click();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// ご注文用Inputボタンセット
-//(これをひな形として他のデータをセットしていく)
-//-----------------------------------------//
-function inpgotyumon(){
- var fname="inpgotyumon";wlog("start:"+fname);
-
- $("table tr#gotyumon").on("click",function(){
-  var e="calendar click ";wlog("start:"+e);
-  
-  //既存Inputボタン削除
-  $(this).find("input").remove();
-
-  //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mkInpTag("jansale");
-
-  //tdにボタン追加
-  $(this).find("td").last().append(inp);
-
-  //イベント開始
-  inp.click();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// 月間お買得品Inputボタンセット
-//(これをひな形として他のデータをセットしていく)
-//-----------------------------------------//
-function inpgekkan(){
- var fname="inpgotyumon";wlog("start:"+fname);
-
- $("table tr#gekkan").on("click",function(){
-  var e="gekkan click ";wlog("start:"+e);
-  
-  //既存Inputボタン削除
-  $(this).find("input").remove();
-
-  //Inputボタン生成(ここをDBのテーブル名とあわせる)
-  var inp=mkInpTag("jansale");
-
-  //tdにボタン追加
-  $(this).find("td").last().append(inp);
-
-  //イベント開始
-  inp.click();
- });
- wlog("end:"+fname);
-}
-
 
 //-----------------------------------------//
 // Inputタグ生成
@@ -367,285 +264,30 @@ function tableHover(){
 
 
 //-----------------------------------------//
-// 日付リストイベント
-//-----------------------------------------//
-function DayEvent(){
- var fname="DayEvent";wlog("start:"+fname);
- $("div.daylist ul li").click(function(){
-  $(this).siblings().removeClass("hoverColor");
-  $(this).addClass("hoverColor");
-  getTirasi();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// 部門リストイベント
-//-----------------------------------------//
-function LinEvent(){
- var fname="LinEvent";wlog("start:"+fname);
- $("div.grplist ul li").click(function(){
-  $(this).siblings().removeClass("hoverColor");
-  $(this).addClass("hoverColor");
-  getTirasi();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// チラシ商品抽出
-//-----------------------------------------//
-function getTirasi(){
- var fname="getTirasi";wlog("start:"+fname);
- var url;
- var q={};
-
- //チラシ番号,部門番号をゲット
- if($("div.grplist ul li").hasClass("hoverColor")){
-  var strcode=$("div.grplist ul li.hoverColor").attr("data-strcode");
-  var adnum=$("div.grplist ul li.hoverColor").attr("data-adnum");
-  var dpscode=$("div.grplist ul li.hoverColor").attr("data-dpscode");
- }
-
- //チラシ番号,日付をゲット
- if($("div.daylist ul li").hasClass("hoverColor")){
-  var strcode=$("div.daylist ul li.hoverColor").attr("data-strcode");
-  var adnum=$("div.daylist ul li.hoverColor").attr("data-adnum");
-  var saleday=$("div.daylist ul li.hoverColor").attr("data-saleday");
- }
-
- //引数チェック
- if(! strcode.match(/^[0-9]+$/)){
-  alert("店舗番号が不正です");
-  wlog(fname+":店舗番号が不正"+strcode);
-  return false;
- }
-
- if(! adnum.match(/^[0-9]+$/)){
-  alert("チラシ番号が不正です");
-  wlog(fname+":チラシ番号が不正"+adnum);
-  return false;
- }
-
- if(dpscode && ! dpscode.match(/^[0-9]+$/)){
-  alert("メジャーが不正です");
-  wlog(fname+":メジャーが不正"+dpscode);
-  return false;
- }
-
- if(saleday && ! chkdate(saleday)){
-  alert("日付が不正です");
-  wlog(fname+":日付が不正"+saleday);
-  return false;
- }
- 
- //queryセット
- if(strcode) q.strcode=strcode;
- if(adnum) q.adnum=adnum;
- if(saleday) q.saleday=saleday;
- if(dpscode) q.dpscode=dpscode;
- console.log(q);
-
- //データゲット
- $.ajax({
-  url:"php/ajaxGetTirasi.php",
-  type:"GET",
-  dataType:"html",
-  data:q,
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("div.items").empty()
-                 .append(html);
-   console.log(html);
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// 日付リストイベント(ご注文用)
-//-----------------------------------------//
-function G_DayEvent(){
- var fname="G_DayEvent";wlog("start:"+fname);
- $("div.daylist ul li").click(function(){
-  $(this).siblings().removeClass("hoverColor");
-  $(this).addClass("hoverColor");
-
-  //部門リストを抽出
-  var q={};
-  q.strcode=$(this).attr("data-strcode");
-  q.year =$(this).attr("data-year");
-  q.month=$(this).attr("data-month");
-
-  //データゲット
-  $.ajax({
-   url:"php/ajaxGetGotyumonGrpList.php",
-   type:"GET",
-   dataType:"html",
-   data:q,
-   async:false,
-   complete:function(){},
-   success:function(html){
-    wlog(fname+": ajax success");
-    console.log(html);
-    $("div.grplist ul").empty()
-                       .append(html);
-    //ここから
-    G_LinEvent();
-    getGotyumon();
-   },
-   error:function(XMLHttpRequest,textStatus,errorThrown){
-    console.log(XMLHttpRequest.responseText);
-   }
-  });
-
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// 部門リストイベント(ご注文用)
-//-----------------------------------------//
-function G_LinEvent(){
- var fname="G_LinEvent";wlog("start:"+fname);
- $("div.grplist ul li").click(function(){
-  $(this).siblings().removeClass("hoverColor");
-  $(this).addClass("hoverColor");
-  getGotyumon();
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// ご注文商品抽出
-//-----------------------------------------//
-function getGotyumon(){
- var fname="getGotyumon";wlog("start:"+fname);
- var url;
- var q={};
-
- //年月、店舗番号をゲット
- if($("div.daylist ul li").hasClass("hoverColor")){
-  var strcode=$("div.daylist ul li.hoverColor").attr("data-strcode");
-  var nen= $("div.daylist ul li.hoverColor").attr("data-year");
-  var tuki=$("div.daylist ul li.hoverColor").attr("data-month");
- }
- 
- //チラシ番号,部門番号をゲット
- if($("div.grplist ul li").hasClass("hoverColor")){
-  var strcode=$("div.grplist ul li.hoverColor").attr("data-strcode");
-  var saleday=$("div.grplist ul li.hoverColor").attr("data-saleday");
-  var grpnum =$("div.grplist ul li.hoverColor").attr("data-grpnum");
- }
-
- //引数チェック
- if(! strcode.match(/^[0-9]+$/)){
-  alert("店舗番号が不正です");
-  wlog(fname+":店舗番号が不正"+strcode);
-  return false;
- }
-
- if(nen && ! nen.match(/^[0-9]+$/)){
-  alert("年数が不正です");
-  wlog(fname+":年数が不正"+nen);
-  return false;
- }
-
- if(tuki && ! tuki.match(/^[0-9]+$/)){
-  alert("月が不正です");
-  wlog(fname+":月が不正"+tuki);
-  return false;
- }
-
- if(saleday && ! chkdate(saleday)){
-  alert("日付が不正です");
-  wlog(fname+":日付が不正"+saleday);
-  return false;
- }
-
- if(grpnum && ! grpnum.match(/^[0-9]+$/)){
-  alert("グループ番号が不正です");
-  wlog(fname+":グループ番号が不正"+grpnum);
-  return false;
- }
- 
- //queryセット
- if(strcode) q.strcode=strcode;
- if(nen) q.year=nen;
- if(tuki) q.month=tuki;
- if(saleday) q.saleday=saleday;
- if(grpnum) q.grpnum=grpnum;
- console.log(q);
-
- //データゲット
- $.ajax({
-  url:"php/ajaxGetGotyumon.php",
-  type:"GET",
-  dataType:"html",
-  data:q,
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("div.items").empty()
-                 .append(html);
-   //console.log(html);
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// 画像スライド
-//-----------------------------------------//
-function slideImg(){
- $("div#slideFl").sliderPro({
-  width:360,
-  thumbnailWidth:90,
-  thumbnailHeight:120,
-  aspectRatio:1,
-  thumbnailArrows:true,
-  autoHeight:true,
-  slideDistance:0,
-  arrows:true,
-  autoplay:false,
-  buttons:false
- });
-}
-
-//-----------------------------------------//
 // リスト一覧
 //-----------------------------------------//
 function getlist(){
- tirasilist();
- maillist();
- osusumelist();
- calendarlist();
- gotyumonlist();
+ var divname="DataDiv";
+ $("div."+divname).remove();
+ for(var i=0;i<SALETYPE.length;i++){
+  salelist(i);
+ }
  delevent();
- tableHover();
+// tableHover();
 }
 
-
 //-----------------------------------------//
-// チラシリスト
+// セールリスト表示
 //-----------------------------------------//
-function tirasilist(){
- var fname="tirailist";wlog("start:"+fname);
+function salelist(saletype){
+ var fname="salelist";wlog("start:"+fname);
+ var divname="DataDiv";
  var q={};
  q.strcode=1;
-
+ q.saletype=saletype;
  //データゲット
  $.ajax({
-  url:"php/ajaxGetTirasiList.php",
+  url:"php/ajaxGetSaleList.php",
   type:"GET",
   data:q,
   dataType:"html",
@@ -653,130 +295,8 @@ function tirasilist(){
   complete:function(){},
   success:function(html){
    wlog(fname+": ajax success");
-   $("div.tirasilist").empty()
-                      .append(html);
+   $("<div></div>",{"class":divname}).append(html).appendTo("div#wrapper");
    
-   //削除イベント
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// メールリスト
-//-----------------------------------------//
-function maillist(){
- var fname="maillist";wlog("start:"+fname);
- var q={};
- q.strcode=1;
-
- //データゲット
- $.ajax({
-  url:"php/ajaxGetMailList.php",
-  type:"GET",
-  data:q,
-  dataType:"html",
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("div.maillist").empty()
-                    .append(html);
-   
-   //削除イベント
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// カレンダーリスト
-//-----------------------------------------//
-function calendarlist(){
- var fname="calendarlist";wlog("start:"+fname);
- var q={};
- q.strcode=1;
-
- //データゲット
- $.ajax({
-  url:"php/ajaxGetCalendarList.php",
-  type:"GET",
-  data:q,
-  dataType:"html",
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("div.calendarlist").empty()
-                        .append(html);
-   
-   //削除イベント
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// おすすめリスト
-//-----------------------------------------//
-function osusumelist(){
- var fname="osusumelist";wlog("start:"+fname);
- var q={};
- q.strcode=1;
-
- //データゲット
- $.ajax({
-  url:"php/ajaxGetOsusumeList.php",
-  type:"GET",
-  data:q,
-  dataType:"html",
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("div.osusumelist").empty()
-                       .append(html);
-   
-   //削除イベント
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// ご注文リスト
-//-----------------------------------------//
-function gotyumonlist(){
- var fname="gotyumonlist";wlog("start:"+fname);
- var q={};
- q.strcode=1;
-
- //データゲット
- $.ajax({
-  url:"php/ajaxGetGotyumonList.php",
-  type:"GET",
-  data:q,
-  dataType:"html",
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("div.gotyumonlist").empty()
-                       .append(html);
-   
-   //削除イベント
   },
   error:function(XMLHttpRequest,textStatus,errorThrown){
    console.log(XMLHttpRequest.responseText);
@@ -794,14 +314,9 @@ function delevent(){
   var q={};
   q.strcode=$(this).attr("data-strcode");
   q.saletype=$(this).attr("data-saletype");
-  
-  if(q.saletype==3 || q.saletype==5){
-   q.nen =$(this).attr("data-year");
-   q.tuki=$(this).attr("data-month");
-  }
-  else{
-   q.saleday=$(this).attr("data-saleday");
-  }
+  q.nen =$(this).attr("data-nen");
+  q.tuki=$(this).attr("data-tuki");
+  q.saleday=$(this).attr("data-saleday");
 
   if(! confirm("削除しますか?")) return false;
   

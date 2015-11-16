@@ -33,15 +33,24 @@ htmlHeader("ログイン");
 ?>
   <div id="wrapper">
    <div><?php echo $msg; ?></div>
-   <form id="loginForm" name="loginForm" action="login.php" method="POST">
-    <ul>
-     <li><label for="userid">  ユーザー名<input id="userid" name="userid" type="text"></li>
-     <li><label for="password">パスワード<input id="password" name="password" type="password"></li>
-     <li><input type="submit" id="login"  name="login"  value="ログイン">
-         <input type="submit" id="logout" name="logout" value="ログアウト"></li>
-         <li><input id="nextpage" name="nextpage" type="hidden" value="<?php echo $_GET["nextpage"]; ?>"></li>
-    </ul>
-   </form>
+   <div class="col1">
+    <form id="loginForm" name="loginForm" action="login.php" method="POST">
+     <ul>
+      <li><label for="userid">  ユーザー名<input id="userid" name="userid" type="text"></li>
+      <li><label for="password">パスワード<input id="password" name="password" type="password"></li>
+      <li><input type="submit" id="login"  name="login"  value="ログイン">
+          <input type="submit" id="logout" name="logout" value="ログアウト"></li>
+          <li><input id="nextpage" name="nextpage" type="hidden" value="<?php echo $_GET["nextpage"]; ?>"></li>
+     </ul>
+    </form>
+   </div>
+
+   <div id="footer">
+<?php
+htmlFooter();
+?>
+   </div><!--div id="footer"-->
+
   </div><!--div id="wrapper"-->
  </body>
  <script>

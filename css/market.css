@@ -449,6 +449,9 @@ table.ItemData td{
  padding:0.5em 0;
 }
 
+table.ItemData tr:hover{
+ background:#e9e4da;
+}
 div.MailDetail p a span{
  color:#8B0000;
  text-decoration:underline;
@@ -487,6 +490,16 @@ col.nen{
  width:6em;
 }
 
+form ul {
+ list-style:none;
+}
+
+div.DataResult{
+ width:90%;
+ height:150px;
+ margin:0 auto;
+ overflow:auto;
+}
 /*フッター*/
 div#footer{
  width:100%;
