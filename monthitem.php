@@ -209,6 +209,8 @@ $(function(){
   itemsMobile:[400,3],
   pagination:false
  });
+
+ delimg();
 });
 </script>
 </html>

@@ -193,6 +193,8 @@ $(function(){
   itemsMobile:[400,1],
   pagination:false
  });
+
+ delimg();
 });
 </script>
 </html>

@@ -161,6 +161,7 @@ $(function(){
   pagination:false
  });
 
+ delimg();
 });
 </script>
 </html>
