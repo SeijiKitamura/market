@@ -109,7 +109,9 @@ if($daylist){
  echo "</ul>";
 }
 ?>
+    <div class="clr"></div>
    </div><!--div class="col1"-->
+  
 <?php
 if($itemlist){
  foreach($itemlist as $key=>$val){
