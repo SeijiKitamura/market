@@ -354,6 +354,7 @@ function delevent(){
 //-----------------------------------------//
 function delimg(){
  var fname="delevent";wlog("start:"+fname);
+ var flg=1;
  $("button#delimg").on("click",function(){
   $("div.Tanpin img").each(function(){
    //console.log($(this).attr("src"));
@@ -371,6 +372,7 @@ function delimg(){
      console.log(html);
      if(html.match(/^error/)){
       alert(html);
+      flg=0;
       return false;
      }
      else{
@@ -381,7 +383,10 @@ function delimg(){
     }
    });
   });
-  alert("削除しました");
+  if(flg){
+   alert("削除しました");
+   location.reload();
+  }
  });
 }
 

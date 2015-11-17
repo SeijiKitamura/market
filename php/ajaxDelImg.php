@@ -1,9 +1,11 @@
 <?php
+require_once("config.php");
 try{
  session_start();
  if(! isset($_SESSION["USERID"]) || $_SESSION["USERID"]==null || $_SESSION["USERID"]!==md5(USERID)){
   throw new exception("再度、ログインしてください");
  }
+
  
  //引数チェック
  if(! $_GET["imgpath"]){
