@@ -30,13 +30,13 @@ $itemlist=viewGetSaleItem($strcode,8,$saleday);
 
 //タイトル決定
 if(count($itemlist)){
- $title=date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."のギフト商品";
+ $title="ギフト一覧|".date("Y年m月d日",strtotime($itemlist[0]["saleday"]));
  $discription=$title." 大切なあの人への贈り物はスーパーキタムラで。ただいま取扱中のギフト商品を";
  $discription.="ご案内中です。掲載中のギフト商品は全国送料です。（北海道、沖縄、離島を除く）";
  $discription.="ハム・お菓子・サラダ油・コーヒーセット・飲料・ビールなど各種取り揃えました。";
 }
 else{
- $title="申し訳ございません。現在ギフト商品は取り扱っておりません。";
+ $title="ギフト一覧|申し訳ございません。現在ギフト商品は取り扱っておりません。";
  $discpription=$title;
 }
 

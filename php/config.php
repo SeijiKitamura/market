@@ -273,7 +273,7 @@ function aLog($comment){
 
  if(! isset($_SESSION["USERID"]) || $_SESSION["USERID"]==null || $_SESSION["USERID"]!==md5(USERID)){
   session_start();
-  $c.=" ".$_COOKIE["PHPSESSID"]." ".$comment." ".$_SERVER["HTTP_REFERER"]."\n";
+  $c.=" ".$_SERVER["REQUEST_URI"]." \"".str_replace(" ","",$comment)."\" ".$_SERVER["HTTP_REFERER"]." ".$_COOKIE["PHPSESSID"]."\n";
   fwrite($fp,$c);
  }
  fclose($fp);

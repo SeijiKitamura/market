@@ -48,13 +48,13 @@ if($jcode){
 if($itemary){
  foreach($itemary as $key=>$val){
   if(strtotime($saleday)==strtotime($val["saleday"])){
-   $title ="ご予約商品 ";
+   $title ="ご予約商品|";
    $title.=$val["sname"]."(".$val["maker"].")";
-   $title.=$val["tani"]." ".$val["price"].$val["yen"];
-   $title.=$val["comment"]." ".$val["grpname"];
+   $title.=$val["tani"]."/".$val["price"].$val["yen"];
+   $title.=$val["comment"]."|".$val["grpname"];
    $title.=date("Y年m月",strtotime($val["saleday"]));
    $title.="JANコード:".$val["jcode"];
-   $title.=" ".$val["dpsname"]." ".$val["clsname"];
+   $title.="|".$val["dpsname"]."|".$val["clsname"];
 
    $description =" 今月の".$title."のご案内。";
    $description.="今月末までのご案内となっております。";
@@ -97,7 +97,7 @@ if($itemlist){
 
 //タイトル決定
 if(! $itemary ||! $itemlist){
- $title="申し訳ございません。ご案内できる商品が見当たりません";
+ $title="ご予約商品|申し訳ございません。ご案内できる商品が見当たりません";
  $descirption="ご案内できる商品が見当たりません。";
 }
 

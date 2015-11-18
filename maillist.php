@@ -31,7 +31,7 @@ $itemlist=viewGetMailList($strcode,$saleday);
 
 //タイトル決定
 if(count($itemlist)){
- $title=date("Y年m月d日",strtotime($saleday))."のメール商品";
+ $title="メール商品一覧|".date("Y年m月d日",strtotime($saleday));
  $description=<<<EOF
 毎日のお買得品をメールでお知らせいたします。さらにメール会員特別価格商品もご案内中。
 ポイント5倍や10%引きその他、朝市などのスペシャルサービスデーもメールにてお知らせいたします。
@@ -39,7 +39,7 @@ if(count($itemlist)){
 EOF;
 }
 else{
- $title="申し訳ございません。本日はご案内するメール商品がございません。";
+ $title="メール商品一覧|申し訳ございません。本日はご案内するメール商品がございません。";
 }
 
 htmlHeader($title,$description);

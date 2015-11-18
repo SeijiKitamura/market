@@ -30,11 +30,11 @@ $itemlist=viewGetNews($strcode,$saleday);
 
 //タイトル決定
 if(count($itemlist)){
- $title="ニュース一覧";
+ $title="ニュース一覧|";
  $description ="このページはスーパーキタムラの最新ニュース一覧をご案内するページです。";
 }
 else{
- $title="申し訳ございません。ご案内するニュースがございません。";
+ $title="ニュース一覧|申し訳ございません。ご案内するニュースがございません。";
  $description =$title;
 }
 

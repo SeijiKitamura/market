@@ -32,13 +32,13 @@ $filename="c".date("Ym01",strtotime($saleday));
 
 //タイトル決定
 if(count($itemlist)){
- $title=date("Y年m月",strtotime($saleday))."のカレンダー";
+ $title="カレンダー|".date("Y年m月",strtotime($saleday));
  $discription=$title."をご紹介。ほぼ毎日実施されるカテゴリー別セールです。";
  $discription.="カレンダーを有効に活用して毎日のお買い物を楽しくしましょう。";
  $discription.="特に、普段特売にならない商品を定期的にご購入のお客様にはお得な情報です。";
 }
 else{
- $title="申し訳ございません。".date("Y年m月",strtotime($saleday))."のカレンダーはご案内できません";
+ $title="カレンダー|申し訳ございません。".date("Y年m月",strtotime($saleday))."のカレンダーはご案内できません";
  $discpription=$title;
 }
 

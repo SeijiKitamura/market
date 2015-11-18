@@ -35,12 +35,12 @@ if($item){
 
 //タイトル決定
 if(! $item ){
- $title="申し訳ございません。ご案内できる商品が見当たりません";
+ $title="商品のご案内|申し訳ございません。ご案内できる商品が見当たりません";
  $descirption="ご案内できる商品が見当たりません。";
 }
 else{
- $title=$item[0]["maker"].$item[0]["sname"].$item[0]["tani"]." ".$item[0]["jcode"];
- $description=$item[0]["maker"].$item[0]["sname"].$item[0]["tani"].$item[0]["price"]."円のご案内ページです。";
+ $title="商品のご案内|".$item[0]["maker"].$item[0]["sname"].$item[0]["tani"]."/".$item[0]["jcode"];
+ $description=$item[0]["maker"].$item[0]["sname"].$item[0]["tani"]."/".$item[0]["price"]."円のご案内ページです。";
  $description.="JANコード:".$item[0]["jcode"]." ".$item[0]["linname"]."コーナーにある".$item[0]["clsname"]."カテゴリーにて販売されています。";
  $description.="このページは".CORPNAME."にて取扱中の商品をご案内しております。";
  $description.="その他にも".$item[0]["clsname"]."の商品もご紹介中です";

@@ -72,10 +72,10 @@ if($adnum && $jcode){
 if($itemary){
  foreach($itemary as $key=>$val){
   if($adnum==$val["adnum"]){
-   $title ="チラシ商品 ";
+   $title ="チラシ商品|";
    $title.=$val["sname"]."(".$val["maker"].")";
-   $title.=$val["tani"]." ".$val["price"].$val["yen"];
-   $title.=$val["comment"]." ".$val["grpname"];
+   $title.=$val["tani"]."/".$val["price"].$val["yen"];
+   $title.=$val["comment"]."|".$val["grpname"];
    $title.=$val["startday"];
    if(strtotime($val["startday"])==strtotime($val["endday"])){
     $title.="限り";
@@ -84,9 +84,9 @@ if($itemary){
     $title.="から".$val["endday"]."まで";
    }
    $title.="JANコード:".$val["jcode"];
-   $title.=" ".$val["dpsname"]." ".$val["clsname"];
+   $title.="|".$val["dpsname"]."|".$val["clsname"];
 
-   $description =" 本日の".$title."。";
+   $description ="本日の".$title."。";
    $description.="あわせて過去のチラシ掲載履歴もご案内中です。";
 
    //当日チラシ商品データをゲット
@@ -104,7 +104,7 @@ if($item){
 
 //タイトル決定
 if(! $adnum || ! $jcode || ! $itemary ||! $item){
- $title="申し訳ございません。ご案内できる商品が見当たりません";
+ $title="チラシ商品|申し訳ございません。ご案内できる商品が見当たりません";
  $descirption="ご案内できる商品が見当たりません。";
 }
 

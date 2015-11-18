@@ -49,13 +49,13 @@ if($jcode){
 if($itemary){
  foreach($itemary as $key=>$val){
   if(strtotime($saleday)==strtotime($val["saleday"])){
-   $title ="月間お買得品 ";
+   $title ="月間お買得品|";
    $title.=$val["sname"]."(".$val["maker"].")";
-   $title.=$val["tani"]." ".$val["price"].$val["yen"];
-   $title.=$val["comment"]." ".$val["grpname"];
+   $title.=$val["tani"]."/".$val["price"].$val["yen"];
+   $title.=$val["comment"]."|".$val["grpname"];
    $title.=date("Y年m月",strtotime($val["saleday"]));
    $title.="JANコード:".$val["jcode"];
-   $title.=" ".$val["dpsname"]." ".$val["clsname"];
+   $title.="|".$val["dpsname"]."|".$val["clsname"];
 
    $description =$title."のご案内。";
    $description.="今月の月間お買得品のお知らせ！今月末までいつ来てもこのお値段。";
@@ -102,7 +102,7 @@ $calendarlist=viewGetCalendar($strcode,$saleday,$endday);
 
 //タイトル決定
 if(! $itemary ||! $itemlist){
- $title="申し訳ございません。ご案内できる商品が見当たりません";
+ $title="月間お買得品|申し訳ございません。ご案内できる商品が見当たりません";
  $descirption="ご案内できる商品が見当たりません。";
 }
 

@@ -63,20 +63,20 @@ if($itemlist && $item){
 //タイトル確定
 if($item){
  foreach($item as $key=>$val){
-  $title ="早期ご予約商品 ";
+  $title ="早期ご予約商品|";
   $title.=$val["sname"]."(".$val["maker"].")";
-  $title.=$val["tani"]." ".$val["price"].$val["yen"];
-  $title.=$val["comment"]." ".$val["grpname"];
+  $title.=$val["tani"]."/".$val["price"].$val["yen"];
+  $title.=$val["comment"]."|".$val["grpname"];
   $title.="JANコード:".$val["jcode"];
-  $title.=" ".$val["dpsname"]." ".$val["clsname"];
+  $title.="|".$val["dpsname"]."|".$val["clsname"];
 
-  $description =" 早期ご予約".$title."のご案内。";
+  $description ="早期ご予約".$title."のご案内。";
   $description.="数量限定、期間限定商品ばかりを取り揃えました。この機会をお見逃しなく〜！";
   break;
  }
 }
 else{
- $title="申し訳ございません。ご案内できる商品が見当たりません";
+ $title="早期ご予約商品|申し訳ございません。ご案内できる商品が見当たりません";
  $descirption="ご案内できる商品が見当たりません。";
 }
 

@@ -53,11 +53,11 @@ if($itemlist){
 
 //タイトル決定
 if(! $item){
- $title="申し訳ございません。ご案内できるニュースがございません";
+ $title="ニュース|申し訳ございません。ご案内できるニュースがございません";
  $descirption=$title;
 }
 else{
- $title =date("Y年m月d日",strtotime($item[0]["saleday"]))."配信 ";
+ $title ="ニュース|".date("Y年m月d日",strtotime($item[0]["saleday"]))."配信 ";
  $title.=$item[0]["sname"];
 
  $description =$title.$item[0]["comment"];

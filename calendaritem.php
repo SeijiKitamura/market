@@ -37,14 +37,14 @@ $clslist=viewGetSaleItem($strcode,3,$saleday);
 //タイトル確定
 if($clslist){
  foreach($clslist as $key=>$val){
-  $title =date("Y年m月d日",strtotime($val["saleday"]))."のカレンダー情報 ";
+  $title ="カレンダー情報|".date("Y年m月d日",strtotime($val["saleday"]))."|";
   $description =$title."のご案内。本日のお買い得情報は";
   $description.=$val["grpname"].$val["tani"].$val["price"].$val["yen"]."です。表示されている商品が".$val["tani"].$val["price"].$val["yen"]."です。";
   break;
  }
 }
 else{
- $title="申し訳ございません。ご案内できるカレンダー情報が見当たりません";
+ $title="カレンダー情報|申し訳ございません。ご案内できるカレンダー情報が見当たりません";
  $descirption=$title;
 }
 

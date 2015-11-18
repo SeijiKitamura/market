@@ -5,3 +5,4 @@ img
 *.tar.gz
 server.conf.php
 test*.php
+access*.html

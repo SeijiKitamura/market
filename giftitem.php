@@ -66,12 +66,12 @@ if($itemlist && $item){
 //タイトル確定
 if($item){
  foreach($item as $key=>$val){
-  $title ="ギフト商品 ";
+  $title ="ギフト商品|";
   $title.=$val["sname"]."(".$val["maker"].")";
   $title.=$val["tani"]." ".$val["price"].$val["yen"];
   $title.=$val["comment"]." ".$val["grpname"];
   $title.="JANコード:".$val["jcode"];
-  $title.=" ".$val["dpsname"]." ".$val["clsname"];
+  $title.="|".$val["dpsname"]."|".$val["clsname"];
 
   $description =$title."のご案内。";
   $description.="大切なあの人への贈り物はぜひ".CORPNAME."でお買い求めください";
@@ -81,7 +81,7 @@ if($item){
  }
 }
 else{
- $title="申し訳ございません。ご案内できる商品が見当たりません";
+ $title="ギフト商品|申し訳ございません。ご案内できる商品が見当たりません";
  $descirption="ご案内できる商品が見当たりません。";
 }
 
