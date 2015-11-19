@@ -391,6 +391,47 @@ function delimg(){
 }
 
 //-----------------------------------------//
+// 年のSelectBox作成
+//-----------------------------------------//
+function makeNenBox(startyear,endyear){
+ var fname="makeNenBox";wlog("start:"+fname);
+ var d=new Date();
+ if(!startyear) startyear=d.getFullYear();
+ if(!endyear)   endyear  =d.getFullYear();
+
+ var sct=$("<select id='nen'>");
+ for(var i=startyear;i<=endyear;i++){
+  var opt=$("<option>").val(i)
+                       .text(i+"年")
+                       .appendTo(sct);
+ }
+
+ wlog("end:"+fname);
+ return sct;
+}
+
+//-----------------------------------------//
+// 月のSelectBox作成
+//-----------------------------------------//
+function makeTukiBox(){
+ var fname="makeTukiBox";wlog("start:"+fname);
+ var d=new Date();
+
+ var sct=$("<select id='tuki'>");
+ //ここを前ゼロ付加する
+ for(var i=1;i<13;i++){
+  var tuki="";
+  if(i<10) tuki="0"+i;
+  else tuki=i;
+  var opt=$("<option>").val(tuki)
+                       .text(i+"月")
+                       .appendTo(sct);
+ }
+
+ wlog("end:"+fname);
+ return sct;
+}
+//-----------------------------------------//
 // 日付チェック
 //-----------------------------------------//
 function chkdate(hiduke){

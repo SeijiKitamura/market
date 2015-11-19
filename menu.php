@@ -41,6 +41,11 @@ htmlHeader("メニュー");
       <tr id="tirasi">
        <td>特売情報</td>
        <td>チラシ、メール、月間、カレンダーなどの特売情報をインポートします。</td>
+      </tr>
+      <tr>
+       <td><a href="data.php">アクセスログ</a></td>
+       <td><a href="data.php">各ページ、どのくらい閲覧されたかを知ることができます。</a></td>
+      </tr>
      </tbody>
     </table>
    </div><!--div class="tablearea"-->
