@@ -1,6 +1,8 @@
+img
 *.csv
 *.log
 *.txt
 *.tar.gz
 server.conf.php
-test.php
+test*.php
+access*.html

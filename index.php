@@ -1,216 +1,215 @@
 <?php
+require_once("php/view.function.php");
 require_once("php/html.function.php");
-htmlHeader("ホーム");
+
+$title="ホーム";
+$description=<<<EOF
+ようこそ！スーパーキタムラホームページへ。当店は東京都大田区南馬込の桜並木にある
+食品スーパーマーケットです。年中無休 9:30-22:00にて営業中。
+野菜、肉、魚、牛乳、たまご、一般食料品、お菓子、ビール、日本酒、ワイン、たばこなどを品揃しております。
+馬込文士村めぐりや桜まつり、お花見などの帰りにぜひお立ち寄り下さいませ。
+EOF;
+
+htmlHeader($title,$description);
+
+//店舗番号確定
+if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
+ $strcode=$_GET["strcode"];
+}
+else{
+ $strcode=1;
+}
+
+//日付確定
+if($_GET["saleday"] &&chkDate($_GET["saleday"])){
+ $saleday=$_GET["saleday"];
+} 
+else{
+ $saleday=date("Y-m-d");
+}
+
+//チラシ
+$ary=viewGetAdnum($strcode,$saleday);
+$adnum=$ary[0]["adnum"];
+$tirasilist=viewGetFlyersItemCls($strcode,$adnum,$saleday,null);
+
+//メールアイテム
+$maillist=viewGetSaleItem($strcode,1,$saleday);
+
+//ご予約
+$goyoyakulist=viewGetSaleItem($strcode,5,$saleday);
+
+//月間お買得品
+$gekkanlist=viewGetSaleItem($strcode,6,$saleday);
+
+//新商品
+$newitemlist=viewGetNewItem($strcode,$saleday);
+
+//ギフト
+$giftlist=viewGetSaleItem($strcode,8,$saleday);
+
+//早期ご予約アイテムリストをゲット
+$soukilist=viewGetSaleItem($strcode,9,$saleday);
+
+//カレンダー
+$endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
+$calendarlist=viewGetCalendar($strcode,$saleday,$endday);
+
+//店舗イベント
+$newslist=viewGetNews($strcode,$saleday);
 ?>
 
   <div id="wrapper">
+   <!--PC用ヘッダー-->
+
+   <!--トップイメージ-->
+   <div class="TopImageZone">
+     <img class="backimage" src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
+     <!--img class="logoimg"   src="img/kita5.jpg" alt="スーパーキタムラ ロゴ"-->
+   </div><!--div class="TopImageZone"-->
+
 
    <div class="col1">
-    <img src="img/topimage.jpg" alt="南馬込桜並木の様子|スーパーキタムラ">
-   </div><!--div class="col1"-->
-
-   <div class="col1">
-    <h2><a href="tirasilist.php">今週のチラシ</a></h2>
-    <p><a href="tirasilist.php">毎週木曜日に投函される広告商品のご案内</a></p>
-
-    <a href="tirasilist.php">
-     <div class="col2">
-      <img src="img/a.jpg" alt="スーパーキタムラチラシ A面">
-     </div><!--div class="col2"-->
-
-     <div class="col2">
-      <img src="img/b.jpg" alt="スーパーキタムラチラシ B面">
-     </div><!--div class="col2"-->
-    </a>
-    
-    <div class="clr"></div>
-
-   </div><!--div class="col1"-->
-
-   <div class="col1">
-    <div class="col2">
-     <h2><a href="maillist.php">メール会員募集中</a></h2>
-     <a href="maillist.php">
-      <p>お買得情報をメールでお知らせ！メール会員限定価格も実施中です。</p>
-      <img src="img/mail.jpg" alt="メール会員募集中">
-     </a>
-    </div><!--div class="col2"-->
-
-    <div class="col2">
-     <h2><a href="calendar.php">カレンダー情報</a></h2>
-     <a href="calendar.php">
-      <p>毎日のお買い得情報を発信中〜！</p>
-      <img src="img/calendar.png" alt="カレンダー">
-     </a>
-    </div><!--div class="col2"-->
-
-    <div class="col2">
-     <h2><a href="gotyumon.php">パーティーメニュー</a></h2>
-     <a href="gotyumon.php">
-      <p>お祝いごと、ホームパーティー、法事などにぜひご利用ください。詳しくはサービスカウンターまで</p>
-      <img src="img/goyoyaku.png" alt="パーティーメニュー">
-     </a>
-    </div><!--div class="col2"-->
-    <div class="clr"></div>
-
-   </div><!--div class="col1"-->
-
-   <div class="col1">
-    <div class="col2">
-     <h2>配達します</h2>
-     <p>3,000円（税込）以上のお買い上げで送料無料です</p>
-     <img src="img/haitatuhead.png" alt="配達">
-    </div><!--div class="col2"-->
-    <div class="col3">
-     <h3>送料</h3>
-     <table>
-      <thead>
-       <tr>
-        <th>お買上金額(税込)</th>
-        <th>送料(税込)</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-        <td>3,000円未満</td>
-        <td>200円</td>
-       </tr>
-       <tr>
-        <td>3,000円以上</td>
-        <td>無料</td>
-       </tr>
-      </tbody>
-     </table>
-    </div><!--div class="col3"-->
-    <div class="col3">
-     <h3>受付時間と配達時間</h3>
-     <table>
-      <thead>
-       <tr>
-        <th>受付時間</th>
-        <th>お届け時間</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-        <td>9:30-12:00</td>
-        <td>11:00-13:00</td>
-       </tr>
-       <tr>
-        <td>12:00-15:00</td>
-        <td>15:00-17:00</td>
-       </tr>
-       <tr>
-        <td>15:00-18:00</td>
-        <td>17:00-19:00</td>
-       </tr>
-       <tr>
-        <td>18:00-22:00</td>
-        <td>(翌日)10:00-12:00</td>
-       </tr>
-      </tbody>
-     </table>
-    </div><!--div class="col3"-->
-
-    <div class="col3">
-     <h3>配達可能地域</h3>
-     <ul class="haitatuarea">
-      <li>南馬込全域</li>
-      <li>西馬込全域</li>
-      <li>東馬込全域</li>
-      <li>中馬込全域</li>
-      <li>中央全域</li>
-      <li>山王全域</li>
-      <li>上池台全域</li>
-      <li>仲池上全域</li>
-      <li>池上1-5丁目</li>
-      <li>大森北1,4,5丁目</li>
-      <li>大森西1,4,7丁目</li>
-     </ul>
-     <div class="clr"></div>
-    </div><!--div class="col3"-->
-
-    <div class="col3">
-     <h3>配達対象外商品</h3>
-     <p>冷凍食品、アイスクリームは配達対象外とさせていただきます</p>
-     <h3>その他のご注意事項</h3>
-     <p>当サービスはご来店されたお客様が対象となっております。お電話、FAXでのご注文は誠に申し訳ございませんが承っておりません。</p>
-    </div><!--div class="col3"-->
-    <div class="clr"></div>
-
+<?php
+if($tirasilist){
+ echo "<h2>チラシ商品<span><a href='tirasilist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="TirasiZone" class="owl-carousel">
+<?php
+if($tirasilist){
+ htmlItemList($tirasilist);
+}
+?>
+    </div><!--div id="TirasiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
 
    <div class="col1">
-    <h2>アクセス</h2>
-    <p>当店までのアクセス</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3244.774081547887!2d139.71252230000005!3d35.58396760000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601860228bd60055%3A0xa4faaa4f05d8a7c8!2z44CSMTQzLTAwMjUg5p2x5Lqs6YO95aSn55Sw5Yy65Y2X6aas6L6877yU5LiB55uu77yS77yR4oiS77yR77yQ!5e0!3m2!1sja!2sjp!4v1435217541076" width="100%" height="250" frameborder="0" style="border:0;float:left;" allowfullscreen></iframe>
-    <div class="clr"></div>
+<?php
+if($maillist){
+ echo "<h2>メール商品 <span><a href='maillist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="MailZone" class="owl-carousel">
+<?php
+if($maillist){
+ htmlItemList($maillist);
+}
+
+?>
+    </div><!--div id="MailZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>会社概要</h2>
-    <table>
-     <tbody>
-      <tr>
-       <td>会社名</td>
-       <td>株式会社スーパーキタムラ</td>
-      </tr>
-      <tr>
-       <td>所在地</td>
-       <td>〒143-0025　東京都大田区南馬込4-21-10</td>
-      </tr>
-      <tr>
-       <td></td>
-       <td>電話　03-3771-8284 FAX 03-3773-0605</td>
-      </tr>
-      <tr>
-       <td>代表取締役</td>
-       <td>北村　安祥</td>
-      </tr>
-      <tr>
-       <td>設立</td>
-       <td>1981年10月</td>
-      </tr>
-      <tr>
-       <td>資本金</td>
-       <td>99,000,000円</td>
-      </tr>
-      <tr>
-       <td>事業内容</td>
-       <td>食品スーパーマーケット</td>
-      </tr>
-      <tr>
-       <td>店休日</td>
-       <td>年中無休</td>
-      </tr>
-      <tr>
-       <td>営業時間</td>
-       <td>AM9:30-PM22:00</td>
-      </tr>
-      <tr>
-       <td>所在地</td>
-       <td>〒143-0025　東京都大田区南馬込4-21-10</td>
-      </tr>
-      <tr>
-       <td></td>
-       <td>電話　03-3771-8284 FAX 03-3773-0605</td>
-      </tr>
-      <tr>
-       <td>駐車場</td>
-       <td>40台あり</td>
-      </tr>
-      <tr>
-       <td>最寄駅</td>
-       <td>都営浅草線　西馬込駅（南口）　徒歩15分</td>
-      </tr>
-      <tr>
-       <td>支払い方法</td>
-       <td>クレジットカード(VISA MASTER JCB) 電子マネー(交通系）QUICPay 大田区共通商品券、ビール券、お米券</td>
-      </tr>
-     <tbody>
-    </table>
+<?php
+if($soukilist){
+ echo "<h2>歳末早期ご予約商品<span><a href='soukilist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="SoukiZone" class="owl-carousel">
+<?php
+if($soukilist){
+ htmlItemList($soukilist);
+}
+?>
+    </div><!--div id="SoukiZone" class="owl-carousel"-->
    </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($giftlist){
+ echo "<h2>ギフト商品<span><a href='giftlist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="GiftZone" class="owl-carousel">
+<?php
+if($giftlist){
+ htmlItemList($giftlist);
+}
+?>
+    </div><!--div id="GiftZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($goyoyakulist){
+ echo "<h2>ご予約商品<span><a href='goyoyakulist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="GoyoyakuZone" class="owl-carousel">
+<?php
+if($goyoyakulist){
+ htmlItemList($goyoyakulist);
+}
+?>
+    </div><!--div id="GoyoyakuZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($gekkanlist){
+ echo "<h2>月間お買得品 <span><a href='monthlist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="GekkanZone" class="owl-carousel">
+<?php
+if($gekkanlist){
+ htmlItemList($gekkanlist);
+}
+?>
+    </div><!--div id="GekkanZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($newitemlist){
+ echo "<h2>新商品のご案内 <span><a href='newitemlist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="NewItemZone" class="owl-carousel">
+<?php
+if($newitemlist){
+ htmlItemList($newitemlist);
+}
+?>
+    </div><!--div id="NewItemZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($calendarlist){
+ echo "<h2>カレンダー</h2>";
+}
+?>
+    <div id="CalendarZone" class="owl-carousel">
+<?php
+if($calendarlist){
+ htmlCalendarList2($calendarlist);
+}
+?>
+    </div><!--div id="CalendarZone" class="owl-carousel"-->
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($newslist){
+ echo "<h2>最新ニュース <span><a href='newslist.php'>一覧</a></span></h2>";
+}
+?>
+    <div id="NewsZone">
+<?php
+if($newslist){
+ htmlNewsList($newslist);
+}
+?>
+    </div><!--div id="NewsZone"-->
+   </div><!--div class="col1"-->
+
+<?php
+htmlSNSButton();
+?>
+   <div class="clr"></div>
 
    <div id="footer">
 <?php
@@ -219,5 +218,63 @@ htmlFooter();
    </div><!--div id="footer"-->
   </div><!--div id="wrapper"-->
  </body>
-</html>
+<script>
+$(function(){
+ $("#TirasiZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
 
+ $("#MailZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#OsusumeZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#GiftZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#SoukiZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+
+ $("#GoyoyakuZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#CalendarZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#NewItemZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+ $("#GekkanZone").owlCarousel({
+  items:5,
+  itemsMobile:[400,3],
+  pagination:false
+ });
+
+});
+</script>
+</html>

@@ -1,30 +1,28 @@
 <?php
-require_once("php/html.function.php");
+//チラシリスト
+
 require_once("php/view.function.php");
+require_once("php/html.function.php");
 
-//店舗番号
-if(! $_GET["strcode"]) $strcode=1;
+//引数
+// strcode 店舗番号 [推奨] ない場合は1になる
+// saleday 日付 [推奨] ない場合は当日になる
+// 最小引数 ?strcode=1&saleday=yyyy-mm-dd
 
-//販売日
-if(! $_GET["saleday"]) $saleday=date("Y-m-d");
+//店舗番号確定
+if($_GET["strcode"] && preg_match("/^[0-9]+$/",$_GET["strcode"])){
+ $strcode=$_GET["strcode"];
+}
 else{
+ $strcode=1;
+}
+
+//日付確定
+if($_GET["saleday"] &&chkDate($_GET["saleday"])){
  $saleday=$_GET["saleday"];
-}
-if($_GET["saleday"] && ! chkDate($_GET["saleday"])){
- wLog("tirasi.php 日付無効のため本日日付をセット({$_GET["saleday"]})");
- $saleday=date("Y-m-d");
-}
-
-
-//部門番号
-if(! $_GET["lincode"]){
- $lincode=0;
-}
-elseif(! preg_match("/^[0-9]+$/",$_GET["lincode"])){
- $lincode=0;
-}
+} 
 else{
- $lincode=$_GET["lincode"];
+ $saleday=date("Y-m-d");
 }
 
 //チラシ番号をゲット(追い打ちチラシは非表示)
@@ -37,101 +35,109 @@ if($adnum){
  //店舗全体の日付リスト、商品リストをゲット
  $daylist=viewGetFlyersDayLin ($strcode,$adnum);
  $dpslist=viewGetSaleDpsList  ($strcode,$adnum,$saleday);
- $item=viewGetFlyersItemLin($strcode,$adnum,$saleday);
+ $itemlist=viewGetFlyersItemLin($strcode,$adnum,$saleday);
 }
 
 //タイトル決定
-if(count($item)){
- $title=date("Y年m月d日",strtotime($item[0]["startday"]))."の広告商品";
+if(count($itemlist)){
+ $title="チラシ商品一覧|".date("Y年m月d日",strtotime($itemlist[0]["startday"]));
+ $description=<<<EOF
+新聞折込チラシで配布した商品をご紹介しております。また、広告には載せきれなかった商品を
+Web限定商品としてご案内中です。だから実際のチラシよりも内容が充実。
+スーパーキタムラのインターネットチラシ。こちらの広告をぜひご利用くださいませ。
+EOF;
 }
 else{
- $title="申し訳ございません。本日はチラシが入っていません";
+ $title="チラシ商品一覧|申し訳ございません。本日はチラシが入っていません";
 }
 
-htmlHeader($title);
+htmlHeader($title,$description);
 ?>
   <div id="wrapper">
-   <div class="daylist">
-    <ul>
+   <div class="col1">
+<?php
+echo htmlNaviBar();
+?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
+<?php
+if($itemlist){
+}
+
+if($daylist){
+ echo "<h1>".date("Y年m月d日",strtotime($daylist[0]["saleday"]))."投函のチラシ</h1>";
+ $imgpath=date("Ymd",strtotime($daylist[0]["saleday"]));
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/".$imgpath."a.jpg";
+ if(file_exists($path)){
+  echo "<a href='tirasiimg.php?strcode={$strcode}&saleday={$saleday}'>";
+  echo "<img src='.".IMG."/".$imgpath."a.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='col2'>";
+ $path=realpath("./").IMG."/".$imgpath."b.jpg";
+ if(file_exists($path)){
+  echo "<a href='tirasiimg.php?strcode={$strcode}&saleday={$saleday}'>";
+  echo "<img src='.".IMG."/".$imgpath."b.jpg'>";
+  echo "</a>";
+ }
+ echo "</div>";
+ echo "<div class='clr'></div>";
+}
+else{
+ echo "<p>申し訳ございません。本日はご案内するチラシ商品がございません</p>";
+}
+?>
+   </div><!--div class="col1"-->
+
+   <div class="col1">
 <?php
 //日付リスト表示
 if($daylist){
+ echo "<h2>".date("Y年m月d日",strtotime($saleday))."のチラシ商品</h2>";
+ echo "<ul class='daylist'>";
  foreach($daylist as $key=>$val){
-  $d=date("n月j日",strtotime($val["saleday"]));
+  //$d=date("n月j日",strtotime($val["saleday"]));
+  $d=date("j日",strtotime($val["saleday"]));
   $d.="({$YOUBI[date("w",strtotime($val["saleday"]))]})";
-  $d.=" {$val["itemcnt"]}点";
-  echo "<li data-strcode={$strcode} data-adnum={$adnum} data-saleday={$val["saleday"]}>{$d}</li>";
+  echo "<li><a href='tirasilist.php?strcode={$strcode}&saleday={$val["saleday"]}'>";
+  echo $d;
+  echo "</a></li>";
  }
+ echo "</ul>";
 }
 ?>
-    </ul>
-   </div><!--div class="daylist"-->
-   <div class="clr"></div>
-
-   <div class="grplist">
-    <ul>
+    <div class="clr"></div>
+   </div><!--div class="col1"-->
+  
 <?php
-//グループ表示
-if($linlist){
- echo "<li data-strcode={$strcode} data-adnum={$adnum} data-lincode=0>すべて</li>";
- foreach($linlist as $key=>$val){
-  $d="{$val["linname"]}({$val["itemcnt"]})";
-  echo "<li data-strcode={$strcode} data-adnum={$adnum} data-lincode={$val["lincode"]}>{$d}</li>";
- }
-}
-elseif($dpslist){
- echo "<li data-strcode={$strcode} data-adnum={$adnum} data-dpscode=0>すべて</li>";
- foreach($dpslist as $key=>$val){
-  $d="{$val["dpsname"]}({$val["itemcnt"]})";
-  echo "<li data-strcode={$strcode} data-adnum={$adnum} data-dpscode={$val["dpscode"]}>{$d}</li>";
- }
-}
+if($itemlist){
+ foreach($itemlist as $key=>$val){
 ?>
-    </ul>
-   </div><!--div class="grplist"-->
-
-   <div class="items">
-<?php
-if($item){
- //チラシ画像表示
-?>
-    <div class="flyers">
-     <div class="sidea">
-      <a href="img/a.jpg" target="_blank">
-       <img src="img/a.jpg" alt="スーパーキタムラ チラシA面">
-      </a>
-     </div><!--div class="sidea"-->
-     <div class="sideb">
-      <a href="img/b.jpg" target="_blank">
-       <img src="img/b.jpg" alt="スーパーキタムラ チラシB面">
-      </a>
-     </div><!--div class="sideb"-->
-     <div class="clr"></div>
-    </div><!--div class="flyers"-->
+   <div class="col3">
 <?php 
- //チラシアイテム表示
- htmlContents($item);
-}
-else{
+  $ary=array();
+  $ary[]=$itemlist[$key];
+  htmlItemList($ary);
 ?>
-    <h1>申し訳ございません。本日はチラシ商品はございません。</h1>
-    <p>次回の広告をご期待くださいませ。</p>
+   </div><!--div class="col3"-->
 <?php
+ }
 }
 ?>
-   </div><!--div class="items"-->
+
+<?php
+htmlSNSButton();
+?>
+
    <div id="footer">
 <?php
 htmlFooter();
 ?>
    </div><!--div id="footer"-->
-  </div><!--div id="wrapper"-->
- </body>
-<script>
-$(function(){
- DayEvent();
- LinEvent();
-});
 
-</script>
-</html>
+  </div><!--div id="wrapper"-->
+
+

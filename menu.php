@@ -9,7 +9,7 @@ htmlHeader("メニュー");
 
   <div id="wrapper">
    <div class="tablearea">
-    <table>
+    <table class="ItemData">
      <thead>
       <tr>
        <th>項目</th>
@@ -39,24 +39,12 @@ htmlHeader("メニュー");
        <td>クラスマスタをインポートします</td>
       </tr>
       <tr id="tirasi">
-       <td>チラシ</td>
-       <td>チラシデータをインポートします</td>
+       <td>特売情報</td>
+       <td>チラシ、メール、月間、カレンダーなどの特売情報をインポートします。</td>
       </tr>
-      <tr id="mail">
-       <td>メール</td>
-       <td>メールデータをインポートします</td>
-      </tr>
-      <tr id="osusume">
-       <td>おすすめ</td>
-       <td>おすすめ商品をインポートします</td>
-      </tr>
-      <tr id="calendar">
-       <td>カレンダー</td>
-       <td>カレンダーをインポートします</td>
-      </tr>
-      <tr id="gotyumon">
-       <td>ご注文</td>
-       <td>ご注文をインポートします</td>
+      <tr>
+       <td><a href="data.php">アクセスログ</a></td>
+       <td><a href="data.php">各ページ、どのくらい閲覧されたかを知ることができます。</a></td>
       </tr>
      </tbody>
     </table>
@@ -64,22 +52,6 @@ htmlHeader("メニュー");
    
    <div class="msgarea">
    </div><!--div class="msgarea"-->
-
-   <div class="tirasilist">
-   </div><!--div class="tirasilist"-->
-
-   <div class="maillist">
-   </div><!--div class="maillist"-->
-
-   <div class="osusumelist">
-   </div><!--div class="osusumelist"-->
-
-
-   <div class="calendarlist">
-   </div><!--div class="calendarlist"-->
-
-   <div class="gotyumonlist">
-   </div><!--div class="gotyumonlist"-->
 
   </div><!--div id="wrapper"-->
 
@@ -97,10 +69,6 @@ $(function(){
  inplinmas();
  inpclsmas();
  inptirasi();
- inpmail();
- inposusume();
- inpcalendar();
- inpgotyumon();
  getlist();
 });
 

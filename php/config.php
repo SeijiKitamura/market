@@ -63,6 +63,21 @@ define("SITEHELP","当店は青果、精肉、鮮魚、惣菜、お酒、タバ�
 define("SITEABOUT","");
 
 //---------------------------------------------------//
+// セールタイプ
+// (追加した場合はphp/ajaxGetSaleList.phpも見直すこと)
+//---------------------------------------------------//
+$SALETYPE=array(
+                 0=>"チラシ"
+                ,1=>"メール"
+                ,2=>"おすすめ"
+                ,3=>"カレンダー"
+                ,5=>"ご予約"
+                ,6=>"月間お買得品"
+                ,7=>"ニュース"
+                ,8=>"ギフト"
+                ,9=>"早期ご予約"
+               );
+//---------------------------------------------------//
 // ページ情報
 //---------------------------------------------------//
 $PAGES=array(
@@ -72,26 +87,50 @@ $PAGEARY=array(
               );
 
 $NAVI  =array(
-                "index.php" =>"ホーム"
-               ,"tirasilist.php"=>"チラシ"
-               ,"maillist.php"=>"メール"
-               ,"calendar.php"=>"カレンダー"
-               ,"gotyumon.php"=>"ご注文"
+                     "チラシ"=>"tirasilist.php"
+                    ,"メール"=>"maillist.php"
+                    ,"ご予約"=>"goyoyakulist.php"
+                    ,"月間"  =>"monthlist.php"
               );
 
+$PCNAVI =array (
+                     "チラシ"=>"tirasilist.php"
+                    ,"メール"=>"maillist.php"
+                    ,"ご予約"=>"goyoyakulist.php"
+                    ,"月間"  =>"monthlist.php"
+                    ,"キタムラとは?"=>"kodawari.php"
+               );
 $MININAVI=array(
+                     "新卒採用"=>"sinsotu.php"
+                    ,"会社概要"=>"gaiyo.php"
+                    ,"最新ニュース"=>"newslist.php"
+                    ,"アクセス"=>"map.php"
+                    ,"お問い合せ"=>"contactus.php"
                );
 
-//未使用
 $INFO=array    (
+                 "会社概要"=>"gaiyo.php"
+                ,"キタムラとは?"=>"kodawari.php"
+                ,"募集事項"=>"bosyu.php"
+                ,"新卒採用"=>"sinsotu.php"
+                ,"このサイトについて"=>"siteabout.php"
+                ,"プライバシーポリシー"=>"privacy.php"
+                ,"お問い合せ"=>"contactus.php"
                );
 
 $SITECONTENTS=array(
-                "index.php" =>"ホーム"
-               ,"tirasilist.php"=>"チラシ"
-               ,"maillist.php"=>"メール"
-               ,"calendar.php"=>"カレンダー"
-               ,"gotyumon.php"=>"ご注文"
+                     "チラシ"=>"tirasilist.php"
+                    ,"メール会員"=>"maillist.php"
+                    ,"ご予約商品"=>"goyoyakulist.php"
+                    ,"月間お買得品"  =>"monthlist.php"
+                    ,"新商品"  =>"newitemlist.php"
+                    ,"カレンダー"  =>"calendarlist.php"
+                    ,"最新ニュース"=>"newslist.php"
+                    ,"商品検索"=>"searchlist.php"
+                    ,"ギフト商品"  =>"giftlist.php"
+                    ,"早期ご予約商品"=>"soukilist.php"
+                    ,"商品について"=>"aboutitem.php"
+                    ,"配達サービス"=>"haitatu.php"
                    );
 //未使用
 $BIGNAVI=array(
@@ -149,6 +188,19 @@ $TABLES=array(
   , "clsname"       =>array("type"=>"varchar ","null"=>"not null","defalut"=>"''","local"=>"クラス名"    ,"index"=>"")
   , "lincode"       =>array("type"=>"int "    ,"null"=>"not null","defalut"=>"0" ,"local"=>"部門番号"    ,"index"=>"3")
  )
+ ,JANMAS=>array(
+     "strcode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"店舗番号"      ,"index"=>"1")
+   , "clscode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"クラスコード"  ,"index"=>"2")
+   , "jcode"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"'0'"       ,"local"=>"JANコード"     ,"index"=>"3")
+   , "sname"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"商品名"        ,"index"=>"" )
+   , "maker"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"メーカー"      ,"index"=>"" )
+   , "tani"      =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"単位"          ,"index"=>"" )
+   , "stdprice"  =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"通常売価"      ,"index"=>"" )
+   , "price"     =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"売価"          ,"index"=>"" )
+   , "comment"   =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"単位"          ,"index"=>"" )
+   , "firstsale" =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"登録日"        ,"index"=>"")
+   , "lastsale"  =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"最終販売日"    ,"index"=>"")
+             )
  ,JANSALE=>array(
      "strcode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"店舗番号"      ,"index"=>"1")
    , "saleday"   =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"日付"          ,"index"=>"2")
@@ -196,6 +248,36 @@ function wLog($comment){
  fclose($fp);
 }
 
+function aLog($comment){
+ //ログディレクトリセット
+ $LOGDIR=dirname(__FILE__)."/..".LOG;
+ //ディレクトリ存在チェック
+ if(!file_exists($LOGDIR)){
+ echo "ログディレクトリが存在しません。".$LOGDIR;
+  return false;
+ }
+
+ //ファイルパスセット
+ $filepath=$LOGDIR."/access".date("Ymd").".log";
+ 
+ //日時セット
+ $c=date("Y-m-d H:i:s");
+ 
+ //ファイル書き込み
+ if(! $fp=fopen($filepath,"a")){
+  echo "ログファイルが開けません。".$filepath;
+  return false;
+ }
+
+ if(DEBUG && preg_match("/error:/",$c)) echo $c."<br>";
+
+ if(! isset($_SESSION["USERID"]) || $_SESSION["USERID"]==null || $_SESSION["USERID"]!==md5(USERID)){
+  session_start();
+  $c.=" ".$_SERVER["REQUEST_URI"]." \"".str_replace(" ","",$comment)."\" ".$_SERVER["HTTP_REFERER"]." ".$_COOKIE["PHPSESSID"]."\n";
+  fwrite($fp,$c);
+ }
+ fclose($fp);
+}
 $YOUBI=array("日","月","火","水","木","金","土");
 //---------------------------------------------//
 // 日付チェック関数
