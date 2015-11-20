@@ -94,28 +94,9 @@ do
 done
 echo ${FOOTER} >> ../sitemap${fileno}.xml
 
-#sitemapリスト作成
-i=0
-f=1
-
-echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" > ../sitemap.xml
-
-#サイトマップリスト生成
-while :
-do
- echo "<sitemap>" >> ../sitemap.xml
- echo "<loc>${URL}/sitemap${f}.xml</loc>" >> ../sitemap.xml
- echo "</sitemap>" >> ../sitemap.xml
- ((f++))
- if [ $f -gt $fileno ] ; then
-  break
- fi
-done
-
-echo "</sitemapindex>" >> ../sitemap.xml
-
 #固定ページ作成
-cat << EOF >> ../sitemap.xml
+((fileno++))
+cat << EOF >> ../sitemap${fileno}.xml
  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
  <url>
   <loc>http://market.kita-grp.co.jp/searchlist.php</loc>
@@ -239,4 +220,25 @@ cat << EOF >> ../sitemap.xml
  </url> 
 </urlset>
 EOF
+
+#sitemapリスト作成
+i=0
+f=1
+
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" >>../sitemap.xml
+echo "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" >> ../sitemap.xml
+
+#サイトマップリスト生成
+while :
+do
+ echo "<sitemap>" >> ../sitemap.xml
+ echo "<loc>${URL}/sitemap${f}.xml</loc>" >> ../sitemap.xml
+ echo "</sitemap>" >> ../sitemap.xml
+ ((f++))
+ if [ $f -gt $fileno ] ; then
+  break
+ fi
+done
+
+echo "</sitemapindex>" >> ../sitemap.xml
 
