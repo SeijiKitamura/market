@@ -1460,7 +1460,7 @@ function htmlNaviBar2($data,$home){
 //-------------------------------------------------------//
 // SNSボタン
 //-------------------------------------------------------//
-function htmlSNSButton($data){
+function htmlSNSButton(){
  try{
   $mname="htmlSNSButton(html.function.php) ";
   $c="start ".$mname;wLog($c);
