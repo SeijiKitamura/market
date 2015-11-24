@@ -29,14 +29,14 @@ rm ../sitemap*.xml
 VAL=`psql -t -A -F,<<EOF
 select 
  case saletype
-  when 0 then '<loc>${URL}/tirasiitem.php?strcode='||strcode||'&adnum='||adnum||'&jcode='||jcode||'</loc>'
-  when 1 then '<loc>${URL}/mailitem.php?strcode='||strcode||'&saleday='||saleday||'&jcode='||jcode||'</loc>'
-  when 3 then '<loc>${URL}/calendaritem.php?strcode='||strcode||'&saleday='||saleday||'</loc>'
-  when 5 then '<loc>${URL}/goyoyakuitem.php?strcode='||strcode||'&saleday='||saleday||'&jcode='||jcode||'</loc>'
-  when 6 then '<loc>${URL}/monthitem.php?strcode='||strcode||'&saleday='||saleday||'&jcode='||jcode||'</loc>'
-  when 7 then '<loc>${URL}/newsitem.php?strcode='||strcode||'&saleday='||saleday||'&newsid='||id||'</loc>'
-  when 8 then '<loc>${URL}/giftitem.php?strcode='||strcode||'&saleday='||saleday||'&jcode='||jcode||'</loc>'
-  when 9 then '<loc>${URL}/soukiitem.php?strcode='||strcode||'&saleday='||saleday||'&jcode='||jcode||'</loc>'
+  when 0 then '${URL}/tirasiitem.php?strcode='||strcode||'&amp;adnum='||adnum||'&amp;jcode='||jcode
+  when 1 then '${URL}/mailitem.php?strcode='||strcode||'&amp;saleday='||saleday||'&amp;jcode='||jcode
+  when 3 then '${URL}/calendaritem.php?strcode='||strcode||'&amp;saleday='||saleday
+  when 5 then '${URL}/goyoyakuitem.php?strcode='||strcode||'&amp;saleday='||saleday||'&amp;jcode='||jcode
+  when 6 then '${URL}/monthitem.php?strcode='||strcode||'&amp;saleday='||saleday||'&amp;jcode='||jcode
+  when 7 then '${URL}/newsitem.php?strcode='||strcode||'&amp;saleday='||saleday||'&amp;newsid='||id
+  when 8 then '${URL}/giftitem.php?strcode='||strcode||'&amp;saleday='||saleday||'&amp;jcode='||jcode
+  when 9 then '${URL}/soukiitem.php?strcode='||strcode||'&amp;saleday='||saleday||'&amp;jcode='||jcode
  end
 from ultra_jansale 
 where 
@@ -52,13 +52,15 @@ i=0
 for TARGET in ${ARY[*]}
 do
  if [ $i -eq 0 ] ; then
-  echo ${HEADER} > ../sitemap${fileno}.xml
+  echo "${HEADER}" > ../sitemap${fileno}.xml
+  ((i++))
+  ((i++))
  fi
- echo ${TARGET} >> ../sitemap${fileno}.xml
+ echo "<url><loc>"${TARGET}"</loc></url>" >> ../sitemap${fileno}.xml
  ((i++))
  if [ $i -ge 40000 ] ; then
   i=0
-  echo ${FOOTER} >> ../sitemap${fileno}.xml
+  echo "${FOOTER}" >> ../sitemap${fileno}.xml
   ((fileno++))
  fi
 done
@@ -67,7 +69,7 @@ echo ${FOOTER} >> ../sitemap${fileno}.xml
 #単品マスタのsitemap作成
 VAL=`psql -t -A -F,<<EOF
 select 
- '<loc>${URL}/item.php?strcode='||strcode||'&jcode='||jcode||'</loc>'
+ '${URL}/item.php?strcode='||strcode||'&amp;jcode='||jcode
 from ultra_jansale 
 where 
 saleday<='${nen}-${tuki}-${hi}'
@@ -82,9 +84,11 @@ ARY=($VAL)
 for TARGET in ${ARY[*]}
 do
  if [ $i -eq 0 ] ; then
-  echo ${HEADER} > ../sitemap${fileno}.xml
+  echo "${HEADER}" > ../sitemap${fileno}.xml
+  ((i++))
+  ((i++))
  fi
- echo ${TARGET} >> ../sitemap${fileno}.xml
+ echo "<url><loc>"${TARGET}"</loc></url>" >> ../sitemap${fileno}.xml
  ((i++))
  if [ $i -ge 40000 ] ; then
   i=0
@@ -97,6 +101,7 @@ echo ${FOOTER} >> ../sitemap${fileno}.xml
 #固定ページ作成
 ((fileno++))
 cat << EOF >> ../sitemap${fileno}.xml
+ <?xml version="1.0" encoding="UTF-8"?>
  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
  <url>
   <loc>http://market.kita-grp.co.jp/searchlist.php</loc>
@@ -225,8 +230,8 @@ EOF
 i=0
 f=1
 
-echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" >>../sitemap.xml
-echo "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" >> ../sitemap.xml
+echo '<?xml version="1.0" encoding="UTF-8"?>' >>../sitemap.xml
+echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> ../sitemap.xml
 
 #サイトマップリスト生成
 while :
