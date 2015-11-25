@@ -114,7 +114,33 @@ if($daylist){
   
 <?php
 if($itemlist){
+ $grpname="";
  foreach($itemlist as $key=>$val){
+  //終了日セット
+  $lday=date("m月d日",strtotime($val["endday"]));
+  if(strtotime($val["startday"])===strtotime($val["endday"])){
+   $lday.="限り";
+  }
+  else{
+   $lday.="まで";
+  }
+
+  if(! $val["grpname"]){
+   //グループ名空欄
+   if($grpname!==$lday){
+    echo "<div class='clr'></div>";
+    echo "<h2>".$lday."</h2>";
+    $grpname=$lday;
+   }
+  } 
+  else{
+   //グループ名有り
+   if($grpname!=$val["grpname"]){
+    echo "<div class='clr'></div>";
+    echo "<h2>".$val["grpname"]." ".$lday."</h2>";
+    $grpname=$val["grpname"];
+   }
+  }
 ?>
    <div class="col3">
 <?php 

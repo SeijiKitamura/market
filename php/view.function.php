@@ -416,10 +416,11 @@ function viewGetFlyersItemLin($strcode,$adnum,$saleday=null,$lincode=null){
   if($lincode) $where.=" and t1.lincode={$lincode}";
 
   $order=<<<EOF
-    min(t.saleday)
-   ,max(t.saleday)
-   ,t.specialflg desc
+    max(t.saleday)
+   ,min(t.saleday)
    ,t.grpnum
+   ,t.grpname desc
+   ,t.specialflg desc
    ,t.clscode
    ,t.maker
    ,t.sname
