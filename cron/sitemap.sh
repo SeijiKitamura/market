@@ -42,7 +42,7 @@ from ultra_jansale
 where 
 saleday<='${nen}-${tuki}-${hi}'
 order by 
-strcode,saletype,adnum,saleday,jcode
+strcode,saleday desc,saletype,jcode
 EOF`
 ARY=($VAL)
 
@@ -70,11 +70,9 @@ echo ${FOOTER} >> ../sitemap${fileno}.xml
 VAL=`psql -t -A -F,<<EOF
 select 
  '${URL}/item.php?strcode='||strcode||'&amp;jcode='||jcode
-from ultra_jansale 
-where 
-saleday<='${nen}-${tuki}-${hi}'
+from ultra_janmas 
 order by 
-strcode,saletype,adnum,saleday,jcode
+strcode,lastsale desc,jcode
 EOF`
 
 #40000行ごとに区切る
