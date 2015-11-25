@@ -6,5 +6,5 @@ img
 server.conf.php
 test*.php
 access*.html
-sitemap*.xml
+*.xml
 google*.html
