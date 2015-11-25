@@ -107,7 +107,7 @@ echo htmlNaviBar();
     </ul>
    </div><!--div class="col1"-->
 
-   <div class="col1">
+   <div class="col2">
     <h1>ギフト商品</h1>
 <?php
 if($item){
@@ -118,7 +118,7 @@ else{
 }
 ?>
 
-   </div><!--div class="col1"-->
+   </div><!--div class="col2"-->
 
 <?php
 htmlSNSButton();
@@ -165,7 +165,7 @@ htmlFooter();
 <script>
 $(function(){
  $("#TanpinZone").owlCarousel({
-  items:5,
+  items:2,
   itemsMobile:[400,1],
   pagination:false
  });

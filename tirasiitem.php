@@ -126,23 +126,24 @@ echo htmlNaviBar();
     </ul>
    </div><!--div class="col1"-->
 
-   <div class="col1">
+   <div class="col2">
 <?php
 if($item){
  htmlItem($item);
 }
 ?>
 
-   </div><!--div class="col1"-->
+   </div><!--div class="col2"-->
 
 
-   <div class="col1">
+   <div class="col2">
 <?php
 if($itemary){
  htmlItemTable($itemary);
 }
 ?>
-   </div><!--div class="col1"-->
+   </div><!--div class="col2"-->
+   <div class="clr"></div>
 
    <div class="col1">
 <?php
@@ -166,11 +167,7 @@ if($itemlist){
 htmlSNSButton();
 ?>
    <div class="clr"></div>
-<!--店舗イベントを表示-->
 
-<!--カレンダー表示-->
-
-<!--ここに注釈を入れる（写真はイメージ、商品は豊富に、予告なく変更、店頭とページ上の価格に差異が、etc-->
 
    <div id="footer">
 <?php
@@ -183,14 +180,15 @@ htmlFooter();
  </body>
 <script>
 $(function(){
+ $("#TanpinZone").owlCarousel({
+  items:2,
+  itemsMobile:[400,2],
+  pagination:false
+ });
+
  $("#TirasiZone").owlCarousel({
   items:5,
   itemsMobile:[400,3],
-  pagination:false
- });
- $("#TanpinZone").owlCarousel({
-  items:5,
-  itemsMobile:[400,1],
   pagination:false
  });
 

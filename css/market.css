@@ -66,7 +66,7 @@ div.col4{
 h1,h2{
  background-color:#2e8b57;
  color:#FFFFFF;
- margin:1em 0 0 0;
+ margin:0 0 0 0;
  padding:0 0 0 0.5em;
  line-height:2.5em;
 }
@@ -426,10 +426,15 @@ span.tjcode{
  text-align:right;
 }
 
+div#ItemResult {
+ max-height:536px;
+ overflow:auto
+}
 div#ItemResult h3{
  background-color:#006400;
  color:#FFFFFF;
  text-align:center;
+ line-height:1.5em;
 }
 
 table.ItemData {
@@ -612,7 +617,7 @@ div.HeaderZone{
  }
 
  div.titemdetail{
-  width: 50%;
+  width: 90%;
  }
  span.price{
   font-size:1.5em;
@@ -628,6 +633,9 @@ div.HeaderZone{
 
  div.SP{
   display:none;
+ }
+ div.owl-item{
+  margin:5px;
  }
 }
 /*PC用*/

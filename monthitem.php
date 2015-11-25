@@ -122,24 +122,23 @@ echo htmlNaviBar();
     </ul>
    </div><!--div class="col1"-->
 
-   <div class="col1">
+   <div class="col2">
 <?php
 if($item){
  htmlItem($item);
 }
 ?>
+   </div><!--div class="col2"-->
 
-   </div><!--div class="col1"-->
-
-
-   <div class="col1">
+   <div class="col2">
 <?php
 //月別データ履歴テーブル
 if($itemary){
  htmlItemMonthTable($itemary);
 }
 ?>
-   </div><!--div class="col1"-->
+   </div><!--div class="col2"-->
+   <div class="clr"></div>
 
    <div class="col1">
 <?php
@@ -200,7 +199,7 @@ $(function(){
   pagination:false
  });
  $("#TanpinZone").owlCarousel({
-  items:5,
+  items:2,
   itemsMobile:[400,1],
   pagination:false
  });
