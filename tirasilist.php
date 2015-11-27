@@ -96,7 +96,6 @@ else{
 <?php
 //日付リスト表示
 if($daylist){
- echo "<h2>".date("Y年m月d日",strtotime($saleday))."のチラシ商品</h2>";
  echo "<ul class='daylist'>";
  foreach($daylist as $key=>$val){
   //$d=date("n月j日",strtotime($val["saleday"]));
@@ -157,7 +156,6 @@ if($itemlist){
 <?php
 htmlSNSButton();
 ?>
-
    <div id="footer">
 <?php
 htmlFooter();
@@ -165,5 +163,6 @@ htmlFooter();
    </div><!--div id="footer"-->
 
   </div><!--div id="wrapper"-->
-
+ </body>
+</html>
 
