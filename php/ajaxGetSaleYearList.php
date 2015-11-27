@@ -12,7 +12,19 @@ try{
  }
 
 
- $w=" saleday<='".date("Y-m-d",strtotime("-1days"))."'";
+ //ログイン判定
+ session_start();
+ if( isset($_SESSION["USERID"]) && $_SESSION["USERID"]!==null && $_SESSION["USERID"]===md5(USERID)){
+  $loginflg=true;
+ }
+
+ if($loginflg){
+  $w="";
+ }
+ else{
+  $w=" saleday<='".date("Y-m-d",strtotime("-1days"))."'";
+ }
+
  $data=viewGetAdnumList($strcode,$w);
  $itemlist=viewGetAdnumYearList($data);
 

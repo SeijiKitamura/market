@@ -466,6 +466,50 @@ function tukilist(saleday,parentdiv){
    wlog(fname+": ajax success");
    $("div."+parentdiv).empty()
                       .append(html);
+   $("button").on("click",function(){
+    delTirasi($(this).attr("data-adnum"));
+   });
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// チラシ削除
+//-----------------------------------------//
+function delTirasi(adnum){
+ var fname="delTirasi";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+ q.adnum=adnum;
+ if(! confirm("削除しますか?")) return false;
+
+ //データ削除
+ $.ajax({
+  context:this,
+  url:"php/ajaxDelSaleAdnum.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   console.log(html);
+   if(html.match(/^err/)){
+    alert(html);
+    return false;
+   }
+   
+   //該当TRを削除
+   $("button").each(function(){
+    if($(this).attr("data-adnum")==q.adnum){
+     $(this).parent().parent().slideUp();
+    }
+   });
   },
   error:function(XMLHttpRequest,textStatus,errorThrown){
    console.log(XMLHttpRequest.responseText);

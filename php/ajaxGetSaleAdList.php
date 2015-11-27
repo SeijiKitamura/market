@@ -20,15 +20,22 @@ try{
  }
 
  $data=viewGetAdnumDayList($strcode,$saleday);
+
+ session_start();
+ if( isset($_SESSION["USERID"]) && $_SESSION["USERID"]!==null && $_SESSION["USERID"]===md5(USERID)){
+  $loginflg=true;
+ }
+
  $html="";
  $html.=<<<EOF
 <table class="Col3Table">
- <colgroup span="3" class="area">
+ <colgroup span="4" class="area">
  <thead>
   <tr>
    <th>投函日</th>
    <th>A面</th>
    <th>B面</th>
+   <th>備考</th>
   </tr>
  </thead>
  <tbody>
@@ -46,6 +53,7 @@ EOF;
   $html.="<td>";
   $html.="<a href='{$link}' target='_blunk'>";
   $html.=date("m月d日投函",strtotime($val["saleday"]));
+  $html.="<br>(チラシ番号:".$val["adnum"].")";
   $html.="</a>";
   $html.="</td>";
   
@@ -65,7 +73,12 @@ EOF;
   }
   $html.="</a>";
   $html.="</td>";
-
+  
+  $html.="<td>";
+  if($loginflg){
+   $html.="<button data-adnum='{$val["adnum"]}'>全削除</button>";
+  }
+  $html.="</td>";
   $html.="</tr>";
  }
  echo $html;
