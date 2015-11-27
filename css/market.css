@@ -441,6 +441,7 @@ table.ItemData {
  width:90%;
  margin:0 auto;
 }
+
 table.ItemData th{
  background-color:#8FBC9F;
  color:#FFFFFF;
@@ -457,6 +458,25 @@ table.ItemData td{
 table.ItemData tr:hover{
  background:#e9e4da;
 }
+
+table.Col3Table{
+ width:90%;
+}
+
+table.Col3Table th{
+ background-color:#8FBC9F;
+ color:#FFFFFF;
+ border:1px solid #FFFFFF;
+}
+
+colgroup.area{
+ width:30%;
+}
+table.Col3Table td{
+ vertical-align:middle;
+ border:1px solid #DCDCDC;
+}
+
 div.MailDetail p a span{
  color:#8B0000;
  text-decoration:underline;

@@ -411,6 +411,71 @@ function makeNenBox(startyear,endyear){
 }
 
 //-----------------------------------------//
+// チラシ年リスト表示
+//-----------------------------------------//
+function nenlist(saletype,parentdiv){
+ var fname="nenlist";wlog("start:"+fname);
+ var divname="yearbox";
+ var q={};
+ q.strcode=1;
+ q.saletype=saletype;
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetSaleYearList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div."+divname).remove();
+   $("<div></div>",{"class":divname}).append(html)
+                                     .appendTo(".listbox");
+   $("select.nenlist").on("change",function(){
+    console.log($(this).val());
+    //年月からその月のチラシ一覧を表示
+    tukilist($(this).val(),"resultbox");
+   });
+   
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 該当月のチラシリスト表示
+//-----------------------------------------//
+function tukilist(saleday,parentdiv){
+ var fname="tukilist";wlog("start:"+fname);
+ var q={};
+ q.strcode=1;
+ q.saleday=saleday;
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetSaleAdList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div."+parentdiv).empty()
+                      .append(html);
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+
+}
+
+//-----------------------------------------//
 // 月のSelectBox作成
 //-----------------------------------------//
 function makeTukiBox(){

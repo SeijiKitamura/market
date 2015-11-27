@@ -156,7 +156,7 @@ EOF;
 }
 
 //----------------------------------------------------//
-// チラシ番号を配列で返す
+// saledayから該当するチラシ番号を配列で返す
 // この関数を使用するときはチラシがダブって投函される可
 // 能性を考えて使用する
 //----------------------------------------------------//
@@ -194,6 +194,87 @@ EOF;
   }
 
   return $adnum;
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// チラシ番号、投函日を配列で返す
+//----------------------------------------------------//
+function viewGetAdnumList($strcode,$w=null){
+ $mname="viewGetAdnumList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=0;
+  
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  $where=<<<EOF
+       strcode ={$strcode}
+   and saletype={$saletype}
+EOF;
+
+  if($w){
+   $where.=" and {$w}";
+  }
+
+  $adnum=array();
+  $adnum=dsetGetAdnum($where);
+
+  if(! isset($adnum)|| ! is_array($adnum)|| ! count($adnum)){
+   $adnum=null;
+   throw new exception(" チラシなし");
+  }
+
+  return $adnum;
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// チラシ投函日の年月リストを配列で返す
+//----------------------------------------------------//
+function viewGetAdnumYearList($data){
+ $mname="viewGetAdnumYearList(view.function.php) ";
+ try{
+  $list=array();
+  $nentuki="";
+  foreach($data as $key=>$val){
+   if($nentuki!=date("Ym01",strtotime($val["saleday"]))){
+    $nentuki=date("Ym01",strtotime($val["saleday"]));
+    $list[]=$nentuki;
+   }
+  }
+  return $list;
+ }
+ catch(Exception $e){
+  wLog("error:".$mname." ".$e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 日付からその月の投函日リストを配列で返す
+//----------------------------------------------------//
+function viewGetAdnumDayList($strcode,$YYYYMMDD){
+ $mname="viewGetAdnumDayList(view.function.php)";
+ try{
+  wLog("start:".$mname);
+  $kaisi=date("Y-m-01",strtotime($YYYYMMDD));
+  $owari=date("Y-m-t" ,strtotime($YYYYMMDD));
+  $w=" saleday between '{$kaisi}' and '{$owari}'";
+  $list=viewGetAdnumList($strcode,$w);
+  return $list;
  }
  catch(Exception $e){
   wLog("error:".$mname." ".$e->getMessage());
