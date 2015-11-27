@@ -1119,7 +1119,7 @@ function viewGetItem($strcode,$jcode){
 }
 
 //----------------------------------------------------//
-// 検索結果を返す
+// 検索結果を返す(商品マスタ)
 //----------------------------------------------------//
 function viewGetSearchItem($strcode,$jcode=null,$keyword=null){
  $mname="viewGetSearchItem(view.function.php) ";
@@ -1138,6 +1138,34 @@ function viewGetSearchItem($strcode,$jcode=null,$keyword=null){
   //$order="t.sname";
 
   return dsetGetJanMas($where,null,$order,null);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 検索結果を返す セール商品(チラシ以外)
+//----------------------------------------------------//
+function viewGetSearchSaleItem($strcode,$jcode=null,$keyword=null){
+ $mname="viewGetSearchSaleItem(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where =" t.strcode={$strcode} ";
+  $where.=" and t.saleday='".date("Y-m-d")."'";
+  $where.=" and t.saletype>0 ";
+  if($jcode){
+   $where.=" and t.jcode like '{$jcode}%'";
+  }
+
+  if($keyword){
+   $where.=" and t.sname like '%{$keyword}%'";
+  }
+
+  //$order="t.sname";
+
+  return dsetGetSaleItem($where,null,$order,null);
  }
  catch(Exception $e){
   wLog($e->getMessage());

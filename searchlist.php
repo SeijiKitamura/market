@@ -42,8 +42,30 @@ if($_GET["keyword"]){
 }
 
 
-//商品リストをゲット
 if($jcode || $keyword){
+ //チラシ番号をゲット(追い打ちチラシは非表示)
+ $adnumary=viewGetAdnum($strcode,date("Y-m-d"));
+ if(count($adnumary)){
+  $adnum=$adnumary[0]["adnum"];
+  $tirasi=viewGetFlyersItemLin($strcode,$adnum,$saleday);
+  foreach($tirasi as $key=>$val){
+   if($jcode){
+    if(preg_match("/".$jcode."/",$val["jcode"])){
+     $tirasilist[]=$tirasi[$key];
+    }
+   }
+   if($keyword){
+    if(preg_match("/".$keyword."/",$val["sname"])){
+     $tirasilist[]=$tirasi[$key];
+    }
+   }
+  }
+ }
+ 
+ //セール商品
+ $salelist=viewGetSearchSaleItem($strcode,$jcode,$keyword);
+ 
+ //商品マスタをゲット
  $itemlist=viewGetSearchItem($strcode,$jcode,$keyword);
 }
 
@@ -75,7 +97,37 @@ echo htmlNaviBar();
    <div class="col1">
     <div class="SearchList">
 <?php
+if(count($tirasilist)){
+ echo "<h2>広告の品</h2>";
+ foreach($tirasilist as $key=>$val){
+  echo "<div class='col3'>";
+  $ary=array();
+  $ary[]=$tirasilist[$key];
+  htmlItemList($ary);
+  echo "</div>";
+ }
+ 
+}
+
+if(count($salelist)){
+ $stype=null;
+ foreach($salelist as $key=>$val){
+  if($stype!==$val["saletype"]){
+   $stype=$val["saletype"];
+   echo "<div class='clr'></div>";
+   echo "<h2>".$SALETYPE[$val["saletype"]]."</h2>";
+  }
+  echo "<div class='col3'>";
+  $ary=array();
+  $ary[]=$salelist[$key];
+  htmlItemList($ary);
+  echo "</div>";
+ }
+}
+
 if(count($itemlist)){
+ echo "<div class='clr'></div>";
+ echo "<h2>商品リスト</h2>";
  foreach($itemlist as $key=>$val){
 ?>
    <div class="col3">
@@ -88,8 +140,9 @@ if(count($itemlist)){
 <?php
  }
 }
-else{
- if($_GET["keyword"]){
+
+if($_GET["keyword"]){
+ if(! $tirasilist && ! $salelist && ! $itemlist){
   echo "申し訳ございません。商品が見当たりませんでした。";
  }
 }
