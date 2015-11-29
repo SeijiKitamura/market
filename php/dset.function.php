@@ -289,6 +289,7 @@ function dsetGetSaleGrpList($where=null,$order=null,$having=null){
  }
 }
 
+
 //----------------------------------------------------//
 // JANSALE一覧を返す(カレンダー用）
 //----------------------------------------------------//
@@ -311,6 +312,62 @@ function dsetGetSaleDpsItem($where=null,$order=null,$having=null){
   $db->group =$db->select;
   if ($order)  $db->order=$order;
   if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANSALEの年月日一覧を返す(チラシ用）
+//----------------------------------------------------//
+function dsetGetFlyersDayList($where=null,$order=null,$having=null){
+ $mname="dsetGetFlyersDayList(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select=<<<EOF
+ t.strcode
+,t.saletype
+,t.adnum
+,t1.saleday
+,count(t.jcode) as itemcnt
+EOF;
+  $db->from=<<<EOF
+(
+select
+ strcode
+,saletype
+,adnum
+,jcode
+from ultra_jansale
+group by
+ strcode
+,saletype
+,adnum
+,jcode
+) as t
+inner join (
+ select
+ strcode
+,saletype
+,adnum
+,min(saleday) as saleday
+ from ultra_jansale
+ group by
+ strcode
+,saletype
+,adnum
+) as t1 on
+    t.strcode=t1.strcode
+and t.saletype=t1.saletype
+and t.adnum=t1.adnum
+EOF;
+  if ($where)  $db->where=$where;
+  $db->group="t.strcode,t.saletype,t.adnum,t1.saleday";
+  if ($having) $db->having=$having;
+  if ($order)  $db->order=$order;
   return $db->getArray();
  }
  catch(Exception $e){

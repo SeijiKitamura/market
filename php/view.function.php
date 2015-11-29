@@ -787,6 +787,162 @@ EOF;
 }
 
 //----------------------------------------------------//
+// チラシ掲載号別セールアイテム数を返す
+//----------------------------------------------------//
+function viewGetFlyersDayList($strcode,$w=null){
+ $mname="viewGetMailList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //デフォルト値
+  $saletype=0;
+
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  $where=<<<EOF
+   t.strcode={$strcode}
+   and t.saletype={$saletype}
+EOF;
+  if($w){
+   $where.=" and ".$w;
+  }
+
+  $order=<<<EOF
+   t.strcode
+  ,t.saletype
+  ,t1.saleday
+EOF;
+  return dsetGetFlyersDayList($where,$order,null);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 指定月のチラシ掲載号別セールアイテム数を返す
+//----------------------------------------------------//
+function viewGetFlyersDayList2($strcode,$saleday,$w=null){
+ $mname="viewGetFlyersDayList2(view.function.php)";
+ try{
+  wLog("start:".$mname);
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+ 
+  if(! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  //開始日と終了日をセット
+  $startday=date("Y-m-01",strtotime($saleday));
+  $endday  =date("Y-m-t" ,strtotime($saleday));
+
+  $where=" t1.saleday between '{$startday}' and '{$endday}'";
+  if($w){
+   $where.=" and ".$w;
+  }
+  return viewGetFlyersDayList($strcode,$where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 指定年の月別チラシ掲載数を返す
+//----------------------------------------------------//
+function viewGetFlyersMonthList($strcode,$saleday,$w=null){
+ $mname="viewGetFlyersMonthList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+ 
+  if(! chkDate($saleday)){
+   throw new exception("saledayが日付ではありません(".$saleday.")");
+  }
+
+  //指定年をセット
+  $startday=date("Y-01-01",strtotime($saleday));
+  $endday  =date("Y-12-31",strtotime($saleday));
+  $where=" t1.saleday between '{$startday}' and '{$endday}'";
+  if($w){
+   $where.=" and ".$w;
+  }
+  $datalist=viewGetFlyersDayList($strcode,$where);
+
+  //月ごとにサマリー
+  $data=array();
+  foreach($datalist as $key=>$val){
+   $flg=0;
+   foreach($data as $key1=>$val1){
+    if($val1["month"]==date("m",strtotime($val["saleday"]))){
+     $flg=1;
+     $data[$key1]["cnt"]++;
+     break;
+    }
+   }
+   if(! $flg){
+    $data[]=array("month"=>date("m",strtotime($val["saleday"]))
+                  ,"cnt"=>1);
+   }
+  }
+  return $data;
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 年別チラシ掲載数を返す
+//----------------------------------------------------//
+function viewGetFlyersYearList($strcode,$w=null){
+ $mname="viewGetFlyersMonthList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+ 
+  //データをセット
+  $datalist=viewGetFlyersDayList($strcode,$w);
+
+  //年ごとにサマリー
+  $data=array();
+  foreach($datalist as $key=>$val){
+   $flg=0;
+   foreach($data as $key1=>$val1){
+    if($val1["year"]==date("Y",strtotime($val["saleday"]))){
+     $flg=1;
+     $data[$key1]["cnt"]++;
+     break;
+    }
+   }
+   if(! $flg){
+    $data[]=array("year"=>date("Y",strtotime($val["saleday"]))
+                  ,"cnt"=>1);
+   }
+  }
+  return $data;
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
 // メールを返す
 //----------------------------------------------------//
 function viewGetMailList($strcode,$saleday){
@@ -956,6 +1112,51 @@ EOF;
   return false;
  }
 }
+
+//----------------------------------------------------//
+// 日別アイテムを返す
+//----------------------------------------------------//
+function viewGetSaleItemList($strcode,$saletype,$startday,$endday){
+ $mname="viewGetSaleItemList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+  
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+  
+  if(! chkDate($startday)){
+   throw new exception("startdayが正しくありません({$startday})");
+  }
+
+  if(! chkDate($endday)){
+   throw new exception("enddayが正しくありません({$endday})");
+  }
+
+  $where=<<<EOF
+       t.strcode={$strcode}
+   and t.saletype={$saletype}
+EOF;
+  if(strtotime($startday)==strtotime($endday)){
+   $where.=" and t.saleday='{$saleday}'";
+  }
+  else{
+   $where.=" and t.saleday between '{$startday}' and '{$endday}'";
+  }
+
+  $order="t.strcode,t.saleday,t.clscode,t.jcode";
+  return dsetGetSaleItem($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
 
 //----------------------------------------------------//
 // ご注文商品のグループを返す
