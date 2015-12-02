@@ -125,6 +125,93 @@ EOF;
 }
 
 //----------------------------------------------------//
+// JANSALEのセールアイテムを返す(ギフト・早期用季節集計)
+//----------------------------------------------------//
+function dsetGetSaleItemSeason($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleItemSeason(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select=<<<EOF
+    case 
+     when date_part('month',t.saleday) between 6 and 8 then '夏'
+     else '冬'
+    end as season
+   ,t.saletype
+   ,t.strcode
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,t.maker
+   ,t.tani
+   ,t.stdprice
+   ,t.price
+   ,t.yen
+   ,t.comment
+   ,t.grpnum
+   ,t.grpname
+   ,t.specialflg
+   ,t.adnum
+   ,t1.clsname
+   ,t2.lincode
+   ,t2.linname
+   ,t3.dpscode
+   ,t3.dpsname
+   ,t4.strname
+   ,min(t.saleday) as startday
+   ,max(t.saleday) as endday
+EOF;
+
+  $db->from=TABLE_PREFIX.JANSALE." as t ";
+  $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
+  $db->from.=" t.strcode=t1.strcode and t.clscode=t1.clscode ";
+  $db->from.=" inner join ".TABLE_PREFIX.LINMAS." as t2 on";
+  $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode ";
+  $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
+  $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode ";
+  $db->from.=" inner join ".TABLE_PREFIX.STRMAS." as t4 on";
+  $db->from.=" t3.strcode=t4.strcode";
+
+  if ($where) $db->where=$where;
+
+  $db->group=<<<EOF
+    case 
+     when date_part('month',t.saleday) between 6 and 8 then '夏'
+     else '冬'
+    end 
+   ,t.saletype
+   ,t.strcode
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,t.maker
+   ,t.tani
+   ,t.stdprice
+   ,t.price
+   ,t.yen
+   ,t.comment
+   ,t.grpnum
+   ,t.grpname
+   ,t.specialflg
+   ,t.adnum
+   ,t1.clsname
+   ,t2.lincode
+   ,t2.linname
+   ,t3.dpscode
+   ,t3.dpsname
+   ,t4.strname
+EOF;
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+
+//----------------------------------------------------//
 // JANSALEのadnumを返す
 //----------------------------------------------------//
 function dsetGetAdnum($where=null,$order=null,$having=null){
@@ -138,7 +225,8 @@ function dsetGetAdnum($where=null,$order=null,$having=null){
   $db->group="strcode,adnum,saletype";
   if ($order)  $db->order=$order;
   else{
-   $db->order="strcode,min(saleday) desc,adnum";
+   //$db->order="strcode,min(saleday) desc,adnum";
+   $db->order="strcode,min(saleday),adnum";
   }
   if ($having) $db->having=$having;
   return $db->getArray();
@@ -387,6 +475,7 @@ function dsetGetMonthList($where=null,$order=null,$having=null){
   $db->select.=",t.saletype";
   $db->select.=",to_char(t.saleday,'yyyy') as nen";
   $db->select.=",to_char(t.saleday,'MM')   as tuki";
+  $db->select.=",min(date_part('day',t.saleday)) as hi";
   $db->select.=",count(jcode) as itemcnt";
   $db->from =TABLE_PREFIX.JANSALE." as t";
   $db->from.=" inner join ".TABLE_PREFIX.CLSMAS." as t1 on";
@@ -395,6 +484,35 @@ function dsetGetMonthList($where=null,$order=null,$having=null){
   $db->from.=" t1.strcode=t2.strcode and t1.lincode=t2.lincode";
   $db->from.=" inner join ".TABLE_PREFIX.DPSMAS." as t3 on";
   $db->from.=" t2.strcode=t3.strcode and t2.dpscode=t3.dpscode";
+  if ($where)  $db->where=$where;
+  $db->group =" t.strcode";
+  $db->group.=",t.saletype";
+  $db->group.=",to_char(t.saleday,'yyyy')";
+  $db->group.=",to_char(t.saleday,'MM')  ";
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANSALEの年月一覧を返す(ニュース用）
+//----------------------------------------------------//
+function dsetGetNewsMonthList($where=null,$order=null,$having=null){
+ $mname="dsetGetNewsMonthList(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" t.strcode";
+  $db->select.=",t.saletype";
+  $db->select.=",to_char(t.saleday,'yyyy') as nen";
+  $db->select.=",to_char(t.saleday,'MM')   as tuki";
+  $db->select.=",min(date_part('day',t.saleday)) as hi";
+  $db->select.=",count(jcode) as itemcnt";
+  $db->from =TABLE_PREFIX.JANSALE." as t";
   if ($where)  $db->where=$where;
   $db->group =" t.strcode";
   $db->group.=",t.saletype";

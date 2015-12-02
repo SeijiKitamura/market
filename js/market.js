@@ -264,92 +264,6 @@ function tableHover(){
 
 
 //-----------------------------------------//
-// リスト一覧
-//-----------------------------------------//
-function getlist(){
- var divname="DataDiv";
- $("div."+divname).remove();
- for(var i=0;i<SALETYPE.length;i++){
-  salelist(i);
- }
- delevent();
-// tableHover();
-}
-
-//-----------------------------------------//
-// セールリスト表示
-//-----------------------------------------//
-function salelist(saletype){
- var fname="salelist";wlog("start:"+fname);
- var divname="DataDiv";
- var q={};
- q.strcode=1;
- q.saletype=saletype;
- //データゲット
- $.ajax({
-  url:"php/ajaxGetSaleList.php",
-  type:"GET",
-  data:q,
-  dataType:"html",
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   $("<div></div>",{"class":divname}).append(html).appendTo("div#wrapper");
-   
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-}
-
-//-----------------------------------------//
-// 削除イベント
-//-----------------------------------------//
-function delevent(){
- var fname="delevent";wlog("start:"+fname);
- $("div.tablearea td span").on("click",function(){
-  var q={};
-  q.strcode=$(this).attr("data-strcode");
-  q.saletype=$(this).attr("data-saletype");
-  q.nen =$(this).attr("data-nen");
-  q.tuki=$(this).attr("data-tuki");
-  q.saleday=$(this).attr("data-saleday");
-
-  if(! confirm("削除しますか?")) return false;
-  
-  //データ削除
-  $.ajax({
-   url:"php/ajaxDelData.php",
-   type:"GET",
-   data:q,
-   dataType:"html",
-   async:false,
-   complete:function(){},
-   success:function(html){
-    wlog(fname+": ajaX success");
-    console.log(html);
-    if(html.match(/^error/)){
-     alert(html);
-     return false;
-    }
-    else{
-     alert("削除しました");
-     getlist();
-    }
-   },
-   error:function(XMLHttpRequest,textStatus,errorThrown){
-    console.log(XMLHttpRequest.responseText);
-   }
-  });
-  wlog("end:"+fname);
-
- });
-}
-
-//-----------------------------------------//
 // 単品画像削除
 //-----------------------------------------//
 function delimg(){
@@ -391,31 +305,54 @@ function delimg(){
 }
 
 //-----------------------------------------//
-// 年のSelectBox作成
+// セールタイプリスト表示
 //-----------------------------------------//
-function makeNenBox(startyear,endyear){
- var fname="makeNenBox";wlog("start:"+fname);
- var d=new Date();
- if(!startyear) startyear=d.getFullYear();
- if(!endyear)   endyear  =d.getFullYear();
-
- var sct=$("<select id='nen'>");
- for(var i=startyear;i<=endyear;i++){
-  var opt=$("<option>").val(i)
-                       .text(i+"年")
-                       .appendTo(sct);
- }
-
+function salelist(saletype){
+ var fname="salelist";wlog("start:"+fname);
+ var q={};
+ //データゲット
+ $.ajax({
+  url:"php/ajaxGetSaleTypeList.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("#saletype").remove();
+   $("div.resultbox").empty();
+   //エラー判定
+   if(html.match(/error/)){
+    $("div.resultbox").empty()
+                      .append(html);
+    console.log(html);
+    return false;
+   }
+   $("div.listbox").append(html);
+   $("#saletype").on("change",function(){
+    $("div.resultbox").empty();
+    if($(this).val()==99){
+     $("select#year").remove();
+     $("select#month").remove();
+     $("select#day").remove();
+     return false;
+    }
+    yearlist($(this).val());
+   });
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
  wlog("end:"+fname);
- return sct;
 }
 
 //-----------------------------------------//
-// チラシ年リスト表示
+// セール商品年リスト表示
 //-----------------------------------------//
-function nenlist(saletype,parentdiv){
- var fname="nenlist";wlog("start:"+fname);
- var divname="yearbox";
+function yearlist(saletype){
+ var fname="yearlist";wlog("start:"+fname);
  var q={};
  q.strcode=1;
  q.saletype=saletype;
@@ -429,13 +366,31 @@ function nenlist(saletype,parentdiv){
   complete:function(){},
   success:function(html){
    wlog(fname+": ajax success");
-   $("div."+divname).remove();
-   $("<div></div>",{"class":divname}).append(html)
-                                     .appendTo(".listbox");
-   $("select.nenlist").on("change",function(){
-    console.log($(this).val());
-    //年月からその月のチラシ一覧を表示
-    tukilist($(this).val(),"resultbox");
+   $("div.resultbox").empty();
+   //エラー判定
+   if(html.match(/error/)){
+    $("div.resultbox").append(html);
+    console.log(html);
+    return false;
+   }
+   $("select#year").remove();
+   $("select#month").remove();
+   $("select#day").remove();
+   $("div.listbox").append(html);
+   $("select#year").on("change",function(){
+    if($(this).val()==99){
+     $("select#month").remove();
+     $("select#day").remove();
+     return false;
+    }
+    //月別チラシ掲載数を表示
+    monthlist($(this).val(),"resultbox");
+    //月別サマリーを表示
+    monthsummry($(this).val(),"resultbox");
+    //イベントセット
+    checkall();
+    checkoff();
+    checkdel();
    });
    
   },
@@ -447,16 +402,20 @@ function nenlist(saletype,parentdiv){
 }
 
 //-----------------------------------------//
-// 該当月のチラシリスト表示
+// セール商品月リスト表示
 //-----------------------------------------//
-function tukilist(saleday,parentdiv){
- var fname="tukilist";wlog("start:"+fname);
+function monthlist(saleday,parentdiv){
+ var fname="monthlist";wlog("start:"+fname);
+ var url;
  var q={};
  q.strcode=1;
  q.saleday=saleday;
+ q.saletype=$("select#saletype").val();
+ url="php/ajaxGetSaleMonthList.php";
+ 
  //データゲット
  $.ajax({
-  url:"php/ajaxGetSaleAdList.php",
+  url:url,
   type:"GET",
   data:q,
   dataType:"html",
@@ -464,10 +423,105 @@ function tukilist(saleday,parentdiv){
   complete:function(){},
   success:function(html){
    wlog(fname+": ajax success");
-   $("div."+parentdiv).empty()
-                      .append(html);
-   $("button").on("click",function(){
-    delTirasi($(this).attr("data-adnum"));
+   $("select#month").remove();
+   $("select#day").remove();
+   $("div.listbox").append(html);
+   $("select#month").on("change",function(){
+    if($(this).val()==99){
+     monthsummry($("select#year").val(),"resultbox");
+     $("select#day").remove();
+     return false;
+    }
+    //日別チラシ掲載数を表示
+    daylist($(this).val(),"resultbox");
+    //該当月の日別サマリーを表示
+    daysummry($(this).val(),"resultbox");
+    //イベントセット
+    checkall();
+    checkoff();
+    checkdel();
+   });
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
+//-----------------------------------------//
+// セール商品月サマリー
+//-----------------------------------------//
+function monthsummry(saleday,parentdiv){
+ var fname="monthsummry";wlog("start:"+fname);
+ var url="php/ajaxGetSaleMonthSummry.php";
+ var q={};
+ q.strcode=1;
+ q.saletype=$("select#saletype").val();
+ q.saleday=saleday;
+ $.ajax({
+  url:url,
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div."+parentdiv).empty();
+   $("div."+parentdiv).append(html);
+   if(html.match(/^error/)){
+    return false;
+   }
+   //イベントセット
+   checkall();
+   checkoff();
+   checkdel();
+
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// セール商品日リスト表示
+//-----------------------------------------//
+function daylist(saleday,parentdiv){
+ var fname="daylist";wlog("start:"+fname);
+ var url;
+ var q={};
+ q.strcode=1;
+ q.saleday=saleday;
+ q.saletype=$("select#saletype").val();
+ url="php/ajaxGetSaleDayList.php";
+ //データゲット
+ $.ajax({
+  url:url,
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("select#day").remove();
+   $("div.listbox").append(html);
+   $("select#day").on("change",function(){
+    if($(this).val()==99){
+     daysummry($("select#month").val(),"resultbox");
+     return false;
+    }
+    //該当掲載号のチラシ商品を表示
+    saleitem($(this).val(),"resultbox");
+    
+    //イベントセット
+    checkall();
+    checkoff();
+    checkdel();
+
    });
   },
   error:function(XMLHttpRequest,textStatus,errorThrown){
@@ -477,6 +531,151 @@ function tukilist(saleday,parentdiv){
  wlog("end:"+fname);
 }
 
+//-----------------------------------------//
+// セール商品日サマリー
+//-----------------------------------------//
+function daysummry(saleday,parentdiv){
+ var fname="daysummry";wlog("start:"+fname);
+ var url="php/ajaxGetSaleSummry.php";
+ var q={};
+ q.strcode=1;
+ q.saletype=$("select#saletype").val();
+ q.saleday=saleday;
+ $.ajax({
+  url:url,
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div."+parentdiv).empty();
+   $("div."+parentdiv).append(html);
+   if(html.match(/^error/)){
+    return false;
+   }
+
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+
+ wlog("end:"+fname);
+}
+
+function saleitem(saleday,parentdiv){
+ var fname="saleitem";wlog("start:"+fname);
+ var url="php/ajaxGetSaleItem.php";
+ var q={};
+ q.strcode=1;
+ q.saletype=$("select#saletype").val();
+ q.saleday=saleday;
+ $.ajax({
+  url:url,
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   $("div."+parentdiv).empty();
+   $("div."+parentdiv).append(html);
+   if(html.match(/^error/)){
+    return false;
+   }
+
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 全選択
+//-----------------------------------------//
+function checkall(){
+ var fname="checkall";wlog("start:"+fname);
+ $("button.checkall").on("click",function(){
+  $("table.ItemData tr td input[type=checkbox]").prop("checked",true);
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// 全解除
+//-----------------------------------------//
+function checkoff(){
+ var fname="checkoff";wlog("start:"+fname);
+ $("button.checkoff").on("click",function(){
+  $("table.ItemData tr td input[type=checkbox]").prop("checked",false);
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// チェックを削除
+//-----------------------------------------//
+function checkdel(adnum){
+ var fname="checkdel";wlog("start:"+fname);
+ $("button.checkdel").on("click",function(){
+  if(! confirm("削除しますか")) return false;
+  $("table.ItemData tr td input[type=checkbox]").each(function(){
+   if($(this).prop("checked")){
+    console.log($(this));
+    deldata($(this));
+   }
+  });
+ });
+ wlog("end:"+fname);
+}
+
+//-----------------------------------------//
+// データ削除
+//-----------------------------------------//
+function deldata(elem){
+ var fname="deldata";wlog("start:"+fname);
+ var q={};
+ q.strcode =elem.attr("data-strcode");
+ q.adnum   =elem.attr("data-adnum");
+ q.saletype=elem.attr("data-saletype");
+ q.saleday =elem.attr("data-saleday");
+ q.jcode   =elem.attr("data-jcode");
+ q.startday=elem.attr("data-startday");
+ q.endday  =elem.attr("data-endday");
+ q.newsid  =elem.attr("data-newsid");
+ q.summry  =elem.attr("data-summry");
+ console.log(q);
+
+ //データ削除
+ $.ajax({
+  context:this,
+  url:"php/ajaxDelData.php",
+  type:"GET",
+  data:q,
+  dataType:"html",
+  async:false,
+  complete:function(){},
+  success:function(html){
+   wlog(fname+": ajax success");
+   console.log(html);
+   if(html.match(/^err/)){
+    alert(html);
+    return false;
+   }
+   elem.parent().parent().hide();
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+ wlog("end:"+fname);
+}
 //-----------------------------------------//
 // チラシ削除
 //-----------------------------------------//

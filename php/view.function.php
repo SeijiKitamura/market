@@ -991,7 +991,7 @@ EOF;
 //----------------------------------------------------//
 // カレンダーを返す
 //----------------------------------------------------//
-function viewGetCalendar($strcode,$startday,$endday){
+function viewGetCalendar($strcode,$startday,$endday,$w=null){
  $mname="viewGetCalendar(view.function.php) ";
  try{
   wLog("start:".$mname);
@@ -1022,6 +1022,10 @@ EOF;
 EOF;
   }
 
+  if($w){
+   $where.=" ".$w;
+  }
+
   $order=<<<EOF
     t.strcode
    ,t.saleday
@@ -1044,7 +1048,7 @@ EOF;
 //----------------------------------------------------//
 // 日付とアイテム数を返す
 //----------------------------------------------------//
-function viewGetSaleList($strcode,$saletype){
+function viewGetSaleList($strcode,$saletype,$w=null){
  $mname="viewGetSaleList(view.function.php) ";
  try{
   wLog("start:".$mname);
@@ -1063,8 +1067,12 @@ function viewGetSaleList($strcode,$saletype){
    and t.saletype={$saletype}
 EOF;
 
+  if($w){
+   $where.=" ".$w;
+  }
+
   $order=<<<EOF
-   t.saleday desc
+   t.saleday
 EOF;
 
   return dsetGetFlyersDay($where,$order);
@@ -1097,7 +1105,7 @@ function viewGetMonthList($strcode,$saletype,$w=null){
    and t.saletype={$saletype}
 EOF;
   if($w){
-   $where.=" and ".$w;
+   $where.=" ".$w;
   }
 
   $order=<<<EOF
@@ -1105,6 +1113,9 @@ EOF;
       ,to_char(t.saleday,'MM')
 EOF;
 
+  if($saletype==7){
+   return dsetGetNewsMonthList($where,$order);
+  }
   return dsetGetMonthList($where,$order);
  }
  catch(Exception $e){
@@ -1112,6 +1123,47 @@ EOF;
   return false;
  }
 }
+
+//----------------------------------------------------//
+// 年シーズンとアイテム数を返す
+//----------------------------------------------------//
+function viewGetSeasonList($strcode,$saletype,$w=null,$h=null){
+ $mname="viewGetSeasonList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+  
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+
+  $where=<<<EOF
+       t.strcode={$strcode}
+   and t.saletype={$saletype}
+EOF;
+  if($w){
+   $where.=" ".$w;
+  }
+
+  //ここから
+  $order=<<<EOF
+EOF;
+  $having=null;
+  if($h){
+   $having=$h;
+  }
+  return dsetGetSeasonList($where,$order,$having);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
 
 //----------------------------------------------------//
 // 日別アイテムを返す
@@ -1237,6 +1289,50 @@ EOF;
    ,t.price
 EOF;
   return dsetGetSaleItem($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// セール商品期間集計を返す
+//----------------------------------------------------//
+function viewGetSaleSummry($strcode,$saletype,$w=null){
+ $mname="viewGetSaleSummry(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  //引数チェック
+  if(! preg_match("/^[0-9]+$/",$strcode)){
+   throw new exception("strcodeが数字ではありません(".$strcode.")");
+  }
+
+  if(! preg_match("/^[0-9]+$/",$saletype)){
+   throw new exception("saletypeが数字ではありません(".$saletype.")");
+  }
+
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saletype={$saletype}
+EOF;
+  
+  if($w){
+   $where.=" ".$w;
+  }
+  $order=<<<EOF
+    min(t.saleday)
+   ,max(t.saleday)
+   ,t.saletype
+   ,t.strcode
+   ,t.clscode
+   ,t.jcode
+EOF;
+  if($saletype==7){
+   $order="t.saletype,t.strcode,t.saleday,t.clscode";
+   return dsetGetNews($where,$order);
+  }
+  return dsetGetSaleItemSum($where,$order);
  }
  catch(Exception $e){
   wLog($e->getMessage());

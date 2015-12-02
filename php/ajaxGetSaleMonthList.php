@@ -18,6 +18,12 @@ try{
   throw new exception ("セール番号を確認してください".$_GET["saletype"]);
  }
 
+ if(chkDate($_GET["saleday"])){
+  $saleday=$_GET["saleday"];
+ }
+ else{
+  throw new exception ("セール日を確認してください".$_GET["saleday"]);
+ }
 
  //ログイン判定
  session_start();
@@ -25,47 +31,45 @@ try{
   $loginflg=true;
  }
 
- //データ取得
- if($saletype==0){
-  if(! $loginflg){
+ if(! $loginflg){
+  if($saletype==0){
    $w=" t1.saleday<='".date("Y-m-d",strtotime("-1days"))."'";
   }
-  $itemlist=viewGetFlyersYearList($strcode,$w);
- }
 
- if($saletype==1||$saletype==2||$saletype==3||$saletype==5||$saletype==6||$saletype==7||$saletype==8||$saletype==9){
-  if(! $loginflg){
+  if($saletype==1||$saletype==2||$saletype==3||$saletype==5||$saletype==6||$saletype==7||$saletype==8||$saletype==9){
    $w=" and t.saleday<='".date("Y-m-d",strtotime("-1days"))."'";
   }
-  $monthlist=viewGetMonthList($strcode,$saletype,$w);
-  $yearlist=array();
-  $year="";
-  foreach($monthlist as $key=>$val){
-   if($year!=$val["nen"]){
-    $yearlist[]=array("year"=>$val["nen"]);
-    $year=$val["nen"];
-   }
-  }
+
  }
 
- $html="";
- $html ="<select id='year'>";
+ $html ="<select id='month'>";
  $html.="<option value='99'>選択..</option>";
  if($saletype==0){
+  $itemlist=viewGetFlyersMonthList($strcode,$saleday,$w);
   foreach($itemlist as $key=>$val){
-   $html.="<option value='".$val["year"]."-01-01'>";
-   $html.=$val["year"]."年(".$val["cnt"]."回発行)";
+   $hiduke=date("Y-",strtotime($saleday)).$val["month"]."-01";
+   $html.="<option value='".$hiduke."'>";
+   $html.=$val["month"]."月(".$val["cnt"]."回発行)";
    $html.="</option>";
   }
  }
 
  if($saletype==1||$saletype==2||$saletype==3||$saletype==5||$saletype==6||$saletype==7||$saletype==8||$saletype==9){
-  foreach($yearlist as $key=>$val){
-   $html.="<option value='".$val["year"]."-01-01'>";
-   $html.=$val["year"]."年";
+  $itemlist=viewGetMonthList($strcode,$saletype,$w);
+  foreach($itemlist as $key=>$val){
+   $hiduke="{$val["nen"]}-{$val["tuki"]}-01";
+   $html.="<option value='".$hiduke."'>";
+   if($saletype==1||$saletype==2){
+    $html.=$val["tuki"]."月(".$val["itemcnt"].")";
+   }
+   if($saletype==3||$saletype==5||$saletype==6||$saletype==7||$saletype==8||$saletype==9){
+    $html.=$val["tuki"]."月";
+   }
+
    $html.="</option>";
   }
  }
+
  $html.="</select>";
  echo $html;
 }
