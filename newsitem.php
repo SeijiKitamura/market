@@ -108,6 +108,11 @@ htmlFooter();
  </body>
 <script>
 $(function(){
+ $("#TanpinZone").owlCarousel({
+  items:3,
+  itemsMobile:[400,3],
+  pagination:false
+ });
 });
 </script>
 </html>

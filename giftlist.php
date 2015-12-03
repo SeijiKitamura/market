@@ -54,19 +54,25 @@ echo htmlNaviBar();
 if($itemlist){
  echo "<h1>ギフト商品一覧 (".date("Y年m月d日",strtotime($itemlist[0]["saleday"]))."現在)</h1>";
  echo "<p>大切なあの人への贈り物はスーパーキタムラで。ただいまギフト商品取扱中です。</p>";
+ 
+ //画像パス
+ $fname="/gift".date("Ym",strtotime($saleday));
+ $path=realpath("./").IMG.$fname;
+ 
+ //A面
  echo "<div class='col2'>";
- $path=realpath("./").IMG."/gift_a.jpg";
- if(file_exists($path)){
-  echo "<a href='.".IMG."/gift_a.pdf'>";
-  echo "<img src='.".IMG."/gift_a.jpg'>";
+ if(file_exists($path."_a.jpg")){
+  echo "<a href='.".IMG.$fname."_a.pdf'>";
+  echo "<img src='.".IMG.$fname."_a.jpg'>";
   echo "</a>";
  }
  echo "</div>";
+ 
+ //B面
  echo "<div class='col2'>";
- $path=realpath("./").IMG."/gift_b.jpg";
- if(file_exists($path)){
-  echo "<a href='.".IMG."/gift_b.pdf'>";
-  echo "<img src='.".IMG."/gift_b.jpg'>";
+ if(file_exists($path."_b.jpg")){
+  echo "<a href='.".IMG.$fname."_b.pdf'>";
+  echo "<img src='.".IMG.$fname."_b.jpg'>";
   echo "</a>";
  }
  echo "</div>";
@@ -99,6 +105,9 @@ if(count($itemlist)){
  }
 }
 
+echo "<pre>";
+print_r($itemlist);
+echo "</pre>";
 ?>
 
 <?php

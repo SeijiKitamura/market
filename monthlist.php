@@ -73,7 +73,7 @@ if(count($itemlist)){
  $d="";
  foreach($itemlist as $key=>$val){
   if($d!==$val["saleday"]){
-   $endday=date("Y年m月");
+   $endday=date("Y年m月",strtotime($val["saleday"]));
    echo "<div class='clr'></div>";
    echo "<h2 style='line-height:1.5em'>{$endday}の月間お買得品</h2>";
   }
