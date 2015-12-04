@@ -4,59 +4,6 @@
 var SALETYPE=[0,1,2,3,5,6,7,8,9];
 
 //-----------------------------------------//
-// 画像スライド
-//-----------------------------------------//
-function slideImg(){
- $("div#slideFl").sliderPro({
-  width:360,
-  thumbnailWidth:90,
-  thumbnailHeight:120,
-  aspectRatio:1,
-  thumbnailArrows:true,
-  autoHeight:true,
-  slideDistance:0,
-  arrows:true,
-  autoplay:false,
-  buttons:false
- });
-}
-
-
-//-----------------------------------------//
-// スライドメニュー
-//-----------------------------------------//
-function slideMenu(){
- var menu=$("#slide_menu");
- var menuBtn=$("#btn");
- var body=$(document.body);
- var menuWidth=menu.outerWidth();
- var layer=$(".layer");
-
- menuBtn.on("click",function(){
-  var w=$(window).width();
-  console.log(w);
-
-  body.toggleClass("open");
-  if(body.hasClass("open")){
-   layer.show();
-   body.animate({"left":menuWidth},300);
-   menu.animate({"left":0        },300);
-  }
-  else{
-   layer.hide();
-   menu.animate({"left":-menuWidth},300);
-   body.animate({"left":0         },300);
-  }
- });
-
- layer.on("click",function(){
-   menu.animate({"left":-menuWidth},300);
-   body.animate({"left":0         },300).removeClass("open");
-   layer.hide();
- });
-}
-
-//-----------------------------------------//
 // データベース初期化イベント
 //-----------------------------------------//
 function dbinit(){
@@ -676,69 +623,29 @@ function deldata(elem){
  });
  wlog("end:"+fname);
 }
-//-----------------------------------------//
-// チラシ削除
-//-----------------------------------------//
-function delTirasi(adnum){
- var fname="delTirasi";wlog("start:"+fname);
- var q={};
- q.strcode=1;
- q.adnum=adnum;
- if(! confirm("削除しますか?")) return false;
 
- //データ削除
- $.ajax({
-  context:this,
-  url:"php/ajaxDelSaleAdnum.php",
-  type:"GET",
-  data:q,
-  dataType:"html",
-  async:false,
-  complete:function(){},
-  success:function(html){
-   wlog(fname+": ajax success");
-   console.log(html);
-   if(html.match(/^err/)){
-    alert(html);
-    return false;
-   }
-   
-   //該当TRを削除
-   $("button").each(function(){
-    if($(this).attr("data-adnum")==q.adnum){
-     $(this).parent().parent().slideUp();
-    }
-   });
-  },
-  error:function(XMLHttpRequest,textStatus,errorThrown){
-   console.log(XMLHttpRequest.responseText);
-  }
- });
- wlog("end:"+fname);
-
-}
-
-//-----------------------------------------//
-// 月のSelectBox作成
-//-----------------------------------------//
-function makeTukiBox(){
- var fname="makeTukiBox";wlog("start:"+fname);
+//----------------------------------------//
+// 年のSelectBox作成
+// セールタイプリスト表示
+//----------------------------------------//
+function makeNenBox(startyear,endyear){
+ var fname="makeNenBox";wlog("start:"+fname);
  var d=new Date();
+ if(!startyear) startyear=d.getFullYear();
+ if(!endyear)   endyear  =d.getFullYear();
 
- var sct=$("<select id='tuki'>");
- //ここを前ゼロ付加する
- for(var i=1;i<13;i++){
-  var tuki="";
-  if(i<10) tuki="0"+i;
-  else tuki=i;
-  var opt=$("<option>").val(tuki)
-                       .text(i+"月")
+ var sct=$("<select id='nen'>");
+ for(var i=startyear;i<=endyear;i++){
+  var opt=$("<option>").val(i)
+                       .text(i+"年")
                        .appendTo(sct);
  }
-
- wlog("end:"+fname);
- return sct;
 }
+
+
+function getlist(){
+}
+
 //-----------------------------------------//
 // 日付チェック
 //-----------------------------------------//
