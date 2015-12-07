@@ -131,6 +131,7 @@ $SITECONTENTS=array(
                     ,"早期ご予約商品"=>"soukilist.php"
                     ,"商品について"=>"aboutitem.php"
                     ,"配達サービス"=>"haitatu.php"
+                    ,"過去のセール商品"=>"salearchive.php"
                    );
 //未使用
 $BIGNAVI=array(
