@@ -43,6 +43,10 @@ htmlHeader("メニュー");
        <td>チラシ、メール、月間、カレンダーなどの特売情報をインポートします。</td>
       </tr>
       <tr>
+       <td><a href="salearchive.php">データ管理</a></td>
+       <td><a href="salearchive.php">セール商品の画像、データを削除します。</a></td>
+      </tr>
+      <tr>
        <td><a href="data.php">アクセスログ</a></td>
        <td><a href="data.php">各ページ、どのくらい閲覧されたかを知ることができます。</a></td>
       </tr>
@@ -52,12 +56,12 @@ htmlHeader("メニュー");
    
    <div class="msgarea">
    </div><!--div class="msgarea"-->
+<?php
+htmlFooter()
+?>
 
   </div><!--div id="wrapper"-->
 
-<?php
-//htmlFooter()
-?>
  </body>
 
  <script>
@@ -71,8 +75,5 @@ $(function(){
  inptirasi();
  getlist();
 });
-
-
-
  </script>
 </html>
