@@ -386,10 +386,6 @@ EOF;
   $html.="<div class='clr'></div>";
  }
  echo $html;
-
- echo "<pre>";
- print_r($itemlist);
- echo "</pre>";
 }
 catch(Exception $e){
  echo "error:".$e->getMessage();

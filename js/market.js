@@ -625,25 +625,125 @@ function deldata(elem){
 }
 
 //----------------------------------------//
-// 年のSelectBox作成
-// セールタイプリスト表示
+// 年のSelectBox作成(ログファイル用)
 //----------------------------------------//
-function makeNenBox(startyear,endyear){
+function makeNenBox(){
  var fname="makeNenBox";wlog("start:"+fname);
- var d=new Date();
- if(!startyear) startyear=d.getFullYear();
- if(!endyear)   endyear  =d.getFullYear();
-
- var sct=$("<select id='nen'>");
- for(var i=startyear;i<=endyear;i++){
-  var opt=$("<option>").val(i)
-                       .text(i+"年")
-                       .appendTo(sct);
- }
+ $("select.year").remove();
+ var url="php/ajaxGetLogYearMonth.php";
+ var q={};
+ q.strcode=1;
+ $.ajax({
+  url:url,
+  data:q,
+  type:"GET",
+  dataType:"json",
+  async:false,
+  cache:false,
+  complete:function(){},
+  success:function(json){
+   wlog(": ajax success");
+   //年ボックス作成
+   var year=0;
+   var sct=$("<select>").addClass("year");
+   var opt=$("<option>").val(99).text("選択").appendTo(sct);
+   $.each(json,function(i,item){
+    if(year!=json[i].year){
+     year=json[i].year;
+     var opt=$("<option>").val(year).text(year+"年");
+     sct.append(opt);
+    }
+   });
+   
+   //イベントセット
+   sct.appendTo("div#wrapper")
+      .on("change",function(){
+        makeTukiBox($(this).val());
+       });
+   
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
 }
 
+//----------------------------------------//
+// 月のSelectBox作成(ログファイル用)
+//----------------------------------------//
+function makeTukiBox(year){
+ var fname="makeTukiBox";wlog("start:"+fname);
+ $("select.month").remove();
+ if(year==99){ return false; }
+ var url="php/ajaxGetLogYearMonth.php";
+ var q={};
+ q.strcode=1;
+ q.year=year;
+ $.ajax({
+  url:url,
+  data:q,
+  type:"GET",
+  dataType:"json",
+  async:false,
+  cache:false,
+  complete:function(){},
+  success:function(json){
+   wlog(": ajax success");
+   //月ボックス作成
+   var month=0;
+   var sct=$("<select>").addClass("month");
+   var opt=$("<option>").val(99).text("選択").appendTo(sct);
+   $.each(json,function(i,item){
+    if(month!=json[i].month){
+     month=json[i].month;
+     var opt=$("<option>").val(month).text(month+"月");
+     sct.append(opt);
+    }
+   });
+   
+   //イベントセット
+   sct.appendTo("div#wrapper")
+      .on("change",function(){
+        getaccesslog();
+       });
+   
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
 
-function getlist(){
+}
+
+//-----------------------------------------//
+// アクセスログ表示
+//-----------------------------------------//
+function getaccesslog(){
+ var fname="getaccesslog";wlog("start:"+fname);
+ var nen =$("select.year").val();
+ var tuki=$("select.month").val();
+ var url="log/access"+nen+tuki+".html";
+ 
+ $("div.datazone").remove(); 
+ if(nen==99 || tuki==99){return false; }
+ //データゲット
+ $.ajax({
+  url:url,
+  type:"GET",
+  dataType:"html",
+  async:false,
+  cache:false,
+  complete:function(){},
+  success:function(html){
+   wlog(": ajax success");
+   $("<div></div>",{"class":"datazone"}).append(html).appendTo("div#wrapper");
+   $("div.datazone table").addClass("ItemData");
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+
 }
 
 //-----------------------------------------//

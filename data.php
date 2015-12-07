@@ -40,40 +40,7 @@ htmlHeader("データ表示|");
 
  <script>
 $(function(){
- //年
- var sct=makeNenBox(2015,null);
- $("div.nentuki ul.naviul li").eq(0).append(sct);
- 
- //月
- var sct=makeTukiBox();
- $("div.nentuki ul.naviul li").eq(1).append(sct);
-
- //イベント
- $("select#nen,select#tuki").on("change",function(){
-  var nen =$("select#nen").val();
-  var tuki=$("select#tuki").val();
-  var url="log/access"+nen+tuki+".html";
-
-  $("div.datazone").remove(); 
-  //データゲット
-  $.ajax({
-   url:url,
-   type:"GET",
-   dataType:"html",
-   async:false,
-   cache:false,
-   complete:function(){},
-   success:function(html){
-    wlog(": ajax success");
-    $("<div></div>",{"class":"datazone"}).append(html).appendTo("div#wrapper");
-    $("div.datazone table").addClass("ItemData");
-   },
-   error:function(XMLHttpRequest,textStatus,errorThrown){
-    console.log(XMLHttpRequest.responseText);
-   }
-  });
-
- });
+  makeNenBox();
 });
 
  </script>
