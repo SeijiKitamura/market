@@ -221,6 +221,9 @@ cat << EOF >> ../sitemap${fileno}.xml
  <url>
   <loc>http://market.kita-grp.co.jp/goyoyakulist.php</loc>
  </url> 
+ <url>
+  <loc>http://market.kita-grp.co.jp/salearchive.php</loc>
+ </url> 
 </urlset>
 EOF
 
