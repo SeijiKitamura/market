@@ -197,6 +197,7 @@ $(function(){
  });
 
  delimg();
+ saleout();
 });
 </script>
 </html>

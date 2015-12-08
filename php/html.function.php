@@ -346,7 +346,12 @@ function htmlItemList($data){
 
    //売価
    if($val["price"]){
-    $replace=$val["price"];
+    if($val["specialflg"]>=9999){
+     $replace="<del>".$val["price"]."</del>";
+    }
+    else{
+     $replace=$val["price"];
+    }
     $i=preg_replace("/<!--price-->/",$replace,$i);
 
     //通貨単位
@@ -437,6 +442,12 @@ function htmlItem($data){
   $mname="htmlItem(html.function.php) ";
   $c="start ".$mname;wLog($c);
   
+  //ログイン判定
+  session_start();
+  if( isset($_SESSION["USERID"]) && $_SESSION["USERID"]!==null && $_SESSION["USERID"]===md5(USERID)){
+   $loginflg=true;
+  }
+ 
   //タイトルスケルトン読み込み
   $path=realpath(__DIR__."/..".SKELETON."/itemheader.html");
   $grp=file_get_contents($path);
@@ -583,7 +594,12 @@ function htmlItem($data){
 
    //売価
    if($val["price"]){
-    $replace=$val["price"];
+    if($val["specialflg"]>=9999){
+     $replace="<del>".$val["price"]."</del>";
+    }
+    else{
+     $replace=$val["price"];
+    }
     $i=preg_replace("/<!--price-->/",$replace,$i);
 
     //通過単位
@@ -603,18 +619,51 @@ function htmlItem($data){
    }
    
    //コメント
-   $replace=$val["comment"];
+   $replace="";
+   if($val["specialflg"]>=9999){
+    $replace="申し訳ございません。売切れました。";
+   }
+   $replace.=$val["comment"];
+   
    $i=preg_replace("/<!--comment-->/",$replace,$i);
    
    //イベント名
    $replace=$val["grpname"];
    $i=preg_replace("/<!--grpname-->/",$replace,$i);
-
+   
+   //売り切れボタン
+   if($loginflg){
+    if($val["saletype"]==0||$val["saletype"]==1||$$val["saletype"]==2||
+       $val["saletype"]==5||$val["saletype"]==6){
+     if($val["specialflg"]<9999){
+      $replace ="<button id='saleout' ";
+      $replace.=" data-strcode ='{$val["strcode"]}'";
+      $replace.=" data-saletype='{$val["saletype"]}'";
+      $replace.=" data-adnum   ='{$val["adnum"]}'";
+      $replace.=" data-saleday ='{$val["saleday"]}'";
+      $replace.=" data-jcode   ='{$val["jcode"]}'";
+      $replace.=">売切</button>";
+     }
+     else{
+      $replace.="<button id='salein'";
+      $replace.=" data-strcode ='{$val["strcode"]}'";
+      $replace.=" data-saletype='{$val["saletype"]}'";
+      $replace.=" data-adnum   ='{$val["adnum"]}'";
+      $replace.=" data-saleday ='{$val["saleday"]}'";
+      $replace.=" data-jcode   ='{$val["jcode"]}'";
+      $replace.=">売切解除</button>";
+     }
+     $i=preg_replace("/<!--button-->/",$replace,$i);
+    }
+   }
    $html.=$i;
-
   }
-
   echo $html;
+
+  //デバッグ用
+//  echo "<pre>";
+//  print_r($data);
+//  echo "</pre>";
   $c="end ".$mname;wLog($c);
  }
  catch(Exception $e){

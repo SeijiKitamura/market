@@ -743,7 +743,92 @@ function getaccesslog(){
    console.log(XMLHttpRequest.responseText);
   }
  });
+}
 
+//-----------------------------------------//
+// 売切れボタン
+//-----------------------------------------//
+function saleout(){
+ var fname="saleout";wlog("start:"+fname);
+ var url="php/ajaxSaleOutIn.php";
+
+ $("button#saleout").on("click",function(){
+  var q={};
+  q.strcode =$(this).attr("data-strcode");
+  q.saletype=$(this).attr("data-saletype");
+  q.adnum   =$(this).attr("data-adnum");
+  q.saleday =$(this).attr("data-saleday");
+  q.jcode   =$(this).attr("data-jcode");
+  q.flg="out";
+  console.log(q); 
+  //データゲット
+  $.ajax({
+   url:url,
+   type:"GET",
+   data:q,
+   dataType:"html",
+   async:false,
+   cache:false,
+   complete:function(){},
+   success:function(html){
+    wlog(": ajax success");
+    console.log(html);
+    if(html.match(/^error/)){
+     alert(html);
+     return false;
+    }
+    else{
+     location.reload();
+    }
+   },
+   error:function(XMLHttpRequest,textStatus,errorThrown){
+    console.log(XMLHttpRequest.responseText);
+   }
+  });
+ });
+}
+
+//-----------------------------------------//
+// 売切解除ボタン
+//-----------------------------------------//
+function salein(){
+ var fname="salein";wlog("start:"+fname);
+ var url="php/ajaxSaleOutIn.php";
+
+ $("button#salein").on("click",function(){
+  var q={};
+  q.strcode =$(this).attr("data-strcode");
+  q.saletype=$(this).attr("data-saletype");
+  q.adnum   =$(this).attr("data-adnum");
+  q.saleday =$(this).attr("data-saleday");
+  q.jcode   =$(this).attr("data-jcode");
+  //q.flg="out";
+  console.log(q); 
+  //データゲット
+  $.ajax({
+   url:url,
+   type:"GET",
+   data:q,
+   dataType:"html",
+   async:false,
+   cache:false,
+   complete:function(){},
+   success:function(html){
+    wlog(": ajax success");
+    console.log(html);
+    if(html.match(/^error/)){
+     alert(html);
+     return false;
+    }
+    else{
+     location.reload();
+    }
+   },
+   error:function(XMLHttpRequest,textStatus,errorThrown){
+    console.log(XMLHttpRequest.responseText);
+   }
+  });
+ });
 }
 
 //-----------------------------------------//
