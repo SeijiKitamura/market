@@ -11,9 +11,16 @@ try{
  }
 
  $db=new DB();
+ //メーカーマスタ削除
  $db->from=TABLE_PREFIX.MAKERMAS;
  $db->where="jcode='{$jcode}'";
  $db->delete();
+
+ //商品マスタクリア
+ $db->updatecol=array("maker"=>"");
+ $db->from=TABLE_PREFIX.JANMAS;
+ $db->where="jcode like '{$jcode}%'";
+ $db->update();
 }
 catch(Exception $e){
  wLog("error:".$mname." ".$e->getMessage());

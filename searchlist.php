@@ -129,15 +129,11 @@ if(count($itemlist)){
  echo "<div class='clr'></div>";
  echo "<h2>商品リスト</h2>";
  foreach($itemlist as $key=>$val){
-?>
-   <div class="col3">
-<?php 
+   echo "<div class='col3'>";
   $ary=array();
   $ary[]=$itemlist[$key];
   htmlItemList($ary);
-?>
-   </div><!--div class="col3"-->
-<?php
+  echo "</div><!--div class='col3'-->";
  }
 }
 
