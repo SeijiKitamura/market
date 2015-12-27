@@ -564,6 +564,70 @@ function viewGetItemCls($strcode,$clscode){
 }
 
 //----------------------------------------------------//
+// メーカー空欄の商品マスタを返す
+// (JANコード8桁もしくは13桁のみ）
+//----------------------------------------------------//
+function viewGetMakerNull($strcode,$saleday){
+ $mname="viewGetMakerNull(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where =" t.strcode={$strcode}";
+  $where.=" and t.lastsale='{$saleday}'";
+  $where.=" and t.jcode like '4%'";
+  $where.=" and length(t.jcode)=8";
+  $where.=" and t.maker=''";
+  $where.=" or";
+  $where.=" t.strcode={$strcode}";
+  $where.=" and t.lastsale='{$saleday}'";
+  $where.=" and t.jcode like '4%'";
+  $where.=" and length(t.jcode)=13";
+  $where.=" and t.maker=''";
+
+  $order=" t.strcode,t.lastsale desc,t.clscode,t.jcode";
+
+  return dsetGetJanMas($where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// メーカーマスタを返す
+//----------------------------------------------------//
+function viewGetMakerMas($jcode){
+ $mname="viewGetMakerMas(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where ="jcode='{$jcode}'";
+  return dsetGetMakerMas($where);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// メーカーマスタを返す
+//----------------------------------------------------//
+function viewGetMakerList($cname){
+ $mname="viewGetMakerList(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  if($cname) $where ="cname like '%{$cname}%'";
+  $order ="cname,jcode";
+  return dsetGetMakerMas($where,null,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+
+//----------------------------------------------------//
 // メールを返す
 //----------------------------------------------------//
 function viewGetMailList($strcode,$saleday){

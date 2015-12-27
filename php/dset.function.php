@@ -172,6 +172,29 @@ function dsetGetJanMas($where=null,$group=null,$order=null,$having=null){
 }
 
 //----------------------------------------------------//
+// MAKERMASを返す
+//----------------------------------------------------//
+function dsetGetMakerMas($where=null,$group=null,$order=null,$having=null){
+ $mname="dsetGetMakerMas(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select =" jcode";
+  $db->select.=",cname";
+  $db->select.=",maker";
+  $db->from =TABLE_PREFIX.MAKERMAS;
+  if ($where)  $db->where=$where;
+  if ($group)  $db->group=$group;
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
 // JANSALEの年月一覧を返す(カレンダー用）
 //----------------------------------------------------//
 function dsetGetMonthList($where=null,$order=null,$having=null){

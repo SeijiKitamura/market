@@ -810,7 +810,6 @@ function salein(){
    type:"GET",
    data:q,
    dataType:"html",
-   async:false,
    cache:false,
    complete:function(){},
    success:function(html){
@@ -831,6 +830,191 @@ function salein(){
  });
 }
 
+//-----------------------------------------//
+// メーカー未登録商品一覧
+//-----------------------------------------//
+function getItemList(){
+ var fname="getItemList";wlog("start:"+fname);
+ var url="php/ajaxGetMakerItem.php";
+ var q={};
+ q.saleday=$("input[name=saleday]").val()
+  
+ //引数チェック
+ if(! q.saleday){
+  alert("最終販売日を入力してください");
+  return false;
+ }
+ 
+ //日付正当性
+ if(! chkdate(q.saleday)){
+  alert("正しい日付を入力してください");
+  return false;
+ }
+
+ $.ajax({
+  url:url,
+  type:"GET",
+  data:q,
+  dataType:"html",
+  cache:false,
+  complete:function(){},
+  success:function(html){
+   wlog(": ajax success");
+   if(html.match(/^error/)){
+    alert(html);
+    return false;
+   }
+   $("table#ItemList tbody").empty() 
+                            .append(html);
+  },
+  error:function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+}
+
+//-----------------------------------------//
+// メーカーコード登録
+//-----------------------------------------//
+function setMaker(){
+ var fname="setMaker";wlog("start:"+fname);
+ var cname=$("input[name=cname]").val();
+ var maker=$("input[name=maker]").val();
+ var jcode=$("input[name=jcode]").val();
+ var url="php/ajaxSetMaker.php";
+
+ //引数チェック
+ if(! cname || ! maker || ! jcode){
+  wlog("値が空欄のため処理終了");
+  return false;
+ }
+
+ if(! jcode.match(/^[0-9 ]+$/)){
+  alert("企業コードが数字ではありません");
+  $("input[name=jcode]").focus();
+  return false;
+ }
+ 
+ if(! confirm("登録しますか?")){
+  return false;
+ }
+
+ //JANコード分割
+ var s=jcode.split(" ");
+ $.each(s,function(i){
+  var q={};
+  q.cname=cname;
+  q.maker=maker;
+  q.jcode=s[i];
+  $.ajax({
+   url:url,
+   type     :"GET",
+   data     :q,
+   dataType :"html",
+   cache    :false,
+   complete :function(){},
+   success  :function(html){
+    wlog(": ajax success");
+    if(html.match(/^error/)){
+     alert(html);
+     return false;
+    }
+   },
+   error    :function(XMLHttpRequest,textStatus,errorThrown){
+    console.log(XMLHttpRequest.responseText);
+   }
+  });
+ });
+
+ alert("登録しました");
+ getItemList();
+ getMakerList(cname);
+}
+
+//-----------------------------------------//
+// メーカーリスト一覧
+//-----------------------------------------//
+function getMakerList(cname){
+ var fname="getMakerList";wlog("start:"+fname);
+ var url="php/ajaxGetMakerList.php";
+ var q={};
+ 
+ if(cname) q.cname=cname;
+
+ $.ajax({
+  url      :url,
+  type     :"GET",
+  data     :q,
+  dataType :"html",
+  cache    :false,
+  complete :function(){},
+  success  :function(html){
+   wlog(": ajax success");
+   if(html.match(/^error/)){
+    alert(html);
+    return false;
+   }
+   $("table#MakerList tbody").empty()
+                             .append(html);
+   //あとでイベント追加
+   $("button").on("click",function(){
+    delMaker($(this).attr("data-jcode"));
+   });
+  },
+  error    :function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+}
+
+//-----------------------------------------//
+// メーカーリスト削除
+//-----------------------------------------//
+function delMaker(jcode){
+ var fname="delMaker";wlog("start:"+fname);
+ var url="php/ajaxDelMaker.php";
+ var q={};
+ q.jcode=jcode;
+
+ if(! q.jcode){
+  alert("企業コードが登録されていません");
+  return false;
+ }
+
+ if(! q.jcode.match(/^[0-9]+$/)){
+  alert("企業コードが数字ではありません");
+  return false;
+ }
+
+ if(! confirm("削除しますか?")) return false;
+
+ $.ajax({
+  url      :url,
+  type     :"GET",
+  data     :q,
+  dataType :"html",
+  cache    :false,
+  complete :function(){},
+  success  :function(html){
+   wlog(": ajax success");
+   if(html.match(/^error/)){
+    alert(html);
+    return false;
+   }
+   $("button").each(function(){
+    if($(this).attr("data-jcode")==q.jcode){
+     $(this).parent().parent().hide();
+     alert("削除しました");
+     return false;
+    }
+   });
+  },
+  error    :function(XMLHttpRequest,textStatus,errorThrown){
+   console.log(XMLHttpRequest.responseText);
+  }
+ });
+
+}
 //-----------------------------------------//
 // 日付チェック
 //-----------------------------------------//

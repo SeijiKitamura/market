@@ -35,6 +35,7 @@ define("LINMAS" ,"linmas");
 define("CLSMAS" ,"clsmas");
 define("JANMAS" ,"janmas");
 define("JANSALE","jansale");
+define("MAKERMAS","makermas");
 
 //---------------------------------------------------//
 // テーブル列名定数
@@ -202,6 +203,11 @@ $TABLES=array(
    , "firstsale" =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"登録日"        ,"index"=>"")
    , "lastsale"  =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"最終販売日"    ,"index"=>"")
              )
+ ,MAKERMAS =>array(
+     "jcode"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"'0'"       ,"local"=>"JANコード"     ,"index"=>"1")
+   , "cname"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"企業名"        ,"index"=>"2" )
+   , "maker"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"メーカー"      ,"index"=>"3" )
+ )
  ,JANSALE=>array(
      "strcode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"店舗番号"      ,"index"=>"1")
    , "saleday"   =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"日付"          ,"index"=>"2")
