@@ -47,6 +47,10 @@ htmlHeader("メニュー");
        <td><a href="salearchive.php">セール商品の画像、データを削除します。</a></td>
       </tr>
       <tr>
+       <td><a href="salearchive.php">メーカー登録</a></td>
+       <td><a href="setMaker.php">メーカー名を登録します。</a></td>
+      </tr>
+      <tr>
        <td><a href="data.php">アクセスログ</a></td>
        <td><a href="data.php">各ページ、どのくらい閲覧されたかを知ることができます。</a></td>
       </tr>
