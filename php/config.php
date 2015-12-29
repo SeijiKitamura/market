@@ -36,6 +36,7 @@ define("CLSMAS" ,"clsmas");
 define("JANMAS" ,"janmas");
 define("JANSALE","jansale");
 define("MAKERMAS","makermas");
+define("JANDAYSALE","jandaysale");
 
 //---------------------------------------------------//
 // テーブル列名定数
@@ -225,6 +226,18 @@ $TABLES=array(
    , "grpname"   =>array("type"=>"varchar","null"=>"not null","defalut"=>"''"        ,"local"=>"特売グループ名","index"=>"" )
    , "specialflg"=>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"目玉フラグ"    ,"index"=>"" )
    , "adnum"     =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"広告番号"      ,"index"=>"" )
+             )
+ ,JANDAYSALE=>array(
+     "saleday"   =>array("type"=>"date"   ,"null"=>"not null","defalut"=>"'1970/1/1'","local"=>"日付"          ,"index"=>"1")
+   , "strcode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"店舗番号"      ,"index"=>"2")
+   , "clscode"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"クラスコード"  ,"index"=>"3")
+   , "jcode"     =>array("type"=>"varchar","null"=>"not null","defalut"=>"'0'"       ,"local"=>"JANコード"     ,"index"=>"4")
+   , "saleitem"  =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"売上点数"      ,"index"=>"")
+   , "saleamt"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"売上点数"      ,"index"=>"")
+   , "disitem"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"値引点数"      ,"index"=>"")
+   , "disamt"    =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"値引金額"      ,"index"=>"")
+   , "dispitem"  =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"廃棄点数"      ,"index"=>"")
+   , "dispamt"   =>array("type"=>"int "   ,"null"=>"not null","defalut"=>"0"         ,"local"=>"廃棄金額"      ,"index"=>"")
              )
 );//$TABLES
 
