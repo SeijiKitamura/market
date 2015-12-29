@@ -430,6 +430,7 @@ div#ItemResult {
  max-height:536px;
  overflow:auto
 }
+
 div#ItemResult h3{
  background-color:#006400;
  color:#FFFFFF;
@@ -443,8 +444,8 @@ div#itemListDiv{
 }
 
 table.ItemData {
- width:90%;
- margin:0 auto;
+ /*width:70%;*/
+ margin:0 5%;
 }
 
 table.ItemData th{
@@ -477,9 +478,21 @@ table.Col3Table th{
 colgroup.area{
  width:23%;
 }
+
 table.Col3Table td{
  vertical-align:middle;
  border:1px solid #DCDCDC;
+}
+
+div#SaleResult h3{
+ background-color:#006400;
+ color:#FFFFFF;
+ line-height:1.5em;
+ padding:0 2em;
+ margin:0 0 1em 0;
+}
+.right{
+ text-align:right;
 }
 
 div.MailDetail p a span{

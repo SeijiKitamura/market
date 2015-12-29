@@ -102,6 +102,18 @@ if($item){
  $itemlist=viewGetFlyersItemDps($strcode,$adnum,$saleday,$dpscode);
 }
 
+//ログイン判定
+session_start();
+if( isset($_SESSION["USERID"]) && $_SESSION["USERID"]!==null && $_SESSION["USERID"]===md5(USERID)){
+ $loginflg=true;
+}
+
+//販売履歴データ
+if($loginflg && $jcode){
+ $w=" and t.saleday <='{$saleday}' and t.jcode='{$jcode}'";
+ $result=viewGetSaleResult($strcode,0,$w);
+}
+
 //タイトル決定
 if(! $adnum || ! $jcode || ! $itemary ||! $item){
  $title="チラシ商品|申し訳ございません。ご案内できる商品が見当たりません";
@@ -144,6 +156,14 @@ if($itemary){
 ?>
    </div><!--div class="col2"-->
    <div class="clr"></div>
+
+   <div class="col1">
+<?php
+if($result){
+ htmlItemDayResult($result);
+}
+?>
+   </div><!--div class="col1"-->
 
    <div class="col1">
 <?php

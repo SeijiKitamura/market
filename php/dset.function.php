@@ -448,5 +448,41 @@ EOF;
   throw $e;
  }
 }
+//----------------------------------------------------//
+// JANSALEの日別売上を返す
+//----------------------------------------------------//
+function dsetGetSaleItemResult($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleItemResult(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select=<<<EOF
+    t.saleday
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,t.tani
+   ,t.price
+   ,coalesce(t1.saleitem,0) as saleitem
+   ,coalesce(t1.saleamt,0)  as saleamt
+   ,coalesce(t1.disitem,0)  as disitem
+   ,coalesce(t1.disamt,0)   as disamt
+   ,coalesce(t1.dispitem,0) as dispitem
+   ,coalesce(t1.dispamt,0)  as dispamt
+EOF;
+  $db->from =" ultra_jansale as t";
+  $db->from.=" left outer join ultra_jandaysale as t1 on";
+  $db->from.=" t.strcode=t1.strcode";
+  $db->from.=" and t.saleday=t1.saleday";
+  $db->from.=" and t.jcode=t1.jcode";
+  if ($where) $db->where=$where;
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
 
 ?>

@@ -403,6 +403,9 @@ function htmlItemDayTable($data){
  }
 }
 
+//-------------------------------------------------------//
+// 単品履歴(月別)
+//-------------------------------------------------------//
 function htmlItemMonthTable($data){
  try{
   $mname="htmlItemMonthTable(html.function.php) ";
@@ -421,6 +424,47 @@ function htmlItemMonthTable($data){
     $i.="<td>".$val["tani"]."</td>";
     $i.="<td>".$val["price"].$val["yen"]."</td>";
     $i.="<td>".$val["comment"]."</td>";
+    $i.="</tr>";
+    $m=date("Y-m",strtotime($val["saleday"]));
+   }
+  }
+  $html=preg_replace("/<!--itemdata-->/",$i,$item);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
+
+//-------------------------------------------------------//
+// 単品販売履歴(日別)
+//-------------------------------------------------------//
+function htmlItemDayResult($data){
+ global $YOUBI;
+ try{
+  $mname="htmlItemDayResult(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  //アイテムテーブルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemtable3.html");
+  $item=file_get_contents($path);
+
+  $html="";
+  $i="";
+  $m="";
+  foreach($data as $key=>$val){
+   if(date("Y-m",strtotime($val["saleday"]))!==$m){
+    $y=date("w",strtotime($val["saleday"]));
+    $saleday =date("Y年m月d日",strtotime($val["saleday"]));
+    $saleday.="(".$YOUBI[date("w",strtotime($val["saleday"]))].")";
+    $i.="<tr>";
+    $i.="<td class='right'>{$saleday}</td>";
+    $i.="<td class='right'>".number_format($val["saleitem"])."</td>";
+    $i.="<td class='right'>".number_format($val["saleamt"])."</td>";
+    $i.="<td class='right'>".number_format($val["disitem"])."</td>";
+    $i.="<td class='right'>".number_format($val["disamt"])."</td>";
+    $i.="<td class='right'>".number_format($val["dispitem"])."</td>";
+    $i.="<td class='right'>".number_format($val["dispamt"])."</td>";
     $i.="</tr>";
     $m=date("Y-m",strtotime($val["saleday"]));
    }

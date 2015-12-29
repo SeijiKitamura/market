@@ -1035,6 +1035,31 @@ EOF;
 }
 
 //----------------------------------------------------//
+// セール商品売上結果を返す(日別）
+//----------------------------------------------------//
+function viewGetSaleResult($strcode,$saletype,$w=null){
+ $mname="viewGetSaleResult(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saletype={$saletype}
+EOF;
+  
+  if($w){
+   $where.=" ".$w;
+  }
+  
+  $order="t.saleday desc,coalesce(t1.saleamt,0) desc,t.clscode,t.jcode";
+  return dsetGetSaleItemResult($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
 // 検索結果を返す(商品マスタ)
 //----------------------------------------------------//
 function viewGetSearchItem($strcode,$jcode=null,$keyword=null){
