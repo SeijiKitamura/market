@@ -39,4 +39,33 @@ psql -f sql.txt >/dev/null
 
 #cp sql.txt ${d}sql.txt
 
+FNAME=jandaysale.csv
+
+#ファイル存在チェック
+if [ -e ${FNAME} ]; then
+
+ #既存sqlファイル削除
+ if [ -e sql.txt ]; then
+  rm -f sql.txt
+ fi
+ 
+ #ファイル読み込み(削除)
+ HIDUKE=""
+ while read LINE; do
+  H=`echo ${LINE}|awk -F',' '{print $1}'`
+  if [ "$HIDUKE" != "$H" ]; then
+   echo $LINE|awk -F',' '{printf("delete from ultra_jandaysale where saleday=\x27%s\x27 and strcode=%s;",$1,$2);print ""}'>>sql.txt
+  fi
+  HIDUKE=${H}
+ 
+  echo $LINE|awk -F',' '{printf("insert into ultra_jandaysale(saleday,strcode,clscode,jcode,saleitem,saleamt,disitem,disamt,dispitem,dispamt) values(\x27%s\x27,%s,%s,\x27%s\x27,%s,%s,%s,%s,%s,%s);",$1,$2,$3,$4,$5,$6,$7,$8,$9,$10);print "";}'>>sql.txt
+ done < ${FNAME}
+ 
+ psql -f sql.txt
+ 
+ #該当ファイル削除
+ rm -f ${FNAME}
+
+fi
+
 echo `date +%Y-%m-%d_%H:%M:%S` end>>$LOGFILE
