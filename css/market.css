@@ -484,6 +484,10 @@ table.Col3Table td{
  border:1px solid #DCDCDC;
 }
 
+div#SaleResult {
+ height:200px;
+ overflow:auto;
+}
 div#SaleResult h3{
  background-color:#006400;
  color:#FFFFFF;

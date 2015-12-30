@@ -95,6 +95,22 @@ if($itemlist){
  }
 }
 
+//ログイン判定
+session_start();
+if( isset($_SESSION["USERID"]) && $_SESSION["USERID"]!==null && $_SESSION["USERID"]===md5(USERID)){
+ $loginflg=true;
+}
+
+//販売履歴データ
+if($loginflg && $jcode){
+ $startday=date("Y-m-1",strtotime($saleday));
+ $endday  =date("Y-m-t",strtotime($saleday));
+ $w=" and t.saleday between '{$startday}' and '{$endday}' and t.jcode='{$jcode}'";
+ $result=viewGetSaleResult($strcode,6,$w);
+}
+
+
+
 //カレンダー情報
 $calendarlist=array();
 $endday=date("Y-m-d",strtotime("+7 day",strtotime($saleday)));
@@ -139,6 +155,15 @@ if($itemary){
 ?>
    </div><!--div class="col2"-->
    <div class="clr"></div>
+
+   <div class="col1">
+<?php
+if($result){
+ htmlItemDayResult($result);
+}
+?>
+   </div><!--div class="col1"-->
+
 
    <div class="col1">
 <?php
