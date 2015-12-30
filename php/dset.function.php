@@ -448,6 +448,7 @@ EOF;
   throw $e;
  }
 }
+
 //----------------------------------------------------//
 // JANSALEの日別売上を返す
 //----------------------------------------------------//
@@ -476,6 +477,130 @@ EOF;
   $db->from.=" and t.saleday=t1.saleday";
   $db->from.=" and t.jcode=t1.jcode";
   if ($where) $db->where=$where;
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANSALEの月別売上を返す
+//----------------------------------------------------//
+function dsetGetSaleItemMonthResult($where=null,$order=null,$having=null){
+ $mname="dsetGetSaleItemMonthResult(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select=<<<EOF
+    to_char(t.saleday,'yyyy') as nen
+   ,to_char(t.saleday,'MM')   as tuki
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,sum(t1.saleitem) as saleitem
+   ,sum(t1.saleamt)  as saleamt
+   ,sum(t1.disitem)  as disitem
+   ,sum(t1.disamt)   as disamt
+   ,sum(t1.dispitem) as dispitem
+   ,sum(t1.dispamt)  as dispamt
+EOF;
+  $db->from =" ultra_jansale as t";
+  $db->from.=" left outer join ultra_jandaysale as t1 on";
+  $db->from.=" t.strcode=t1.strcode";
+  $db->from.=" and t.saleday=t1.saleday";
+  $db->from.=" and t.jcode=t1.jcode";
+
+  if ($where) $db->where=$where;
+
+  $db->group=<<<EOF
+    to_char(t.saleday,'yyyy') 
+   ,to_char(t.saleday,'MM')
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+EOF;
+
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANMASの日別売上を返す
+//----------------------------------------------------//
+function dsetGetItemResult($where=null,$order=null,$having=null){
+ $mname="dsetGetItemResult(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select=<<<EOF
+    t1.saleday
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,t.tani
+   ,t.price
+   ,coalesce(t1.saleitem,0) as saleitem
+   ,coalesce(t1.saleamt,0)  as saleamt
+   ,coalesce(t1.disitem,0)  as disitem
+   ,coalesce(t1.disamt,0)   as disamt
+   ,coalesce(t1.dispitem,0) as dispitem
+   ,coalesce(t1.dispamt,0)  as dispamt
+EOF;
+  $db->from =" ultra_janmas as t";
+  $db->from.=" left outer join ultra_jandaysale as t1 on";
+  $db->from.=" t.strcode=t1.strcode";
+  $db->from.=" and t.jcode=t1.jcode";
+  if ($where) $db->where=$where;
+  if ($order)  $db->order=$order;
+  if ($having) $db->having=$having;
+  return $db->getArray();
+ }
+ catch(Exception $e){
+  throw $e;
+ }
+}
+
+//----------------------------------------------------//
+// JANMASの月別売上を返す
+//----------------------------------------------------//
+function dsetGetItemMonthResult($where=null,$order=null,$having=null){
+ $mname="dsetGetItemMonthResult(dset.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $db=new DB();
+  $db->select=<<<EOF
+    to_char(t1.saleday,'yyyy') as nen
+   ,to_char(t1.saleday,'MM')   as tuki
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+   ,sum(t1.saleitem) as saleitem
+   ,sum(t1.saleamt)  as saleamt
+   ,sum(t1.disitem)  as disitem
+   ,sum(t1.disamt)   as disamt
+   ,sum(t1.dispitem) as dispitem
+   ,sum(t1.dispamt)  as dispamt
+EOF;
+  $db->from =" ultra_janmas as t";
+  $db->from.=" left outer join ultra_jandaysale as t1 on";
+  $db->from.=" t.strcode=t1.strcode";
+  $db->from.=" and t.jcode=t1.jcode";
+  if ($where) $db->where=$where;
+  $db->group =<<<EOF
+    to_char(t1.saleday,'yyyy')
+   ,to_char(t1.saleday,'MM')  
+   ,t.clscode
+   ,t.jcode
+   ,t.sname
+EOF;
   if ($order)  $db->order=$order;
   if ($having) $db->having=$having;
   return $db->getArray();

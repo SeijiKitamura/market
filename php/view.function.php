@@ -1060,6 +1060,55 @@ EOF;
 }
 
 //----------------------------------------------------//
+// セール商品売上結果を返す(月別）
+//----------------------------------------------------//
+function viewGetSaleMonthResult($strcode,$saletype,$w=null){
+ $mname="viewGetSaleMonthResult(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where=<<<EOF
+       t.strcode ={$strcode}
+   and t.saletype={$saletype}
+EOF;
+  
+  if($w){
+   $where.=" ".$w;
+  }
+  
+  $order="to_char(t.saleday,'yyyy') desc ,to_char(t.saleday,'MM') desc,sum(t1.saleamt) desc,t.clscode,t.jcode";
+  return dsetGetSaleItemMonthResult($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
+// 商品売上結果を返す(月別）
+//----------------------------------------------------//
+function viewGetMonthResult($strcode,$w=null){
+ $mname="viewGetMonthResult(view.function.php) ";
+ try{
+  wLog("start:".$mname);
+  $where=<<<EOF
+       t.strcode ={$strcode}
+EOF;
+  
+  if($w){
+   $where.=" ".$w;
+  }
+  
+  $order="to_char(t1.saleday,'yyyy') desc ,to_char(t1.saleday,'MM') desc,sum(t1.saleamt) desc,t.clscode,t.jcode";
+  return dsetGetItemMonthResult($where,$order);
+ }
+ catch(Exception $e){
+  wLog($e->getMessage());
+  return false;
+ }
+}
+
+//----------------------------------------------------//
 // 検索結果を返す(商品マスタ)
 //----------------------------------------------------//
 function viewGetSearchItem($strcode,$jcode=null,$keyword=null){

@@ -33,6 +33,20 @@ if($item){
  $itemlist=viewGetItemCls($strcode,$item[0]["clscode"]);
 }
 
+//ログイン判定
+session_start();
+if( isset($_SESSION["USERID"]) && $_SESSION["USERID"]!==null && $_SESSION["USERID"]===md5(USERID)){
+ $loginflg=true;
+}
+
+//販売履歴データ
+if($loginflg && $jcode){
+ $saleday=date("Y-m-d");
+ $w=" and t1.saleday <='{$saleday}' and t.jcode='{$jcode}'";
+ $result=viewGetMonthResult($strcode,$w);
+}
+
+
 //タイトル決定
 if(! $item ){
  $title="商品のご案内|申し訳ございません。ご案内できる商品が見当たりません";
@@ -63,6 +77,14 @@ if($item){
 ?>
    </div><!--div class="col2"-->
    <div class="clr"></div>
+
+   <div class="col1">
+<?php
+if($result){
+ htmlItemMonthResult($result);
+}
+?>
+   </div><!--div class="col1"-->
 
    <div class="col1">
 <?php

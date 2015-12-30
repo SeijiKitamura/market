@@ -451,24 +451,41 @@ function htmlItemDayResult($data){
 
   $html="";
   $i="";
-  $m="";
+  $saleitem=0;
+  $saleamt =0;
+  $disitem=0;
+  $disamt =0;
+  $dispitem=0;
+  $dispamt =0;
   foreach($data as $key=>$val){
-   if(date("Y-m",strtotime($val["saleday"]))!==$m){
-    $y=date("w",strtotime($val["saleday"]));
-    $saleday =date("Y年m月d日",strtotime($val["saleday"]));
-    $saleday.="(".$YOUBI[date("w",strtotime($val["saleday"]))].")";
-    $i.="<tr>";
-    $i.="<td class='right'>{$saleday}</td>";
-    $i.="<td class='right'>".number_format($val["saleitem"])."</td>";
-    $i.="<td class='right'>".number_format($val["saleamt"])."</td>";
-    $i.="<td class='right'>".number_format($val["disitem"])."</td>";
-    $i.="<td class='right'>".number_format($val["disamt"])."</td>";
-    $i.="<td class='right'>".number_format($val["dispitem"])."</td>";
-    $i.="<td class='right'>".number_format($val["dispamt"])."</td>";
-    $i.="</tr>";
-    $m=date("Y-m",strtotime($val["saleday"]));
-   }
+   $saleday =date("Y年m月d日",strtotime($val["saleday"]));
+   $saleday.="(".$YOUBI[date("w",strtotime($val["saleday"]))].")";
+   $i.="<tr>";
+   $i.="<td class='right'>{$saleday}</td>";
+   $i.="<td class='right'>".number_format($val["saleitem"])."</td>";
+   $i.="<td class='right'>".number_format($val["saleamt"])."</td>";
+   $i.="<td class='right'>".number_format($val["disitem"])."</td>";
+   $i.="<td class='right'>".number_format($val["disamt"])."</td>";
+   $i.="<td class='right'>".number_format($val["dispitem"])."</td>";
+   $i.="<td class='right'>".number_format($val["dispamt"])."</td>";
+   $i.="</tr>";
+   $saleitem+=$val["saleitem"];
+   $saleamt +=$val["saleamt"];
+   $disitem+=$val["saleitem"];
+   $disamt +=$val["saleamt"];
+   $dispitem+=$val["saleitem"];
+   $dispamt +=$val["saleamt"];
   }
+  $i.="<tr>";
+  $i.="<td>合計</td>";
+  $i.="<td class='right'>".number_format($saleitem)."</td>";
+  $i.="<td class='right'>".number_format($saleamt)."</td>";
+  $i.="<td class='right'>".number_format($disitem)."</td>";
+  $i.="<td class='right'>".number_format($disamt)."</td>";
+  $i.="<td class='right'>".number_format($dispitem)."</td>";
+  $i.="<td class='right'>".number_format($dispamt)."</td>";
+  $i.="</tr>";
+
   $html=preg_replace("/<!--itemdata-->/",$i,$item);
   echo $html;
   $c="end ".$mname;wLog($c);
@@ -478,6 +495,62 @@ function htmlItemDayResult($data){
  }
 }
 
+//-------------------------------------------------------//
+// 単品販売履歴(月別)
+//-------------------------------------------------------//
+function htmlItemMonthResult($data){
+ global $YOUBI;
+ try{
+  $mname="htmlItemMonthResult(html.function.php) ";
+  $c="start ".$mname;wLog($c);
+  //アイテムテーブルスケルトン読み込み
+  $path=realpath(__DIR__."/..".SKELETON."/itemtable4.html");
+  $item=file_get_contents($path);
+
+  $html="";
+  $i="";
+  $saleitem=0;
+  $saleamt =0;
+  $disitem=0;
+  $disamt =0;
+  $dispitem=0;
+  $dispamt =0;
+  foreach($data as $key=>$val){
+   $saleday =$val["nen"]."年".$val["tuki"]."月";
+   $i.="<tr>";
+   $i.="<td class='right'>{$saleday}</td>";
+   $i.="<td class='right'>".number_format($val["saleitem"])."</td>";
+   $i.="<td class='right'>".number_format($val["saleamt"])."</td>";
+   $i.="<td class='right'>".number_format($val["disitem"])."</td>";
+   $i.="<td class='right'>".number_format($val["disamt"])."</td>";
+   $i.="<td class='right'>".number_format($val["dispitem"])."</td>";
+   $i.="<td class='right'>".number_format($val["dispamt"])."</td>";
+   $i.="</tr>";
+   $saleitem+=$val["saleitem"];
+   $saleamt +=$val["saleamt"];
+   $disitem+=$val["saleitem"];
+   $disamt +=$val["saleamt"];
+   $dispitem+=$val["saleitem"];
+   $dispamt +=$val["saleamt"];
+  }
+  $i.="<tr>";
+  $i.="<td>合計</td>";
+  $i.="<td class='right'>".number_format($saleitem)."</td>";
+  $i.="<td class='right'>".number_format($saleamt)."</td>";
+  $i.="<td class='right'>".number_format($disitem)."</td>";
+  $i.="<td class='right'>".number_format($disamt)."</td>";
+  $i.="<td class='right'>".number_format($dispitem)."</td>";
+  $i.="<td class='right'>".number_format($dispamt)."</td>";
+  $i.="</tr>";
+
+  $html=preg_replace("/<!--itemdata-->/",$i,$item);
+  echo $html;
+  $c="end ".$mname;wLog($c);
+ }
+ catch(Exception $e){
+  $c="error:".$mname.$e->getMessge();wLog($c);
+ }
+}
 //-------------------------------------------------------//
 // 単品表示
 //-------------------------------------------------------//
