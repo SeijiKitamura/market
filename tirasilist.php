@@ -156,11 +156,12 @@ if($itemlist){
 <?php
 htmlSNSButton();
 ?>
+   <div class="clr"></div>
    <div id="footer">
     <div class="footerBox">
      <h3>過去のチラシ</h3>
      <ul>
-      <li><a href="tirasiarchive.php">以前配布されたチラシについてはこちらをごらんください</a></li>
+      <li><a href="salearchive.php">以前配布されたチラシについてはこちらをごらんください</a></li>
      </ul>
     </div><!--div class="footerbox"-->
 <?php

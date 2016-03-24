@@ -37,6 +37,10 @@ function htmlCalendarList2($data){
    //スケルトン代入
    $i=$item;
 
+   //リンク
+   $replace="calendaritem.php?strcode={$val["strcode"]}&saleday={$val["saleday"]}";
+   $i=preg_replace("/<!--link-->/",$replace,$i);
+
    //月
    $replace=date("m",strtotime($val["saleday"]));
    $i=preg_replace("/<!--month-->/",$replace,$i);
