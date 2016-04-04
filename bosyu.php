@@ -44,6 +44,10 @@ echo htmlNaviBar();
     <p>
      現在、以下の求人募集を行っております。キタムラで一緒にお仕事できる方、ぜひご連絡ください。
     </p>
+
+    <h2>惣菜コーナー</h2>
+    <br>
+
     <table class="ItemData">
      <colgroup>
       <col class="nen">
@@ -54,7 +58,109 @@ echo htmlNaviBar();
      <tbody>
       <tr>
        <td style="text-align:center;">部門</td>
-       <td>レジおよび品出し</td>
+       <td>惣菜(フルタイム)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時給</td>
+       <td>920円</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時間</td>
+       <td>8:00-17:45(実働８時間)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">休日</td>
+       <td>週休２日制</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">詳細</td>
+       <td>試用期間(2週間)有り。制服一部貸与。電話連絡の上、履歴書（写真添付）をご持参ください。</td>
+      </tr>
+     </tbody>
+    </table>
+
+    <br>
+
+    <table class="ItemData">
+     <colgroup>
+      <col class="nen">
+     </colgroup>
+     <colgroup>
+      <col class="naiyo">
+     </colgroup>
+     <tbody>
+      <tr>
+       <td style="text-align:center;">部門</td>
+       <td>惣菜(パートタイム)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時給</td>
+       <td>1000円</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時間</td>
+       <td>8:00-13:00</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">曜日</td>
+       <td>週3-5日勤務できる方(土日いずれか勤務)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">詳細</td>
+       <td>試用期間(2週間)有り。制服一部貸与。電話連絡の上、履歴書（写真添付）をご持参ください。</td>
+      </tr>
+     </tbody>
+    </table>
+
+    <br>
+
+    <h2>レジコーナー</h2>
+    <br>
+
+    <table class="ItemData">
+     <colgroup>
+      <col class="nen">
+     </colgroup>
+     <colgroup>
+      <col class="naiyo">
+     </colgroup>
+     <tbody>
+      <tr>
+       <td style="text-align:center;">部門</td>
+       <td>レジおよび品出し(フルタイム)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時給</td>
+       <td>920円</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時間</td>
+       <td>8:00-17:45(実働８時間)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">休日</td>
+       <td>週休２日制</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">詳細</td>
+       <td>試用期間(2週間)有り。制服一部貸与。電話連絡の上、履歴書（写真添付）をご持参ください。</td>
+      </tr>
+     </tbody>
+    </table>
+
+    <br>
+
+    <table class="ItemData">
+     <colgroup>
+      <col class="nen">
+     </colgroup>
+     <colgroup>
+      <col class="naiyo">
+     </colgroup>
+     <tbody>
+      <tr>
+       <td style="text-align:center;">部門</td>
+       <td>レジ(パートタイム)</td>
       </tr>
       <tr>
        <td style="text-align:center;">時給</td>
@@ -62,11 +168,80 @@ echo htmlNaviBar();
       </tr>
       <tr>
        <td style="text-align:center;">時間</td>
-       <td>18:00-22:00</td>
+       <td>10:00-14:00/14:00-18:00/18:00-22:00 のいずれかの時間帯</td>
       </tr>
       <tr>
        <td style="text-align:center;">曜日</td>
        <td>週3-5日勤務できる方(土日いずれか勤務)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">詳細</td>
+       <td>試用期間(2週間)有り。制服一部貸与。電話連絡の上、履歴書（写真添付）をご持参ください。</td>
+      </tr>
+     </tbody>
+    </table>
+
+    <br>
+
+    <h2>その他</h2>
+    <br>
+
+    <table class="ItemData">
+     <colgroup>
+      <col class="nen">
+     </colgroup>
+     <colgroup>
+      <col class="naiyo">
+     </colgroup>
+     <tbody>
+      <tr>
+       <td style="text-align:center;">部門</td>
+       <td>品出し(パートタイム)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時給</td>
+       <td>1000円</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時間</td>
+       <td>8:30-12:30</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">曜日</td>
+       <td>週3-5日勤務できる方(土日いずれか勤務)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">詳細</td>
+       <td>試用期間(2週間)有り。制服一部貸与。電話連絡の上、履歴書（写真添付）をご持参ください。</td>
+      </tr>
+     </tbody>
+    </table>
+
+    <br>
+
+    <table class="ItemData">
+     <colgroup>
+      <col class="nen">
+     </colgroup>
+     <colgroup>
+      <col class="naiyo">
+     </colgroup>
+     <tbody>
+      <tr>
+       <td style="text-align:center;">部門</td>
+       <td>清掃(店内および外回り)</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時給</td>
+       <td>910円</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">時間</td>
+       <td>7:00-12:00</td>
+      </tr>
+      <tr>
+       <td style="text-align:center;">曜日</td>
+       <td>週3-4日勤務できる方</td>
       </tr>
       <tr>
        <td style="text-align:center;">詳細</td>
