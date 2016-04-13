@@ -103,7 +103,7 @@ echo htmlNaviBar();
       </tr>
       <tr>
        <td style="text-align:center;">曜日</td>
-       <td>週3-5日勤務できる方(土日いずれか勤務)</td>
+       <td>週3-5日勤務できる方</td>
       </tr>
       <tr>
        <td style="text-align:center;">詳細</td>
