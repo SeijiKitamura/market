@@ -105,9 +105,9 @@ if(count($itemlist)){
  }
 }
 
-echo "<pre>";
-print_r($itemlist);
-echo "</pre>";
+//echo "<pre>";
+//print_r($itemlist);
+//echo "</pre>";
 ?>
 
 <?php
