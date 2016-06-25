@@ -83,7 +83,7 @@ echo htmlNaviBar();
     </table>
     
     <p>
-メールでも受付を承っております。<a href="contactus.php" style="color:blue">こちらのページ</a>をご確認の上、メールをご送信ください。
+     新規高等学校卒業者は学校またはハローワークを通じてご応募ください。
     </p>
    </div><!--div class="col1"-->
 
