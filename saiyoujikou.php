@@ -42,7 +42,7 @@ echo htmlNaviBar();
    </div><!--div class="col1"-->
 
    <div class="col1">
-    <h2>2016年募集要項</h2>
+    <h2>2017年募集要項</h2>
     <table class="ItemData">
      <colgroup>
       <col class="nen">
@@ -58,7 +58,7 @@ echo htmlNaviBar();
 
       <tr>
        <td>採用人数</td>
-       <td>生鮮2名　レジ2名</td>
+       <td>生鮮2名　レジ3名</td>
       </tr>
 
       <tr>
@@ -68,7 +68,7 @@ echo htmlNaviBar();
 
       <tr>
        <td>初任給与</td>
-       <td>185,000円</td>
+       <td>188,000円</td>
       </tr>
 
       <tr>
@@ -103,7 +103,7 @@ echo htmlNaviBar();
 
       <tr>
        <td>応募資格</td>
-       <td>2016年3月卒業見込みの高校生</td>
+       <td>2017年3月卒業見込みの高校生</td>
       </tr>
 
       <tr>

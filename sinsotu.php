@@ -40,7 +40,7 @@ echo htmlNaviBar();
     <a href="saiyoujikou.php">
      <h1>新卒採用募集事項</h1>
      <p>
-      2016年についての詳細はこちらです。
+      2017年についての詳細はこちらです。
      </p>
     </a>
    </div><!--div class="col1"-->

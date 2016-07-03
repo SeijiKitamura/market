@@ -38,7 +38,7 @@ echo htmlNaviBar();
    <div class="col1">
     <h1>採用実績と在籍者数</h1>
     <p>
-     2015年10月現在の採用実績と在籍者数を掲載します。
+     2016年6月現在の採用実績と在籍者数を掲載します。
     </p>
    </div><!--div class="col1"-->
 
@@ -51,6 +51,7 @@ echo htmlNaviBar();
       <li>都立蒲田高等学校</li>
       <li>都立大森高等学校</li>
       <li>都立六郷工科高等学校</li>
+      <li>蒲田女子高等学校</li>
      </ul>
     </div><!--div class="footerBox"-->
    </div><!--div class="col1"-->
@@ -79,7 +80,7 @@ echo htmlNaviBar();
       <tr>
        <td>2011年</td>
        <td>3人</td>
-       <td>2人</td>
+       <td>1人</td>
       </tr>
       <tr>
        <td>2012年</td>
@@ -94,12 +95,17 @@ echo htmlNaviBar();
       <tr>
        <td>2014年</td>
        <td>3人</td>
-       <td>3人</td>
+       <td>2人</td>
       </tr>
       <tr>
        <td>2015年</td>
        <td>2人</td>
        <td>2人</td>
+      </tr>
+      <tr>
+       <td>2016年</td>
+       <td>1人</td>
+       <td>1人</td>
       </tr>
      </tbody>
     </table>
