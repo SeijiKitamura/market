@@ -72,7 +72,7 @@ $newslist=viewGetNews($strcode,$saleday);
    <div class="col1">
      <h1>通夜・告別式のお知らせ</h1>
      <p>
-       <a href="kokubetusiki.php">弊社 代表取締役の北村　安祥の葬儀・告別式についてはこちらになります。</a>
+       <a href="kokubetusiki.php">弊社 代表取締役の北村　安祥の通夜・告別式についてはこちらになります。</a>
      </p>
 
    </div>
