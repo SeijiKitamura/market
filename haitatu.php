@@ -88,7 +88,7 @@ echo htmlNaviBar();
      </thead>
      <tbody>
       <tr>
-       <td> -12:30</td>
+       <td> 9:30-12:00</td>
        <td> 11:00-13:00</td>
       </tr>
       <tr>

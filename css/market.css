@@ -583,6 +583,22 @@ div.footerBox ul li a{
  display:block;
  width:100%;
 }
+
+ul.normal{
+ margin: 30px 0px 30px 30px;
+ list-style-type: none;
+}
+
+ul.normal li span{
+ display: block;
+ float: left;
+ margin: 10px 0px;
+}
+
+ul.normal li span.width1{
+ width: 4em;
+}
+
 /*フッター*/
 
 div.PC{
@@ -690,6 +706,8 @@ div.HeaderZone{
   margin:5px;
  }
 }
+
+
 /*PC用*/
 
 /*SNS用*/
