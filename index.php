@@ -69,6 +69,16 @@ $newslist=viewGetNews($strcode,$saleday);
    </div><!--div class="TopImageZone"-->
 
    <div class="col1">
+     <h2>キタムラ打ち水大作戦</h2>
+     <p>
+       <a href="utimizu.php" style="text-decoration:underline;">
+         <img src="img/utimizu2.png">
+         キタムラ打ち水大作戦はこちら！
+       </a>
+     </p>
+   </div>
+
+   <div class="col1">
 <?php
 if($tirasilist){
  echo "<h2>チラシ商品<span><a href='tirasilist.php'>一覧</a></span></h2>";
