@@ -37,10 +37,17 @@ echo htmlNaviBar();
 
    <div class="col1">
      <h1>キタムラ打ち水大作戦について</h1>
+
      <div class="col2">
-       <img src="img/utimizu2.png">
+       <img src="img/utimizu20170730_1.jpg">
+     </div>
+     <div class="col2">
+       <img src="img/utimizu20170730_3.jpg">
      </div>
      <div class="clr"></div>
+     <p>
+       たくさんのご参加まことにありがとうございました。おかげさまで大成功となりました。また次の機会をお楽しみに！
+     </p>
 
      <h2>キタムラ打ち水大作戦とは？</h2>
      <p><a href="http://uchimizu.jp/" style="text-decoration:underline;">打ち水大作戦本部</a>様が主催されている「打ち水大作戦」に<a href="http://uchimizu.jp/events/detail/82

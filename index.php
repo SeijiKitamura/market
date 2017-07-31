@@ -69,11 +69,15 @@ $newslist=viewGetNews($strcode,$saleday);
    </div><!--div class="TopImageZone"-->
 
    <div class="col1">
-     <h2>キタムラ打ち水大作戦</h2>
+     <h2>キタムラ打ち水大作戦!</h2>
      <p>
        <a href="utimizu.php" style="text-decoration:underline;">
-         <img src="img/utimizu2.png">
-         キタムラ打ち水大作戦はこちら！
+         <img src="img/utimizu20170730_1.jpg">
+       </a>
+     </p>
+     <p>
+       <a href="utimizu.php" style="text-decoration:underline;">
+         2017年7月30日に行った打ち水大作戦。ご参加ありがとうございました。
        </a>
      </p>
    </div>
